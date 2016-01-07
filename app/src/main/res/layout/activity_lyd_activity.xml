@@ -7,6 +7,52 @@
     tools:context="com.example.inger.beaconbeachler.Lyd_activity">
 
     <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ta opp lyd"
+        android:id="@+id/start"
+        android:layout_marginTop="92dp"
+        android:onClick="start"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stopp"
+        android:id="@+id/stop"
+        android:layout_below="@+id/start"
+        android:layout_alignParentStart="true"
+        android:onClick="stop" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Avspill"
+        android:id="@+id/play"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:onClick="play" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stop avspilling"
+        android:id="@+id/stopPlay"
+        android:layout_below="@+id/play"
+        android:layout_alignParentStart="true"
+        android:onClick="stopPlay" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/text1"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

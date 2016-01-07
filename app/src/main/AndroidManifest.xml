@@ -16,10 +16,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Lyd_activity"
-            android:label="@string/title_activity_lyd_activity" >
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.example.inger.beaconbeachler.Lyd_activity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
