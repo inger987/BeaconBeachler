@@ -39,4 +39,12 @@
         android:layout_marginStart="57dp"
         android:onClick="openText" />
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText2"
+        android:layout_below="@+id/button"
+        android:layout_alignParentEnd="true"
+        android:text="gfggfgfdgfd" />
+
 </RelativeLayout>
