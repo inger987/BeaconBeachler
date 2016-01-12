@@ -12,7 +12,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Lyd extends Activity {
+import static android.media.MediaRecorder.AudioSource.*;
+
+public class Lyd extends Lyd_activity {
 
     private MediaRecorder myRecorder;
     private MediaPlayer myPlayer;
@@ -26,7 +28,7 @@ public class Lyd extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_page);
+        setContentView(R.layout.activity_lyd_activity);
 
         text = (TextView) findViewById(R.id.text1);
         // store it to sd card
@@ -34,10 +36,12 @@ public class Lyd extends Activity {
                 getAbsolutePath() + "/javacodegeeksRecording.3gpp";
 
         myRecorder = new MediaRecorder();
-        myRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        myRecorder.setAudioSource(MIC);
         myRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        myRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-        myRecorder.setOutputFile(outputFile);
+        myRecorder.setAudioEncoder(MediaRecorder.OutputFormat.MPEG_4);
+       myRecorder.setOutputFile(outputFile);
+
+      //  myRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
 
         startBtn = (Button)findViewById(R.id.start);
         startBtn.setOnClickListener(new OnClickListener() {
