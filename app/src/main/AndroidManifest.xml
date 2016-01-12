@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.inger.beaconbeachler">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+<!--- HEI -->
+    <uses-sdk
+        android:minSdkVersion="10"
+        android:targetSdkVersion="19" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,15 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Lyd_activity"
-            android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="com.example.inger.beaconbeachler.Lyd_activity" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
         <activity android:name=".WritingPage" />
         <activity
             android:name=".CameraPage"
@@ -34,6 +32,11 @@
             android:name=".BeaconPage"
             android:label="@string/title_activity_beacon_page"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+          <activity
+              android:name=".Lyd"
+              android:label="@string/title_activity_lyd_activity"
+        android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
+
 
 </manifest>
