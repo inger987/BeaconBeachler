@@ -7,19 +7,22 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-public class MainPage extends AppCompatActivity {
+public class MainPage extends AppCompatActivity implements View.OnClickListener {
+
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    Button btnCamera, btnText, btnBeacon,btnSound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,27 @@ public class MainPage extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-
+        btnText = (Button)findViewById(R.id.btnText);
+        btnSound = (Button)findViewById(R.id.btnSound);
+        btnBeacon = (Button)findViewById(R.id.btnBeacon);
+        btnCamera = (Button)findViewById(R.id.btnCamera);
+        btnText.setOnClickListener(this);
+        btnCamera.setOnClickListener(this);
+        btnBeacon.setOnClickListener(this);
+    }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnText:
+                startActivity(new Intent(MainPage.this,WritingPage.class));
+                break;
+            case R.id.btnCamera:
+                startActivity(new Intent(MainPage.this,CameraPage.class));
+                break;
+            case R.id.btnBeacon:
+                startActivity(new Intent(MainPage.this,BeaconPage.class));
+                break;
+        }
     }
 
     @Override
@@ -38,13 +61,13 @@ public class MainPage extends AppCompatActivity {
         return true;
     }
 
-    public void openText(View v) {
+   /* public void openText(View v) {
         if(v.getId()== R.id.btnText){
             Intent i = new Intent(MainPage.this,WritingPage.class);
             startActivity(i);
         }
 
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -100,4 +123,6 @@ public class MainPage extends AppCompatActivity {
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
     }
+
+
 }
