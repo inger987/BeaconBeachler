@@ -1,4 +1,4 @@
-/*package com.example.inger.beaconbeachler;
+package com.example.inger.beaconbeachler;
 
 import java.io.IOException;
 import android.media.MediaPlayer;
@@ -88,7 +88,8 @@ public class Lyd extends Activity {
             // start:it is called before prepare()
             // prepare: it is called after start() or before setOutputFormat()
             e.printStackTrace();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             // prepare() fails
             e.printStackTrace();
         }
@@ -160,4 +161,4 @@ public class Lyd extends Activity {
         }
     }
 
-}*/
+}

@@ -38,6 +38,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
         btnText.setOnClickListener(this);
         btnCamera.setOnClickListener(this);
         btnBeacon.setOnClickListener(this);
+        btnSound.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
@@ -50,6 +51,9 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
                 break;
             case R.id.btnBeacon:
                 startActivity(new Intent(MainPage.this,BeaconPage.class));
+                break;
+            case R.id.btnSound:
+                startActivity(new Intent(MainPage.this, Lyd.class));
                 break;
         }
     }
