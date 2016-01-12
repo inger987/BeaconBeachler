@@ -1,4 +1,4 @@
-package com.example.inger.beaconbeachler;
+/*package com.example.inger.beaconbeachler;
 
 import java.io.IOException;
 import android.media.MediaPlayer;
@@ -160,4 +160,4 @@ public class Lyd extends Activity {
         }
     }
 
-}
+}*/

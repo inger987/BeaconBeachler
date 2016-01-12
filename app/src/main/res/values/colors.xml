@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- COLORS-->
+    <item name="dark_grey" type="color">#FF3B3B3B</item>
+    <item name="dark_actionBar" type="color">#222222</item>
+    <item name="white" type="color">#ffff</item>
+    <item name="text_color" type="color">#d4d4d4</item>
+    <item name="test" type="color">#404040</item>
+    <item name="test2" type="color">#272727</item>
+</resources>

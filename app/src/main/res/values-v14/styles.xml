@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- API 14++ -->
+        <item name="android:windowBackground">@color/test</item>
+
+    </style>
+
+    <style name="btnNext">
+        <item name="android:background">@color/dark_actionBar</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+    <style name="editText">
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/dark_actionBar</item>
+    </style>
+    <style name="editText.spinner">
+
+    </style>
+    <style name="textView">
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+</resources>
