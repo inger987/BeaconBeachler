@@ -39,7 +39,8 @@ public class CameraPage extends AppCompatActivity {
         tabilde = (Button) findViewById(R.id.tabilde);
         lastopp = (Button) findViewById(R.id.lastopp);
         image = (ImageView) findViewById(R.id.image);
-
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, CAMERA_REQUEST);
         tabilde.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
