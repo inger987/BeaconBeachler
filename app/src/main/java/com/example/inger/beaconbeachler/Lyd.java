@@ -1,3 +1,4 @@
+
 package com.example.inger.beaconbeachler;
 
 import java.io.IOException;
@@ -13,8 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import static android.media.MediaRecorder.AudioSource.*;
+import static junit.framework.Assert.fail;
 
-public class Lyd extends Lyd_activity {
+public class Lyd extends Activity {
 
     private MediaRecorder myRecorder;
     private MediaPlayer myPlayer;
@@ -23,27 +25,20 @@ public class Lyd extends Lyd_activity {
     private Button stopBtn;
     private Button playBtn;
     private Button stopPlayBtn;
+    private Button lagre;
     private TextView text;
+
+    private boolean isRecording = false;
+    boolean clicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lyd_activity);
 
-        text = (TextView) findViewById(R.id.text1);
-        // store it to sd card
-        outputFile = Environment.getExternalStorageDirectory().
-                getAbsolutePath() + "/javacodegeeksRecording.3gpp";
+        //  myRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
 
-        myRecorder = new MediaRecorder();
-        myRecorder.setAudioSource(MIC);
-        myRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        myRecorder.setAudioEncoder(MediaRecorder.OutputFormat.MPEG_4);
-       myRecorder.setOutputFile(outputFile);
-
-      //  myRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-
-        startBtn = (Button)findViewById(R.id.start);
+        startBtn = (Button) findViewById(R.id.start);
         startBtn.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -53,7 +48,7 @@ public class Lyd extends Lyd_activity {
             }
         });
 
-        stopBtn = (Button)findViewById(R.id.stop);
+        stopBtn = (Button) findViewById(R.id.stop);
         stopBtn.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -63,7 +58,17 @@ public class Lyd extends Lyd_activity {
             }
         });
 
-        playBtn = (Button)findViewById(R.id.play);
+        lagre = (Button) findViewById(R.id.Lagre);
+        lagre.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                lagre(v);
+            }
+        });
+
+        playBtn = (Button) findViewById(R.id.play);
         playBtn.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -73,7 +78,7 @@ public class Lyd extends Lyd_activity {
             }
         });
 
-        stopPlayBtn = (Button)findViewById(R.id.stopPlay);
+        stopPlayBtn = (Button) findViewById(R.id.stopPlay);
         stopPlayBtn.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -84,33 +89,54 @@ public class Lyd extends Lyd_activity {
         });
     }
 
-    public void start(View view){
+    public void start(View view) {
+
+        text = (TextView) findViewById(R.id.text1);
+        // lagrer på minnekort
+        outputFile = Environment.getExternalStorageDirectory().
+                getAbsolutePath() + "/lydfil.3gpp";
+
+        myRecorder = new MediaRecorder();
+        myRecorder.setAudioSource(MIC);
+        myRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        myRecorder.setAudioEncoder(MediaRecorder.OutputFormat.MPEG_4);
+        myRecorder.setOutputFile(outputFile);
+
+
+        isRecording = true;
         try {
+            //  myRecorder.reset();
             myRecorder.prepare();
             myRecorder.start();
+            text.setText("funker");
         } catch (IllegalStateException e) {
             // start:it is called before prepare()
             // prepare: it is called after start() or before setOutputFormat()
             e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             // prepare() fails
             e.printStackTrace();
         }
 
-        text.setText("Recording Point: Recording");
-        startBtn.setEnabled(false);
+        text.setText(": Tar opp lyd");
+        //startBtn.setEnabled(false);
         stopBtn.setEnabled(true);
 
         Toast.makeText(getApplicationContext(), "Start recording...",
                 Toast.LENGTH_SHORT).show();
+
+        if (outputFile.isEmpty()) {
+            System.out.print("hei");
+        }
     }
 
-    public void stop(View view){
+    public void stop(View view) {
         try {
             myRecorder.stop();
-            myRecorder.release();
-            myRecorder  = null;
+            //  myRecorder.release();
+            //     myRecorder.reset();
+            //  myRecorder  = null;
+
 
             stopBtn.setEnabled(false);
             playBtn.setEnabled(true);
@@ -128,7 +154,7 @@ public class Lyd extends Lyd_activity {
     }
 
     public void play(View view) {
-        try{
+        try {
             myPlayer = new MediaPlayer();
             myPlayer.setDataSource(outputFile);
             myPlayer.prepare();
@@ -150,7 +176,8 @@ public class Lyd extends Lyd_activity {
         try {
             if (myPlayer != null) {
                 myPlayer.stop();
-                myPlayer.release();
+                myRecorder.reset();
+
                 myPlayer = null;
                 playBtn.setEnabled(true);
                 stopPlayBtn.setEnabled(false);
@@ -158,11 +185,21 @@ public class Lyd extends Lyd_activity {
 
                 Toast.makeText(getApplicationContext(), "Stop playing the recording...",
                         Toast.LENGTH_SHORT).show();
+
+                myPlayer = null;
+                startBtn.setEnabled(true);
+
             }
+
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
     }
 
+    public void lagre(View v) {
+
+
+    }
 }
