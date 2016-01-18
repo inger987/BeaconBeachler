@@ -16,4 +16,5 @@
     </string-array>
     <string name="title_activity_camera">Camera</string>
     <string name="title_activity_beacon_page">BeaconPage</string>
+    <string name="title_activity_login_page">LoginPage</string>
 </resources>
