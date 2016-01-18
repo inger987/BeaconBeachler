@@ -12,6 +12,7 @@
         android:layout_height="100dp"
         android:id="@+id/tabilde"
         android:text="Ta bilde"
+        android:background="#9fa8da"
         android:textSize="50sp"
 
         />
@@ -22,6 +23,7 @@
         android:layout_height="100dp"
         android:id="@+id/lastopp"
         android:text="Last opp"
+        android:background="#9fa8da"
         android:textSize="50sp"/>
 
 

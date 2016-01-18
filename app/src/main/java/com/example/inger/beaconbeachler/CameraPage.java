@@ -24,23 +24,25 @@ public class CameraPage extends AppCompatActivity {
     Button tabilde;
     Button lastopp;
     ImageView image;
+
     private static final int CAMERA_REQUEST = 1888;
 
    private String UPLOAD_URL = "https://home.hbv.no/110115/bac/bilde.php";
     private String UPLOAD_KEY = "image";
     private Bitmap photo;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
+
         tabilde = (Button) findViewById(R.id.tabilde);
         lastopp = (Button) findViewById(R.id.lastopp);
         image = (ImageView) findViewById(R.id.image);
-        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+      //  Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+      //  startActivityForResult(cameraIntent, CAMERA_REQUEST);
+
         tabilde.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +78,7 @@ public class CameraPage extends AppCompatActivity {
         }
     }
 
+
     private void uploadImage () {
         class UploadImage extends AsyncTask<Bitmap,Void,String> {
 
@@ -85,14 +88,14 @@ public class CameraPage extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(CameraPage.this, "Uploading Image", "Please wait...", true, true);
+                loading = ProgressDialog.show(CameraPage.this, "Bildet lastes opp", "Vent litt...", true, true);
             }
 
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
                 loading.dismiss();
-                Toast.makeText(getApplicationContext(),s, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Bildet er nå lastet opp", Toast.LENGTH_LONG).show();
             }
 
             @Override
