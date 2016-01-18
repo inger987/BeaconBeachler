@@ -2,14 +2,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.inger.beaconbeachler">
 
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-
     <uses-sdk
         android:minSdkVersion="10"
         android:targetSdkVersion="19" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -34,11 +38,23 @@
             android:name=".BeaconPage"
             android:label="@string/title_activity_beacon_page"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-          <activity
-              android:name=".Lyd"
-              android:label="@string/title_activity_lyd_activity"
-        android:theme="@style/AppTheme.NoActionBar"></activity>
-    </application>
+        <activity
+            android:name=".Lyd"
+            android:label="@string/title_activity_lyd_activity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".LoginPage"
+            android:label="@string/title_activity_login_page">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RegsiterPage"
+            android:label="@string/title_activity_regsiter_page"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+    </application>
 
 </manifest>

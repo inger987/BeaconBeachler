@@ -65,13 +65,6 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
         return true;
     }
 
-   /* public void openText(View v) {
-        if(v.getId()== R.id.btnText){
-            Intent i = new Intent(MainPage.this,WritingPage.class);
-            startActivity(i);
-        }
-
-    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
