@@ -77,7 +77,18 @@ public class CameraPage extends AppCompatActivity {
             image.setImageBitmap(photo);
         }
     }
-
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        photo = savedInstanceState.getParcelable("BitmapImage");
+        this.photo = photo;
+        image.setImageBitmap(photo);
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+    @Override
+    protected void onSaveInstanceState (Bundle savedInstanceState) {
+        savedInstanceState.putParcelable("BitmapImage", photo);
+        super.onSaveInstanceState(savedInstanceState);
+    }
 
     private void uploadImage () {
         class UploadImage extends AsyncTask<Bitmap,Void,String> {
