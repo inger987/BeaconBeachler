@@ -16,10 +16,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ta opp lyd"
         android:id="@+id/btnSound"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/btnText" />
+        android:layout_alignStart="@+id/btnText"
+        android:drawableTop="@drawable/miiko"
+        android:background="@drawable/miiko"
+        android:layout_above="@+id/btnText" />
 
     <Button
         android:layout_width="wrap_content"

@@ -1,7 +1,11 @@
 
 package com.example.inger.beaconbeachler;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
+
+import android.content.ContentValues;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -37,6 +41,17 @@ public class Lyd extends Activity {
         setContentView(R.layout.activity_lyd_activity);
 
         //  myRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+
+        text = (TextView) findViewById(R.id.text1);
+        // lagrer på minnekort
+        outputFile = Environment.getExternalStorageDirectory().
+                getAbsolutePath() + "/lydfil.3gpp";
+
+        myRecorder = new MediaRecorder();
+        myRecorder.setAudioSource(MIC);
+        myRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        myRecorder.setAudioEncoder(MediaRecorder.OutputFormat.MPEG_4);
+        myRecorder.setOutputFile(outputFile);
 
         startBtn = (Button) findViewById(R.id.start);
         startBtn.setOnClickListener(new OnClickListener() {
