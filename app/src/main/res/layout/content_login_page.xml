@@ -47,10 +47,11 @@
         android:id="@+id/btnLogin"
         style="@style/btnNext"/>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <Button
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Registrer here"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/tvNewUser" />
+        android:text="Registrer"
+        android:id="@+id/btnNewUser"
+        android:layout_gravity="center_horizontal" />
+
 </LinearLayout>

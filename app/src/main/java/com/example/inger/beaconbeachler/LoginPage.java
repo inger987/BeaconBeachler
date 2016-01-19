@@ -6,12 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 public class LoginPage extends AppCompatActivity implements View.OnClickListener {
-    Button btnLogin;
+    Button btnLogin,btnNewUser;
     EditText etUsername,etPassword;
-    TextView tvNewUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,9 +19,10 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
         btnLogin =(Button)findViewById(R.id.btnLogin);
         etUsername = (EditText)findViewById(R.id.etUsername);
         etPassword = (EditText)findViewById(R.id.etPassword);
-        tvNewUser = (TextView)findViewById(R.id.tvNewUser);
+        btnNewUser = (Button) findViewById(R.id.btnNewUser);
         btnLogin.setOnClickListener(this);
-        tvNewUser.setOnClickListener(this);
+        btnNewUser.setOnClickListener(this);
+
     }
 
     @Override
@@ -31,7 +31,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
             case R.id.btnLogin:
                 startActivity(new Intent(LoginPage.this,MainPage.class));
                 break;
-            case R.id.tvNewUser:
+            case R.id.btnNewUser:
                 startActivity(new Intent(LoginPage.this,RegsiterPage.class));
                 break;
         }
