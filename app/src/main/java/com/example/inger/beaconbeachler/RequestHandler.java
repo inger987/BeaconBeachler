@@ -19,31 +19,12 @@ import javax.net.ssl.HttpsURLConnection;
  */
 public class RequestHandler {
 
-    public String sendGetRequest(String uri) {
-        try {
-            URL url = new URL(uri);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
-            String result;
-
-            StringBuilder sb = new StringBuilder();
-
-            while((result = bufferedReader.readLine())!=null){
-                sb.append(result);
-            }
-
-            return sb.toString();
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
     public String sendPostRequest(String requestURL,
                                   HashMap<String, String> postDataParams) {
 
         URL url;
-        String response = "";
+
+        StringBuilder sb = new StringBuilder();
         try {
             url = new URL(requestURL);
 
@@ -67,15 +48,17 @@ public class RequestHandler {
 
             if (responseCode == HttpsURLConnection.HTTP_OK) {
                 BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                response = br.readLine();
-            } else {
-                response = "Error Registering";
+                sb = new StringBuilder();
+                String response;
+                while ((response = br.readLine()) != null){
+                    sb.append(response);
+                }
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return response;
+        return sb.toString();
     }
 
     private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
@@ -94,7 +77,4 @@ public class RequestHandler {
 
         return result.toString();
     }
-
-
-
 }
