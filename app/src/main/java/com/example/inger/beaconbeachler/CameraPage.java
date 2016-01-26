@@ -25,8 +25,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 public class CameraPage extends AppCompatActivity {
     Button tabilde;
@@ -36,9 +39,11 @@ public class CameraPage extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
 
     private final int CAMERA_RESULT = 1;
-    private final String Tag = getClass().getName();
+ //   private final String Tag = getClass().getName();
    private String UPLOAD_URL = "https://home.hbv.no/110115/bac/upload.php";
     private String UPLOAD_KEY = "image";
+    private String BILDENAVN = "bilde";
+    String bilde = "bildenavnet";
   //  private Bitmap photo;
   //  private Bitmap bitmap;
     Bitmap mBitmap;
@@ -52,8 +57,7 @@ public class CameraPage extends AppCompatActivity {
         tabilde = (Button) findViewById(R.id.tabilde);
         lastopp = (Button) findViewById(R.id.lastopp);
         image = (ImageView) findViewById(R.id.image);
-      //  Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-      //  startActivityForResult(cameraIntent, CAMERA_REQUEST);
+
 
 
         tabilde.setOnClickListener(new View.OnClickListener() {
@@ -80,9 +84,12 @@ public class CameraPage extends AppCompatActivity {
         lastopp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-            uploadImage();
-
+            if (mBitmap != null) {
+                uploadImage();
+            }
+                else {
+                Toast.makeText(getBaseContext(), "Her kommer ingen forbi", Toast.LENGTH_LONG).show();
+            }
             }
         });
 
@@ -161,11 +168,23 @@ public class CameraPage extends AppCompatActivity {
             @Override
             protected String doInBackground(Bitmap... params) {
                 Bitmap bitmap = params[0];
-                String uploadImage = getStringImage(bitmap);
 
-                HashMap<String,String> data = new HashMap<>();
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+                final String format = simpleDateFormat.format(new Date());
+                final String uploadImage = getStringImage(bitmap);
 
-                data.put(UPLOAD_KEY, uploadImage);
+            //    HashMap<String,String> data = new HashMap<>();
+
+            //    data.put(UPLOAD_KEY, uploadImage);
+            //    data.put(BILDENAVN, bilde);
+               HashMap<String, String> data = new HashMap<String, String>()
+                {{
+                        put(UPLOAD_KEY, uploadImage);
+                        put(BILDENAVN, format);
+
+                    }};
+
+
                 String result = rh.sendPostRequest(UPLOAD_URL,data);
 
                 return result;
