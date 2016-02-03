@@ -60,8 +60,8 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     tools:context="com.example.inger.beaconbeachler.Lyd_activity" >
 
     <TextView
@@ -74,33 +74,18 @@
 
     <ImageView
         android:id="@+id/micImage"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="44dp"
+        android:src="@android:drawable/presence_audio_online"
         android:layout_below="@+id/text1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:src="@android:drawable/presence_audio_online" />
+        android:layout_centerHorizontal="true" />
 
     <LinearLayout  android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/micImage"
         android:id="@+id/linear1"
         android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="start" />
-
-        <Button
-            android:id="@+id/stop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:enabled="false"
-            android:text="stop" />
 
     </LinearLayout>
 
@@ -111,21 +96,6 @@
         android:id="@+id/linear2"
         android:orientation="horizontal" >
 
-        <Button
-            android:id="@+id/play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:text="play" />
-
-        <Button
-            android:id="@+id/stopPlay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:layout_marginLeft="10dp"
-            android:text="stop playing" />
-
     </LinearLayout>
 
     <Button
@@ -133,8 +103,82 @@
         android:layout_height="wrap_content"
         android:text="Lagre"
         android:id="@+id/Lagre"
-        android:layout_below="@+id/linear2"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textView6"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Velg lydklipp"
+        android:id="@+id/VelgLydklipp"
+        android:onClick="openGalleryAudio"
+        android:layout_alignParentBottom="true"
+       />
+
+    <Button
+        android:id="@+id/stopPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:layout_marginLeft="10dp"
+        android:text="stop playing"
+        />
+
+    <Button
+        android:id="@+id/play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="play"
+        android:layout_below="@+id/stopPlay"
+        android:layout_alignStart="@+id/stopPlay" />
+
+
+    <Button
+        android:id="@+id/stop"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:enabled="false"
+        style="?android:attr/borderlessButtonStyle"
+       android:drawableTop="@mipmap/stopicon"
+        android:layout_below="@+id/micImage"
+        android:layout_toEndOf="@+id/text1" />
+
+    <Button
+        android:id="@+id/start"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:drawableTop="@mipmap/recordicon"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_below="@+id/micImage"
+        android:layout_alignStart="@+id/stop" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/txtcount"
+        android:layout_below="@+id/start"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/textView7"
+        android:layout_alignBottom="@+id/start"
+        android:layout_toEndOf="@+id/text1" />
+    <!--   android:layout_alignBaseline="@+id/Lagre"
+       android:layout_alignBottom="@+id/Lagre"
+       android:layout_toEndOf="@+id/text1" -->
 
 
 </RelativeLayout>

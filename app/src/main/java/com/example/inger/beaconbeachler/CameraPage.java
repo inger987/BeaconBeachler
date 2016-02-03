@@ -35,6 +35,7 @@ public class CameraPage extends AppCompatActivity {
     Button tabilde;
     Button lastopp;
     ImageView image;
+
     private Uri filePath;
     private static final int CAMERA_REQUEST = 1888;
 
