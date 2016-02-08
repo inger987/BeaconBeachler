@@ -14,6 +14,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -46,26 +49,22 @@ public class Lyd extends Activity {
     private MediaRecorder myRecorder;
     private MediaPlayer myPlayer;
     private String outputFile = null;
-    private String file = null;
     private Button startBtn;
     private Button stopBtn;
     private Button playBtn;
     private Button stopPlayBtn;
+    public Button lagre;
     private TextView text;
     public TextView textView6;
-    //  public String urlString = null;
-    private static final int FILE_SELECT_CODE = 0;
-
-    public Button lagre;
-    public Button VelgLydklipp;
-    private static final int SELECT_AUDIO = 2;
-    String path = "";
-
 
     int serverResponseCode = 0;
     ProgressDialog dialog = null;
 
     String upLoadServerUri = null;
+
+    private String UPLOAD_URL = "https://home.hbv.no/110030/lyd/UploadToServer.php";
+    private String UPLOAD_KEY = "audio";
+    private String FILNAVN = "lyd";
 
     /**********  File Path *************/
     final String uploadFilePath = "/storage/emulated/0/";
@@ -82,15 +81,8 @@ public class Lyd extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        //StrictMode.setThreadPolicy(policy);
-        //Intent intent = new Intent(this, UploadFileToServer.class);
-
-        //  String urlString = "https://home.hbv.no/110030/lyd/UploadToServer.php";
 
         setContentView(R.layout.activity_lyd_activity);
-
-        //  myRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
 
         text = (TextView) findViewById(R.id.text1);
         // lagrer pÃ¥ minnekort
@@ -144,7 +136,9 @@ public class Lyd extends Activity {
                             }
                         });
 
-                        uploadFile(uploadFilePath + "" + uploadFileName);
+                      //  uploadFile(uploadFilePath + "" + uploadFileName);
+                     //   uploadFile(uploadFileName + "" + uploadFilePath);
+                        uploadFile();
 
                     }
                 }).start();
@@ -176,10 +170,10 @@ public class Lyd extends Activity {
             }
         });
 
-        textView6.setText("Uploading file path :- '/mnt/sdcard/" + uploadFileName + "'");
+        textView6.setText("Uploading file path :- '\"/storage/emulated/0/\"" + uploadFileName + "'");
 
         /************* Php script path ****************/
-        upLoadServerUri = "https://home.hbv.no/110115/bac/UploadToServer.php";
+        upLoadServerUri = "https://home.hbv.no/110030/lyd/UploadToServer1.php";
     }
 
     public void start(View view) {
@@ -232,9 +226,9 @@ public class Lyd extends Activity {
         Toast.makeText(getApplicationContext(), "Start recording...",
                 Toast.LENGTH_SHORT).show();
 
-        //if (outputFile.isEmpty()) {
-        //  System.out.print("hei");
-        //}
+        if (outputFile.isEmpty()) {
+          System.out.print("hei");
+        }
     }
 
     public void stop(View view) {
@@ -301,27 +295,9 @@ public class Lyd extends Activity {
                 myPlayer = null;
                 startBtn.setEnabled(true);
 
-                //outputFile = Environment.getExternalStorageDirectory().
-                //       getAbsolutePath() + "/lydfil.3gpp";
+                outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/lydfil.3gpp";
 
-          /*      String filename = "lydfil.3gpp";
-                File outputFile = new File(Environment.getExternalStorageDirectory(), filename);
-                FileOutputStream fos;
-                byte[] data = new String("data to write to file").getBytes();
-                try {
-                    fos = new FileOutputStream(file);
-                    fos.write(data);
-                    fos.flush();
-                    fos.close();
-                } catch (FileNotFoundException e) {
-                    // handle exception
-                } catch (IOException e) {
-                    // handle exception
-                }
-                */
-
-
-
+             //   String fileName = "lydfil.3gpp";
 
             }
 
@@ -332,10 +308,7 @@ public class Lyd extends Activity {
 
     }
 
-    private void openGalleryAudio() {
-    }
-
-    public int uploadFile(String sourceFileUri) {
+    public int uploadFiler(String sourceFileUri) {
 
         String fileName = sourceFileUri;
 
@@ -447,8 +420,7 @@ public class Lyd extends Activity {
                     runOnUiThread(new Runnable() {
                         public void run() {
 
-                            String msg = "File Upload Completed.\n\n See uploaded file here : \n\n"
-                                    + " http://www.androidexample.com/media/uploads/"
+                            String msg = "File Upload Completed."
                                     + uploadFileName;
 
                             textView6.setText(msg);
@@ -517,4 +489,52 @@ public class Lyd extends Activity {
         } // End else block
     }
 
+    private void uploadFile(){
+        class uploadFile extends AsyncTask<Bitmap,Void,String>{
+
+//            ProgressDialog loading;
+            RequestHandler rh = new RequestHandler();
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+//                loading = ProgressDialog.show(Lyd.this, "Uploading...", null,true,true);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+//                loading.dismiss();
+                Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            protected String doInBackground(Bitmap... params) {
+              //  Bitmap bitmap = params[0];
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+                final String format = simpleDateFormat.format(new Date());
+                final String uploadFile = outputFile;
+
+                //    HashMap<String,String> data = new HashMap<>();
+
+                //    data.put(UPLOAD_KEY, uploadImage);
+                //    data.put(BILDENAVN, bilde);
+                HashMap<String, String> data = new HashMap<String, String>()
+                {{
+                    put(UPLOAD_KEY, uploadFile);
+                    put(FILNAVN, format);
+
+                }};
+
+
+                String result = rh.sendPostRequest(UPLOAD_URL,data);
+
+                return result;
+            }
+        }
+
+        uploadFile ui = new uploadFile();
+        ui.execute();
+    }
 }
