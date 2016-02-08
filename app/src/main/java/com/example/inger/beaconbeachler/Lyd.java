@@ -123,6 +123,8 @@ public class Lyd extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 stop(v);
+                stopBtn.setVisibility(View.GONE);
+                playBtn.setVisibility(View.VISIBLE);
             }
         });
 
@@ -149,15 +151,6 @@ public class Lyd extends Activity {
             }
         });
 
-        VelgLydklipp = (Button) findViewById(R.id.VelgLydklipp);
-        VelgLydklipp.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v){
-                // TODO Auto-generated method stub
-                openGalleryAudio();
-            }
-        });
 
         playBtn = (Button) findViewById(R.id.play);
         playBtn.setOnClickListener(new OnClickListener() {
@@ -166,6 +159,8 @@ public class Lyd extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 play(v);
+                playBtn.setVisibility(View.GONE);
+                stopBtn.setVisibility(View.VISIBLE);
             }
         });
 
@@ -176,6 +171,8 @@ public class Lyd extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 stopPlay(v);
+                stopBtn.setVisibility(View.GONE);
+                startBtn.setVisibility(View.VISIBLE);
             }
         });
 
