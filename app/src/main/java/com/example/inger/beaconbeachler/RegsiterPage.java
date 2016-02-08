@@ -9,10 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.HashMap;
 
 public class RegsiterPage extends AppCompatActivity implements View.OnClickListener {
 
@@ -52,10 +49,9 @@ public class RegsiterPage extends AppCompatActivity implements View.OnClickListe
     }
 
     private void register(String firstName,String lastName, String username, String password) {
-        String urlSuffix = "?firstName="+firstName+"&lastName="+lastName+"&username="+username+"&password="+password;
         class RegisterUser extends AsyncTask<String, Void, String>{
-
             ProgressDialog loading;
+            RegisterUserClass ruc = new RegisterUserClass();
 
 
             @Override
@@ -73,25 +69,20 @@ public class RegsiterPage extends AppCompatActivity implements View.OnClickListe
 
             @Override
             protected String doInBackground(String... params) {
-                String s = params[0];
-                BufferedReader bufferedReader = null;
-                try {
-                    URL url = new URL(REGISTER_URL+s);
-                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                    bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
-                    String result;
+                HashMap<String, String> data = new HashMap<String,String>();
+                data.put("firstName",params[0]);
+                data.put("lastName",params[1]);
+                data.put("username",params[2]);
+                data.put("password",params[3]);
 
-                    result = bufferedReader.readLine();
+                String result = ruc.sendPostRequest(REGISTER_URL,data);
 
-                    return result;
-                }catch(Exception e){
-                    return null;
-                }
+                return  result;
             }
         }
 
         RegisterUser ru = new RegisterUser();
-        ru.execute(urlSuffix);
+        ru.execute(firstName,lastName,username,password);
     }
 }
