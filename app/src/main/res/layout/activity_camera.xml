@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:id="@+id/tabilde"
-        android:text="Ta bilde"
+        android:text="Ta nytt bilde"
         android:background="#9fa8da"
         android:textSize="50sp"
 
@@ -25,6 +25,13 @@
         android:text="Last opp"
         android:background="#9fa8da"
         android:textSize="50sp"/>
+    <ImageView
+        android:id="@+id/zoom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        />
+
 
 
 
