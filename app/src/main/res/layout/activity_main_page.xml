@@ -19,6 +19,7 @@
         android:id="@+id/btnSound"
         android:layout_alignStart="@+id/btnText"
         android:drawableTop="@drawable/miiko"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_above="@+id/btnText" />
 
     <Button

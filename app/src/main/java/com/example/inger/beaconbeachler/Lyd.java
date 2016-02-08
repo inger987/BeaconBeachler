@@ -53,8 +53,8 @@ public class Lyd extends Activity {
     private Button stopPlayBtn;
     private TextView text;
     public TextView textView6;
-  //  public String urlString = null;
-  private static final int FILE_SELECT_CODE = 0;
+    //  public String urlString = null;
+    private static final int FILE_SELECT_CODE = 0;
 
     public Button lagre;
     public Button VelgLydklipp;
@@ -69,13 +69,13 @@ public class Lyd extends Activity {
 
     /**********  File Path *************/
     final String uploadFilePath = "/storage/emulated/0/";
-           // "/mnt/sdcard/";
+    // "/mnt/sdcard/";
 
     final String uploadFileName = "lydfil.3gpp";
 
-  //  private Context mContext;
-   // private boolean isRecording = false;
-   // boolean clicked = false;
+    //  private Context mContext;
+    // private boolean isRecording = false;
+    // boolean clicked = false;
 
 
 
@@ -86,20 +86,16 @@ public class Lyd extends Activity {
         //StrictMode.setThreadPolicy(policy);
         //Intent intent = new Intent(this, UploadFileToServer.class);
 
-      //  String urlString = "https://home.hbv.no/110030/lyd/UploadToServer.php";
+        //  String urlString = "https://home.hbv.no/110030/lyd/UploadToServer.php";
 
         setContentView(R.layout.activity_lyd_activity);
-/*        startBtn.setVisibility(View.VISIBLE);
-        stopBtn.setVisibility(View.GONE);
-        playBtn.setVisibility(View.GONE);
-        stopPlayBtn.setVisibility(View.GONE);
-*/
+
         //  myRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
 
         text = (TextView) findViewById(R.id.text1);
         // lagrer pÃ¥ minnekort
         outputFile = Environment.getExternalStorageDirectory().
-               getAbsolutePath() + "/lydfil.3gpp";
+                getAbsolutePath() + "/lydfil.3gpp";
 
         myRecorder = new MediaRecorder();
         myRecorder.setAudioSource(MIC);
@@ -127,8 +123,6 @@ public class Lyd extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 stop(v);
-                stopBtn.setVisibility(View.GONE);
-                playBtn.setVisibility(View.VISIBLE);
             }
         });
 
@@ -155,6 +149,15 @@ public class Lyd extends Activity {
             }
         });
 
+        VelgLydklipp = (Button) findViewById(R.id.VelgLydklipp);
+        VelgLydklipp.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v){
+                // TODO Auto-generated method stub
+                openGalleryAudio();
+            }
+        });
 
         playBtn = (Button) findViewById(R.id.play);
         playBtn.setOnClickListener(new OnClickListener() {
@@ -163,8 +166,6 @@ public class Lyd extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 play(v);
-                playBtn.setVisibility(View.GONE);
-                stopBtn.setVisibility(View.VISIBLE);
             }
         });
 
@@ -174,8 +175,6 @@ public class Lyd extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                stopBtn.setVisibility(View.GONE);
-                startBtn.setVisibility(View.VISIBLE);
                 stopPlay(v);
             }
         });
@@ -183,7 +182,7 @@ public class Lyd extends Activity {
         textView6.setText("Uploading file path :- '/mnt/sdcard/" + uploadFileName + "'");
 
         /************* Php script path ****************/
-        upLoadServerUri = "https://home.hbv.no/110030/lyd/UploadToServer.php";
+        upLoadServerUri = "https://home.hbv.no/110115/bac/UploadToServer.php";
     }
 
     public void start(View view) {
@@ -193,7 +192,7 @@ public class Lyd extends Activity {
         outputFile = Environment.getExternalStorageDirectory().
                 getAbsolutePath() + "/lydfil.3gpp";
 
-     //   String filename = "lydfil.3gpp";
+        //   String filename = "lydfil.3gpp";
         outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/lydfil.3gpp";
         FileOutputStream fos;
         byte[] data = new String("data to write to file").getBytes();
@@ -237,7 +236,7 @@ public class Lyd extends Activity {
                 Toast.LENGTH_SHORT).show();
 
         //if (outputFile.isEmpty()) {
-          //  System.out.print("hei");
+        //  System.out.print("hei");
         //}
     }
 
@@ -251,12 +250,14 @@ public class Lyd extends Activity {
 
             stopBtn.setEnabled(false);
             playBtn.setEnabled(true);
+            startBtn.setVisibility(View.VISIBLE);
+            stopBtn.setVisibility(View.GONE);
             text.setText("Recording Point: Stop recording");
 
             Toast.makeText(getApplicationContext(), "Stop recording...",
                     Toast.LENGTH_SHORT).show();
-        //    outputFile = Environment.getExternalStorageDirectory().
-          //          getAbsolutePath() + "/lydfil.3gpp";
+            //    outputFile = Environment.getExternalStorageDirectory().
+            //          getAbsolutePath() + "/lydfil.3gpp";
         } catch (IllegalStateException e) {
             //  it is called before start()
             e.printStackTrace();
@@ -304,7 +305,7 @@ public class Lyd extends Activity {
                 startBtn.setEnabled(true);
 
                 //outputFile = Environment.getExternalStorageDirectory().
-                 //       getAbsolutePath() + "/lydfil.3gpp";
+                //       getAbsolutePath() + "/lydfil.3gpp";
 
           /*      String filename = "lydfil.3gpp";
                 File outputFile = new File(Environment.getExternalStorageDirectory(), filename);
@@ -466,12 +467,12 @@ public class Lyd extends Activity {
                         InputStream in = urlConnection.getInputStream();
 
                         InputStreamReader isw = new InputStreamReader(in);
-                    int data = isw.read();
-                    while (data != -1) {
-                        char current = (char) data;
-                        data = isw.read();
-                        System.out.print(current);
-                    }
+                        int data = isw.read();
+                        while (data != -1) {
+                            char current = (char) data;
+                            data = isw.read();
+                            System.out.print(current);
+                        }
                     } catch (Exception e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -518,5 +519,5 @@ public class Lyd extends Activity {
 
         } // End else block
     }
-    
+
 }
