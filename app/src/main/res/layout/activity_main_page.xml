@@ -38,6 +38,8 @@
     <ImageButton
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:scaleType="fitCenter"
+        style="?android:attr/borderlessButtonStyle"
         android:src="@mipmap/mikrofon"/>
 
 
