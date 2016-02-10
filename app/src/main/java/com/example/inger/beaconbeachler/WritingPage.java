@@ -85,6 +85,6 @@ public class WritingPage extends AppCompatActivity implements View.OnClickListen
         };
 
         // Adding request to request queue
-        MyApplication.getInstance().addToReqQueue(postRequest);
+       // MyApplication.getInstance().addToReqQueue(postRequest);
     }
 }
