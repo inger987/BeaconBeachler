@@ -21,4 +21,17 @@
     <style name="textView">
         <item name="android:textColor">@color/text_color</item>
     </style>
+
+    <!-- Style main page -->
+    <style name="btnCamera">
+        <item name="android:layout_height">100dp</item>
+        <item name="android:layout_width">100dp</item>
+    </style>
+    <style name="btnSound">
+    </style>
+    <style name="btnText">
+    </style>
+    <style name="btnBeacon">
+    </style>
+
 </resources>

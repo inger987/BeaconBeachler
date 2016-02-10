@@ -12,11 +12,13 @@
         android:id="@+id/tvUsername" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ta bilde"
+        android:layout_width="109dp"
+        android:layout_height="100dp"
+        android:text="@string/ta_bilde"
         android:id="@+id/btnCamera"
-        android:layout_alignTop="@+id/btnSound"
+        android:drawableTop="@mipmap/maincamera"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_alignRight="@+id/btnSound"
         android:layout_alignParentStart="true"
         android:layout_gravity="center_horizontal" />
 
@@ -25,15 +27,16 @@
         android:layout_height="wrap_content"
         android:id="@+id/btnSound"
         android:layout_alignStart="@+id/btnText"
-        android:drawableTop="@drawable/miiko"
+        android:drawableTop="@mipmap/mainsound"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_above="@+id/btnText" />
+        android:layout_alignLeft="@+id/btnCamera" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Aa"
         android:id="@+id/btnText"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_alignTop="@+id/btnBeacon"
         android:layout_toEndOf="@+id/btnBeacon"
         />
@@ -42,6 +45,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Beacon"
+        style="?android:attr/borderlessButtonStyle"
+        android:drawableTop="@mipmap/beaconmain"
         android:id="@+id/btnBeacon"
         />
 
