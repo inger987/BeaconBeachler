@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/etText"
         style="@style/editText"
         android:layout_weight="0.19" />
 
@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Lagre"
-        android:id="@+id/btnNext"
+        android:id="@+id/btnSave"
         style="@style/btnNext"/>
 
 </LinearLayout>
