@@ -20,4 +20,6 @@
     <string name="title_activity_regsiter_page">RegsiterPage</string>
     <string name="ta_bilde">Ta bilde</string>
     <string name="bilde">bilde</string>
+    <string name="beacon">Beacon</string>
+    <string name="sound">sound</string>
 </resources>
