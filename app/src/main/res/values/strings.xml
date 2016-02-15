@@ -3,7 +3,6 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_lyd_activity">Lyd_activity</string>
     <string name="button">Aa</string>
     <string name="title">Write you ideas</string>
 
@@ -15,7 +14,10 @@
         <item>Slutten</item>
     </string-array>
     <string name="title_activity_camera">Camera</string>
+    <string name="title_activity_lyd_activity">Lyd</string>
     <string name="title_activity_beacon_page">BeaconPage</string>
     <string name="title_activity_login_page">LoginPage</string>
     <string name="title_activity_regsiter_page">RegsiterPage</string>
+    <string name="ta_bilde">Ta bilde</string>
+    <string name="bilde">bilde</string>
 </resources>

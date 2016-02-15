@@ -35,18 +35,13 @@ public class CameraPage extends AppCompatActivity {
     Button tabilde;
     Button lastopp;
     ImageView image;
+    ImageView zoom;
 
-    private Uri filePath;
-    private static final int CAMERA_REQUEST = 1888;
 
     private final int CAMERA_RESULT = 1;
- //   private final String Tag = getClass().getName();
-   private String UPLOAD_URL = "https://home.hbv.no/110115/bac/upload.php";
+    private String UPLOAD_URL = "https://home.hbv.no/110115/bac/upload.php";
     private String UPLOAD_KEY = "image";
     private String BILDENAVN = "bilde";
-    String bilde = "bildenavnet";
-  //  private Bitmap photo;
-  //  private Bitmap bitmap;
     Bitmap mBitmap;
 
     @Override
@@ -58,8 +53,52 @@ public class CameraPage extends AppCompatActivity {
         tabilde = (Button) findViewById(R.id.tabilde);
         lastopp = (Button) findViewById(R.id.lastopp);
         image = (ImageView) findViewById(R.id.image);
+        zoom = (ImageView) findViewById(R.id.zoom);
+        if (savedInstanceState != null) {
+            image.setImageBitmap(mBitmap);
+        }
+        else {
+            PackageManager pm = getPackageManager();
+
+            if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+
+                Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+
+                i.putExtra(MediaStore.EXTRA_OUTPUT, MyFileContentProvider.CONTENT_URI);
+
+                startActivityForResult(i, CAMERA_RESULT);
+
+            }
+            else {
+
+                Toast.makeText(getBaseContext(), "Enheten har ikke kamera", Toast.LENGTH_LONG).show();
+
+            }
+
+        }
 
 
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                zoom.setImageBitmap(mBitmap);
+                zoom.setVisibility(View.VISIBLE);
+                image.setVisibility(View.INVISIBLE);
+                tabilde.setVisibility(View.INVISIBLE);
+                lastopp.setVisibility(View.INVISIBLE);
+
+            }
+        });
+        zoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zoom.setVisibility(View.INVISIBLE);
+                image.setVisibility(View.VISIBLE);
+                tabilde.setVisibility(View.VISIBLE);
+                lastopp.setVisibility(View.VISIBLE);
+            }
+        });
 
         tabilde.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +116,7 @@ public class CameraPage extends AppCompatActivity {
                 }
                 else {
 
-                    Toast.makeText(getBaseContext(), "Camera is not available", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Enheten har ikke kamera", Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -85,12 +124,11 @@ public class CameraPage extends AppCompatActivity {
         lastopp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            if (mBitmap != null) {
-                uploadImage();
-            }
-                else {
-                Toast.makeText(getBaseContext(), "Her kommer ingen forbi", Toast.LENGTH_LONG).show();
-            }
+                if (mBitmap != null) {
+                    uploadImage();
+                } else {
+                    Toast.makeText(getBaseContext(), "Her kommer ingen forbi", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -113,19 +151,11 @@ public class CameraPage extends AppCompatActivity {
 
                 if(!out.exists()) {
 
-                    Toast.makeText(getBaseContext(), "Error while capturing image", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Error", Toast.LENGTH_LONG).show();
 
                     return;
                 }
 
-           //  mBitmap = (Bitmap) data.getExtras().get("data");
-          //  filePath = data.getData();
-      //     try {
-        //        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-        //        image.setImageBitmap(bitmap);
-        //    } catch (IOException e) {
-        //        e.printStackTrace();
-        //    }
             mBitmap = BitmapFactory.decodeFile(out.getAbsolutePath());
          image.setImageBitmap(mBitmap);
 
@@ -136,7 +166,6 @@ public class CameraPage extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         mBitmap = savedInstanceState.getParcelable("BitmapImage");
-     //   this.photo = photo;
         image.setImageBitmap( mBitmap);
         super.onRestoreInstanceState(savedInstanceState);
 
@@ -156,7 +185,9 @@ public class CameraPage extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(CameraPage.this, "Uploading...", null,true,true);
+           loading = ProgressDialog.show(CameraPage.this, "Laster opp...", null,true,true);
+
+
             }
 
             @Override
@@ -174,10 +205,6 @@ public class CameraPage extends AppCompatActivity {
                 final String format = simpleDateFormat.format(new Date());
                 final String uploadImage = getStringImage(bitmap);
 
-            //    HashMap<String,String> data = new HashMap<>();
-
-            //    data.put(UPLOAD_KEY, uploadImage);
-            //    data.put(BILDENAVN, bilde);
                HashMap<String, String> data = new HashMap<String, String>()
                 {{
                         put(UPLOAD_KEY, uploadImage);
