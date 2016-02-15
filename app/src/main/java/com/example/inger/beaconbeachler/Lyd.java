@@ -57,7 +57,7 @@ public class Lyd extends Activity {
     private static final int FILE_SELECT_CODE = 0;
 
     public Button lagre;
-    public Button VelgLydklipp;
+
     private static final int SELECT_AUDIO = 2;
     String path = "";
 
@@ -109,8 +109,10 @@ public class Lyd extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                startBtn.setVisibility(View.GONE);
                 stopBtn.setVisibility(View.VISIBLE);
+                startBtn.setVisibility(View.GONE);
+                playBtn.setVisibility(View.GONE);
+                stopPlayBtn.setVisibility(View.GONE);
                 start(v);
             }
         });
@@ -122,6 +124,10 @@ public class Lyd extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
+                stopBtn.setVisibility(View.GONE);
+                startBtn.setVisibility(View.VISIBLE);
+                playBtn.setVisibility(View.VISIBLE);
+                stopPlayBtn.setVisibility(View.GONE);
                 stop(v);
             }
         });
@@ -149,22 +155,16 @@ public class Lyd extends Activity {
             }
         });
 
-        VelgLydklipp = (Button) findViewById(R.id.VelgLydklipp);
-        VelgLydklipp.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v){
-                // TODO Auto-generated method stub
-                openGalleryAudio();
-            }
-        });
-
         playBtn = (Button) findViewById(R.id.play);
         playBtn.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
+                stopBtn.setVisibility(View.GONE);
+                startBtn.setVisibility(View.VISIBLE);
+                playBtn.setVisibility(View.GONE);
+                stopPlayBtn.setVisibility(View.VISIBLE);
                 play(v);
             }
         });
@@ -175,6 +175,10 @@ public class Lyd extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
+                stopBtn.setVisibility(View.GONE);
+                startBtn.setVisibility(View.VISIBLE);
+                playBtn.setVisibility(View.VISIBLE);
+                stopPlayBtn.setVisibility(View.GONE);
                 stopPlay(v);
             }
         });
