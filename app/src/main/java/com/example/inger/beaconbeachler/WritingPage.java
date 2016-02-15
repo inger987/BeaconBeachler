@@ -1,6 +1,7 @@
 package com.example.inger.beaconbeachler;
 
-import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,9 +10,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,12 +24,12 @@ import java.util.Map;
  */
 public class WritingPage extends AppCompatActivity implements View.OnClickListener {
 
-    String url = "https://home.hbv.no/110118/bachelor/insertWriting.php";
-    String item_name;
+    private static final String INSERTWRITING_URL = "https://home.hbv.no/110118/bachelor/insertWriting.php";
+    public static final String KEY_TEXT = "text";
+    public static final String KEY_USERID = "userId";
 
-    EditText item_et;
-    ProgressDialog PD;
-    Button btnSave;
+    private EditText etText;
+    private Button btnSave;
 
 
     @Override
@@ -34,11 +37,7 @@ public class WritingPage extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_writing_page);
 
-        PD = new ProgressDialog(this);
-        PD.setMessage("Loading.....");
-        PD.setCancelable(false);
-
-        item_et = (EditText) findViewById(R.id.etText);
+        etText = (EditText) findViewById(R.id.etText);
         btnSave = (Button) findViewById(R.id.btnSave);
 
         btnSave.setOnClickListener(this);
@@ -48,43 +47,42 @@ public class WritingPage extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnSave:
-                insert();
+                insertText();
                 break;
         }
     }
-    public void insert(){
-        PD.show();
-        item_name = item_et.getText().toString();
 
-        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+    private void insertText() {
+        // har lagret brukernavnet på den som er logget inn. Dette brukes til å kjenne igjen brukere med spørring i php
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        final String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
+        final String text = etText.getText().toString().trim();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, INSERTWRITING_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        PD.dismiss();
-                        item_et.setText("");
-                        Toast.makeText(getApplicationContext(),
-                                "Data Inserted Successfully",
-                                Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText(WritingPage.this, response, Toast.LENGTH_LONG).show();
                     }
-                }, new Response.ErrorListener() {
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(WritingPage.this,error.toString(),Toast.LENGTH_LONG).show();
+                    }
+                }){
             @Override
-            public void onErrorResponse(VolleyError error) {
-                PD.dismiss();
-                Toast.makeText(getApplicationContext(),
-                        "failed to insert", Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("item_name", item_name);
-
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                params.put(KEY_TEXT,text);
+                params.put(KEY_USERID,username);
                 return params;
             }
+
         };
 
-        // Adding request to request queue
-       // MyApplication.getInstance().addToReqQueue(postRequest);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
+
+
 }
