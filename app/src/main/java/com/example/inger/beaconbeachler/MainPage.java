@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class MainPage extends AppCompatActivity implements View.OnClickListener {
@@ -21,7 +21,10 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
 
-    Button btnCamera, btnText, btnBeacon,btnSound;
+    ImageButton btnCamera;
+    ImageButton btnText;
+    ImageButton btnBeacon;
+    ImageButton btnSound;
     TextView tvUsername;
 
     @Override
@@ -29,10 +32,10 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
-        btnText = (Button)findViewById(R.id.btnText);
-        btnSound = (Button)findViewById(R.id.btnSound);
-        btnBeacon = (Button)findViewById(R.id.btnBeacon);
-        btnCamera = (Button)findViewById(R.id.btnCamera);
+        btnText = (ImageButton)findViewById(R.id.btnText);
+        btnSound = (ImageButton)findViewById(R.id.btnSound);
+        btnBeacon = (ImageButton)findViewById(R.id.btnBeacon);
+        btnCamera = (ImageButton)findViewById(R.id.btnCamera);
         tvUsername = (TextView)findViewById(R.id.tvUsername);
 
         btnText.setOnClickListener(this);

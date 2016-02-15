@@ -19,4 +19,5 @@
     <string name="title_activity_login_page">LoginPage</string>
     <string name="title_activity_regsiter_page">RegsiterPage</string>
     <string name="ta_bilde">Ta bilde</string>
+    <string name="bilde">bilde</string>
 </resources>

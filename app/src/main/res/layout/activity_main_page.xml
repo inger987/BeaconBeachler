@@ -14,63 +14,48 @@
         android:id="@+id/tvUsername" />
 
     <!-- btnCamera width =109 -->
-    <Button
-        android:layout_width="132dp"
-        android:layout_height="116dp"
-        android:text="@string/ta_bilde"
-        android:id="@+id/btnCamera"
-        android:drawableTop="@mipmap/maincamera"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_alignRight="@+id/btnSound"
-        android:layout_alignParentStart="true"
-        android:layout_gravity="center_horizontal" />
-
-    <Button
-        android:layout_width="226dp"
-        android:layout_height="100dp"
+    <ImageButton
+        android:layout_height="122dp"
+        android:layout_width="122dp"
         android:id="@+id/btnSound"
         android:layout_alignStart="@+id/btnText"
-        android:drawableTop="@mipmap/mikrofon"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_alignLeft="@+id/btnCamera"
-        android:layout_weight="0.17" />
-
-    <ImageButton
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:src="@mipmap/mainsound"
         android:scaleType="fitCenter"
         style="?android:attr/borderlessButtonStyle"
-        android:src="@mipmap/mikrofon"/>
+        android:layout_gravity="center_horizontal" />
 
-
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:layout_height="86dp"
+        android:layout_width="118dp"
         android:text="Aa"
         android:id="@+id/btnText"
+        android:src="@mipmap/maintekst"
+        android:scaleType="fitCenter"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_alignTop="@+id/btnBeacon"
-        android:layout_toEndOf="@+id/btnBeacon"
-        />
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.42" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:layout_height="100dp"
+        android:layout_width="159dp"
         android:text="Beacon"
         style="?android:attr/borderlessButtonStyle"
-        android:drawableTop="@mipmap/beaconmain"
+        android:src="@mipmap/beaconmain"
+        android:scaleType="fitCenter"
         android:id="@+id/btnBeacon"
         android:layout_gravity="center_horizontal" />
-</LinearLayout>
 
-<LinearLayout
-android:layout_height="0dp"
-android:layout_width="match_parent"
-android:layout_weight="1"
-android:orientation="horizontal">
+    <ImageButton
+        android:layout_height="138dp"
+        android:layout_width="130dp"
+        android:text="@string/ta_bilde"
+        android:id="@+id/btnCamera"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/maincamera"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
-    </RelativeLayout>
+ </RelativeLayout>
 
 

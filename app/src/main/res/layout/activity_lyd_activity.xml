@@ -57,49 +57,66 @@
 
 </RelativeLayout>
 -->
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="fill"
+    android:id="@+id/linear2"
+    android:orientation="vertical"
+    android:layout_alignParentTop="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="fill"
+    android:orientation="vertical"
     tools:context="com.example.inger.beaconbeachler.Lyd_activity" >
 
-    <TextView
+
+        <ImageView
+            android:id="@+id/micImage"
+            android:layout_width="200dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:src="@android:drawable/presence_audio_online"
+            android:contentDescription="@string/bilde"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@mipmap/recordicon"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignTop="@+id/play"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/play"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:enabled="false"
+            android:drawableTop="@mipmap/playicon"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_gravity="right"
+            android:layout_alignBottom="@+id/micImage"
+            android:layout_toEndOf="@+id/start"
+            android:visibility="invisible" />
+
+        <TextView
         android:id="@+id/text1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="88dp"
         android:layout_marginTop="10dp"
         android:text="Recording Point: -"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <ImageView
-        android:id="@+id/micImage"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="44dp"
-        android:src="@android:drawable/presence_audio_online"
-        android:layout_below="@+id/text1"
-        android:layout_centerHorizontal="true" />
 
-    <LinearLayout  android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:id="@+id/linear2"
-        android:orientation="horizontal" >
-
-    </LinearLayout>
-
-    <Button
-        android:layout_width="70dp"
-        android:layout_height="40dp"
-        android:text="Lagre"
-        android:id="@+id/Lagre"
-        android:background="#1aff1a"
-        android:layout_below="@+id/micImage"
-        android:layout_toStartOf="@+id/micImage"
-        android:layout_alignEnd="@+id/textView6" />
-
-    <TextView
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
@@ -107,50 +124,40 @@
         android:layout_below="@+id/Lagre"
         android:layout_alignParentStart="true" />
 
-    <Button
+        <Button
         android:id="@+id/stopPlay"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:enabled="false"
-        android:layout_marginLeft="10dp"
         android:drawableTop="@mipmap/stopicon"
         style="?android:attr/borderlessButtonStyle"
-        android:visibility="gone"
-        android:layout_below="@+id/micImage"
-        android:layout_toEndOf="@+id/micImage" />
-
-    <Button
-        android:id="@+id/play"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:enabled="false"
-        android:drawableTop="@mipmap/playicon"
-        style="?android:attr/borderlessButtonStyle"
-        android:visibility="gone"
-        android:layout_below="@+id/micImage"
-        android:layout_toEndOf="@+id/micImage" />
+            android:layout_alignTop="@+id/start"
+            android:layout_toEndOf="@+id/start"
+            android:visibility="invisible" />
 
 
-    <Button
-        android:id="@+id/start"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:drawableTop="@mipmap/recordicon"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_below="@+id/micImage"
-        android:layout_centerHorizontal="true" />
-
-    <Button
+        <Button
         android:id="@+id/stop"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginLeft="10dp"
         android:enabled="false"
         android:drawableBottom="@mipmap/stopicon"
-        android:layout_below="@+id/micImage"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone" />
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_alignTop="@+id/start"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible" />
+
+        <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lagre"
+        android:id="@+id/Lagre"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/start"
+            android:layout_alignStart="@+id/start" />
 
 
 </RelativeLayout>
+</LinearLayout>
+
