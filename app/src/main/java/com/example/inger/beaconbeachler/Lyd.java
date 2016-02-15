@@ -110,9 +110,9 @@ public class Lyd extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 stopBtn.setVisibility(View.VISIBLE);
-                startBtn.setVisibility(View.GONE);
-                playBtn.setVisibility(View.GONE);
-                stopPlayBtn.setVisibility(View.GONE);
+                startBtn.setVisibility(View.INVISIBLE);
+                playBtn.setVisibility(View.INVISIBLE);
+                stopPlayBtn.setVisibility(View.INVISIBLE);
                 start(v);
             }
         });
@@ -124,10 +124,10 @@ public class Lyd extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                stopBtn.setVisibility(View.GONE);
+                stopBtn.setVisibility(View.INVISIBLE);
                 startBtn.setVisibility(View.VISIBLE);
                 playBtn.setVisibility(View.VISIBLE);
-                stopPlayBtn.setVisibility(View.GONE);
+                stopPlayBtn.setVisibility(View.INVISIBLE);
                 stop(v);
             }
         });
@@ -161,9 +161,9 @@ public class Lyd extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                stopBtn.setVisibility(View.GONE);
+                stopBtn.setVisibility(View.INVISIBLE);
                 startBtn.setVisibility(View.VISIBLE);
-                playBtn.setVisibility(View.GONE);
+                playBtn.setVisibility(View.INVISIBLE);
                 stopPlayBtn.setVisibility(View.VISIBLE);
                 play(v);
             }
@@ -175,10 +175,10 @@ public class Lyd extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                stopBtn.setVisibility(View.GONE);
+                stopBtn.setVisibility(View.INVISIBLE);
                 startBtn.setVisibility(View.VISIBLE);
                 playBtn.setVisibility(View.VISIBLE);
-                stopPlayBtn.setVisibility(View.GONE);
+                stopPlayBtn.setVisibility(View.INVISIBLE);
                 stopPlay(v);
             }
         });
