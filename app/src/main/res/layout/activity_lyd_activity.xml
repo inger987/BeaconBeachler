@@ -90,12 +90,14 @@
     </LinearLayout>
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
         android:text="Lagre"
         android:id="@+id/Lagre"
-        android:layout_below="@+id/stopPlay"
-        android:layout_alignEnd="@+id/start" />
+        android:background="#1aff1a"
+        android:layout_below="@+id/micImage"
+        android:layout_toStartOf="@+id/micImage"
+        android:layout_alignEnd="@+id/textView6" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -107,26 +109,26 @@
 
     <Button
         android:id="@+id/stopPlay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:enabled="false"
         android:layout_marginLeft="10dp"
         android:drawableTop="@mipmap/stopicon"
         style="?android:attr/borderlessButtonStyle"
+        android:visibility="gone"
         android:layout_below="@+id/micImage"
-        android:layout_toEndOf="@+id/start"
-        android:visibility="gone" />
+        android:layout_toEndOf="@+id/micImage" />
 
     <Button
         android:id="@+id/play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:enabled="false"
         android:drawableTop="@mipmap/playicon"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_above="@+id/Lagre"
-        android:layout_toEndOf="@+id/start"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:layout_below="@+id/micImage"
+        android:layout_toEndOf="@+id/micImage" />
 
 
     <Button
