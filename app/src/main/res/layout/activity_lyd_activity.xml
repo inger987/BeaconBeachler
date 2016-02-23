@@ -18,9 +18,11 @@
         android:id="@+id/text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:text="Recording Point: -"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="43dp" />
 
     <ImageView
         android:id="@+id/micImage"
@@ -28,7 +30,7 @@
         android:layout_height="200dp"
         android:src="@mipmap/lydimage"
         android:layout_below="@+id/text1"
-        android:layout_toEndOf="@+id/textView6" />
+        android:layout_toEndOf="@+id/txtUploadprogress" />
 
 
     <Button
@@ -43,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/textView6"
+        android:id="@+id/txtUploadprogress"
         android:layout_below="@+id/Lagre"
         android:layout_alignParentStart="true" />
 
@@ -71,12 +73,6 @@
         android:visibility="invisible" />
 
     <Button
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        style="?android:attr/borderlessButtonStyle"
-        android:id="@+id/button" />
-
-    <Button
         android:id="@+id/start"
         android:layout_width="70dp"
         android:layout_height="70dp"
@@ -94,6 +90,14 @@
         android:visibility="invisible"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/text1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/txtUsername"
+        android:layout_alignTop="@+id/micImage"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>
