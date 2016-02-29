@@ -33,3 +33,6 @@ dependencies {
     compile 'com.android.support:design:23.0.0'
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
 }
+dependencies {
+    compile 'org.altbeacon:android-beacon-library:2+'
+}
