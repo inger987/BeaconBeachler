@@ -1,7 +1,9 @@
 package com.example.inger.beaconbeachler;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -42,6 +44,7 @@ public class CameraPage extends AppCompatActivity {
     private String UPLOAD_URL = "https://home.hbv.no/110115/bac/upload.php";
     private String UPLOAD_KEY = "image";
     private String BILDENAVN = "bilde";
+    public static final String KEY_USERID = "userId";
     Bitmap mBitmap;
 
     @Override
@@ -58,23 +61,7 @@ public class CameraPage extends AppCompatActivity {
             image.setImageBitmap(mBitmap);
         }
         else {
-            PackageManager pm = getPackageManager();
-
-            if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-
-                Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-
-                i.putExtra(MediaStore.EXTRA_OUTPUT, MyFileContentProvider.CONTENT_URI);
-
-                startActivityForResult(i, CAMERA_RESULT);
-
-            }
-            else {
-
-                Toast.makeText(getBaseContext(), "Enheten har ikke kamera", Toast.LENGTH_LONG).show();
-
-            }
-
+            cameraActivity();
         }
 
 
@@ -103,22 +90,7 @@ public class CameraPage extends AppCompatActivity {
         tabilde.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PackageManager pm = getPackageManager();
-
-                if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-
-                    Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-
-                    i.putExtra(MediaStore.EXTRA_OUTPUT, MyFileContentProvider.CONTENT_URI);
-
-                    startActivityForResult(i, CAMERA_RESULT);
-
-                }
-                else {
-
-                    Toast.makeText(getBaseContext(), "Enheten har ikke kamera", Toast.LENGTH_LONG).show();
-
-                }
+                cameraActivity();
             }
         });
         lastopp.setOnClickListener(new View.OnClickListener() {
@@ -135,6 +107,27 @@ public class CameraPage extends AppCompatActivity {
 
 
 }
+    public void cameraActivity()
+    {
+
+        PackageManager pm = getPackageManager();
+
+        if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+
+            Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+
+            i.putExtra(MediaStore.EXTRA_OUTPUT, MyFileContentProvider.CONTENT_URI);
+
+            startActivityForResult(i, CAMERA_RESULT);
+
+        }
+        else {
+
+            Toast.makeText(getBaseContext(), "Enheten har ikke kamera", Toast.LENGTH_LONG).show();
+
+        }
+
+    }
     public String getStringImage(Bitmap bmp){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -185,7 +178,9 @@ public class CameraPage extends AppCompatActivity {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-           loading = ProgressDialog.show(CameraPage.this, "Laster opp...", null,true,true);
+                SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                final String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
+           loading = ProgressDialog.show(CameraPage.this, "Laster opp..." + username, null,true,true);
 
 
             }
@@ -201,14 +196,17 @@ public class CameraPage extends AppCompatActivity {
             protected String doInBackground(Bitmap... params) {
                 Bitmap bitmap = params[0];
 
+                SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
                 final String format = simpleDateFormat.format(new Date());
                 final String uploadImage = getStringImage(bitmap);
+                final String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
 
                HashMap<String, String> data = new HashMap<String, String>()
                 {{
                         put(UPLOAD_KEY, uploadImage);
                         put(BILDENAVN, format);
+                        put(KEY_USERID, username);
 
                     }};
 

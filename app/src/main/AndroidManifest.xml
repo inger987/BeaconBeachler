@@ -35,7 +35,10 @@
         <activity
             android:name=".BeaconPage"
             android:label="@string/title_activity_beacon_page"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".EggAndBeacon"
+            android:label="EggAndBeacon"></activity>
         <activity
             android:name=".Lyd"
             android:label="@string/title_activity_lyd_activity"
