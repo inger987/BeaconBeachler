@@ -33,7 +33,6 @@ public class Lyd extends Activity {
 
     private MediaRecorder myRecorder;
     private MediaPlayer myPlayer;
-    private String outputFile = null;
     String myFileName = "";
     private Button startBtn;
     private Button stopBtn;
@@ -75,7 +74,7 @@ public class Lyd extends Activity {
         txtUploadprogress.setText("Uploading file path :- '\"/storage/emulated/0/\"" + uploadFileName + "'");
 
         // Store file on SD card
-        outputFile = Environment.getExternalStorageDirectory().
+        myFileName = Environment.getExternalStorageDirectory().
                 getAbsolutePath() + "/storage/emulated/0/";
 
         startBtn = (Button) findViewById(R.id.start);
@@ -149,14 +148,14 @@ public class Lyd extends Activity {
         recordingPoint.setText(": Tar opp lyd");
 
         // Store file on SD card
-        outputFile = Environment.getExternalStorageDirectory().
-                getAbsolutePath() + "/lydfil";
+        myFileName = Environment.getExternalStorageDirectory().
+                getAbsolutePath() + "/lydfil.mp4";
 
-        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/lydfil";
+        myFileName = Environment.getExternalStorageDirectory().getAbsolutePath() + "/lydfil.mp4";
         FileOutputStream fos;
         byte[] data = new String("data to write to file").getBytes();
         try {
-            fos = new FileOutputStream(outputFile);
+            fos = new FileOutputStream(myFileName);
             fos.write(data);
             fos.flush();
             fos.close();
@@ -264,7 +263,7 @@ public class Lyd extends Activity {
 
                 myPlayer = null;
 
-                outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/lydfil";
+                myFileName = Environment.getExternalStorageDirectory().getAbsolutePath() + "/lydfil";
 
             }
 
@@ -289,7 +288,7 @@ public class Lyd extends Activity {
         return (file.getAbsolutePath() + "/" + currentDateandTime + ".mp4");
     }
 
-    public void uploadFile(String myFileName){
+    public void uploadFile(final String myFileName){
 
         class uploadFile extends AsyncTask<Bitmap,Void,String>{
 
@@ -315,7 +314,7 @@ public class Lyd extends Activity {
 
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
                 final String format = simpleDateFormat.format(new Date());
-                final String uploadFile = outputFile;
+                final String uploadFile = myFileName;
 
                 SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
                 final String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
