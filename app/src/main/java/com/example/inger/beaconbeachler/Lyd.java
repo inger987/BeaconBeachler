@@ -49,9 +49,9 @@ public class Lyd extends Activity {
     private String UPLOAD_KEY = "audio";
     private String KEY_USERID = "userId";
     private String FILNAVN = "filnavn";
-    private String AUDIO_RECORDER_FOLDER = "/storage/emulated/0/";
+    private String AUDIO_RECORDER_FOLDER = "https://home.hbv.no/10030/lyd/" + myFileName;
 
-    final String uploadFileName = "lydfil";
+   // final String uploadFileName = "lydfil.mp4";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,11 +71,12 @@ public class Lyd extends Activity {
 
         // Shows current uploading point
         txtUploadprogress = (TextView) findViewById(R.id.txtUploadprogress);
-        txtUploadprogress.setText("Uploading file path :- '\"/storage/emulated/0/\"" + uploadFileName + "'");
+       // txtUploadprogress.setText("Uploading file path :- '\"/storage/emulated/0/\"" + uploadFileName + "'");
 
         // Store file on SD card
-        myFileName = Environment.getExternalStorageDirectory().
-                getAbsolutePath() + "/storage/emulated/0/";
+       /* myFileName = Environment.getExternalStorageDirectory().
+                getAbsolutePath() + "/storage/emulated/0/";*/
+
 
         startBtn = (Button) findViewById(R.id.start);
         startBtn.setOnClickListener(new OnClickListener() {
@@ -148,9 +149,10 @@ public class Lyd extends Activity {
         recordingPoint.setText(": Tar opp lyd");
 
         // Store file on SD card
-        myFileName = Environment.getExternalStorageDirectory().
+    /*    myFileName = Environment.getExternalStorageDirectory().
                 getAbsolutePath() + "/lydfil.mp4";
-
+    */
+/*
         myFileName = Environment.getExternalStorageDirectory().getAbsolutePath() + "/lydfil.mp4";
         FileOutputStream fos;
         byte[] data = new String("data to write to file").getBytes();
@@ -164,6 +166,7 @@ public class Lyd extends Activity {
         } catch (IOException e) {
             // handle exception
         }
+        */
         // Everytime start is click; intiate myRecorder
         myRecorder = new MediaRecorder();
         myRecorder.setAudioSource(MIC);
@@ -263,7 +266,7 @@ public class Lyd extends Activity {
 
                 myPlayer = null;
 
-                myFileName = Environment.getExternalStorageDirectory().getAbsolutePath() + "/lydfil";
+               // myFileName = Environment.getExternalStorageDirectory().getAbsolutePath() + "/lydfil";
 
             }
 
@@ -274,18 +277,20 @@ public class Lyd extends Activity {
 
     }
 
-
+// Called on start recording
     private String getFilename() {
+
         String filepath = Environment.getExternalStorageDirectory().getPath();
         File file = new File(filepath, AUDIO_RECORDER_FOLDER);
 
-        SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MMM-yyyy hh-mm-ss");
+        SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MMM-yyyy-hh-mm-ss");
         String currentDateandTime = sdfDate.format(new Date());
 
         if (!file.exists()) {
             file.mkdirs();
         }
-        return (file.getAbsolutePath() + "/" + currentDateandTime + ".mp4");
+        return ("https://home.hbv.no/10030/" + currentDateandTime);
+
     }
 
     public void uploadFile(final String myFileName){
@@ -310,19 +315,18 @@ public class Lyd extends Activity {
 
             @Override
             protected String doInBackground(Bitmap... params) {
-                //  Bitmap bitmap = params[0];
 
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
-                final String format = simpleDateFormat.format(new Date());
-                final String uploadFile = myFileName;
+                //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+                //final String format = simpleDateFormat.format(new Date());
+               // final String uploadFile = myFileName;
 
                 SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
                 final String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
 
                 HashMap<String, String> data = new HashMap<String, String>()
                 {{
-                    put(UPLOAD_KEY, uploadFile);
-                    put(FILNAVN, format);
+                   // put(UPLOAD_KEY, uploadFile);
+                    put(FILNAVN, myFileName);
                     put(KEY_USERID, username);
 
 
