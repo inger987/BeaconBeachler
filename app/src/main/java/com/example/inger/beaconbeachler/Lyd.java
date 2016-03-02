@@ -1,5 +1,6 @@
 package com.example.inger.beaconbeachler;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,8 +13,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -31,28 +34,25 @@ public class Lyd extends Activity {
     private MediaRecorder myRecorder;
     private MediaPlayer myPlayer;
     private String outputFile = null;
+    String myFileName = "";
     private Button startBtn;
     private Button stopBtn;
     private Button playBtn;
     private Button stopPlayBtn;
     public Button lagre;
-    private TextView text;
+    private TextView recordingPoint;
     public TextView txtUploadprogress;
     public TextView txtUsername;
 
-    String upLoadServerUri = null;
+    String UploadServerUri = null;
 
-    private String UPLOAD_URL = "https://home.hbv.no/110030/lyd/upload.php";
+    private String UPLOAD_URL = "https://home.hbv.no/110030/lyd/uploadToServer.php";
     private String UPLOAD_KEY = "audio";
-    private String BRUKERNAVN = "username";
-    private String FILNAVN = "lyd";
+    private String KEY_USERID = "userId";
+    private String FILNAVN = "filnavn";
+    private String AUDIO_RECORDER_FOLDER = "/storage/emulated/0/";
 
-    /**********  File Path *************/
-    final String uploadFilePath = "/storage/emulated/0/";
-    // "/mnt/sdcard/";
-
-    final String uploadFileName = "lydfil.3gpp";
-
+    final String uploadFileName = "lydfil";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,25 +60,23 @@ public class Lyd extends Activity {
 
         setContentView(R.layout.activity_lyd_activity);
 
+        // to determine the named of current logged in user
         SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         final String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
-
         txtUsername = (TextView) findViewById(R.id.txtUsername);
-
-        text = (TextView) findViewById(R.id.text1);
         txtUsername.setText("Current User: " + username);
 
+        // Show current recording point
+        recordingPoint = (TextView) findViewById(R.id.recordingPoint);
+        recordingPoint = (TextView) findViewById(R.id.recordingPoint);
 
-        text = (TextView) findViewById(R.id.text1);
-        // lagrer pÃ¥ minnekort
+        // Shows current uploading point
+        txtUploadprogress = (TextView) findViewById(R.id.txtUploadprogress);
+        txtUploadprogress.setText("Uploading file path :- '\"/storage/emulated/0/\"" + uploadFileName + "'");
+
+        // Store file on SD card
         outputFile = Environment.getExternalStorageDirectory().
-                getAbsolutePath() + "/lydfil.3gpp";
-
-        myRecorder = new MediaRecorder();
-        myRecorder.setAudioSource(MIC);
-        myRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        myRecorder.setAudioEncoder(MediaRecorder.OutputFormat.THREE_GPP);
-        myRecorder.setOutputFile(outputFile);
+                getAbsolutePath() + "/storage/emulated/0/";
 
         startBtn = (Button) findViewById(R.id.start);
         startBtn.setOnClickListener(new OnClickListener() {
@@ -86,13 +84,12 @@ public class Lyd extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                startBtn.setVisibility(View.GONE);
-                stopBtn.setVisibility(View.VISIBLE);
+              //  startBtn.setVisibility(View.GONE);
+              //  stopBtn.setVisibility(View.VISIBLE);
                 start(v);
             }
         });
 
-        txtUploadprogress = (TextView) findViewById(R.id.txtUploadprogress);
         stopBtn = (Button) findViewById(R.id.stop);
         stopBtn.setOnClickListener(new OnClickListener() {
 
@@ -100,19 +97,8 @@ public class Lyd extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 stop(v);
-                stopBtn.setVisibility(View.GONE);
-                playBtn.setVisibility(View.VISIBLE);
-            }
-        });
-
-        lagre = (Button) findViewById(R.id.Lagre);
-        lagre.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-                uploadFile();
+                //stopBtn.setVisibility(View.GONE);
+                //playBtn.setVisibility(View.VISIBLE);
             }
         });
 
@@ -124,8 +110,8 @@ public class Lyd extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 play(v);
-                playBtn.setVisibility(View.GONE);
-                stopBtn.setVisibility(View.VISIBLE);
+                //playBtn.setVisibility(View.GONE);
+                //stopBtn.setVisibility(View.VISIBLE);
             }
         });
 
@@ -136,26 +122,37 @@ public class Lyd extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 stopPlay(v);
-                stopBtn.setVisibility(View.GONE);
-                startBtn.setVisibility(View.VISIBLE);
+                //stopBtn.setVisibility(View.GONE);
+                //startBtn.setVisibility(View.VISIBLE);
             }
         });
 
-        txtUploadprogress.setText("Uploading file path :- '\"/storage/emulated/0/\"" + uploadFileName + "'");
+        lagre = (Button) findViewById(R.id.Lagre);
+        lagre.setOnClickListener(new OnClickListener() {
 
-        /************* Php script path ****************/
-        upLoadServerUri = "https://home.hbv.no/110030/lyd/UploadToServer1.php";
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                uploadFile(myFileName);
+            }
+        });
+
+        // Php script path
+        UploadServerUri = "https://home.hbv.no/110030/lyd/UploadToServer.php";
     }
 
     public void start(View view) {
 
-        text = (TextView) findViewById(R.id.text1);
-        // lagrer pÃ¥ minnekort
-        outputFile = Environment.getExternalStorageDirectory().
-                getAbsolutePath() + "/lydfil.3gpp";
+        myFileName = getFilename();
 
-        //   String filename = "lydfil.3gpp";
-        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/lydfil.3gpp";
+        recordingPoint = (TextView) findViewById(R.id.recordingPoint);
+        recordingPoint.setText(": Tar opp lyd");
+
+        // Store file on SD card
+        outputFile = Environment.getExternalStorageDirectory().
+                getAbsolutePath() + "/lydfil";
+
+        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/lydfil";
         FileOutputStream fos;
         byte[] data = new String("data to write to file").getBytes();
         try {
@@ -168,19 +165,18 @@ public class Lyd extends Activity {
         } catch (IOException e) {
             // handle exception
         }
-
+        // Everytime start is click; intiate myRecorder
         myRecorder = new MediaRecorder();
         myRecorder.setAudioSource(MIC);
-        myRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        myRecorder.setAudioEncoder(MediaRecorder.OutputFormat.THREE_GPP);
-        myRecorder.setOutputFile(outputFile);
+        myRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+        myRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+        myRecorder.setOutputFile(myFileName);
 
 
         try {
-            //  myRecorder.reset();
             myRecorder.prepare();
             myRecorder.start();
-            text.setText("funker");
+
         } catch (IllegalStateException e) {
             // start:it is called before prepare()
             // prepare: it is called after start() or before setOutputFormat()
@@ -190,16 +186,14 @@ public class Lyd extends Activity {
             e.printStackTrace();
         }
 
-        text.setText(": Tar opp lyd");
+
         //startBtn.setEnabled(false);
         stopBtn.setEnabled(true);
+        playBtn.setEnabled(false);
+        stopPlayBtn.setEnabled(false);
 
         Toast.makeText(getApplicationContext(), "Start recording...",
                 Toast.LENGTH_SHORT).show();
-
-        if (outputFile.isEmpty()) {
-            System.out.print("hei");
-        }
     }
 
     public void stop(View view) {
@@ -209,17 +203,17 @@ public class Lyd extends Activity {
             //     myRecorder.reset();
             //  myRecorder  = null;
 
-
-            stopBtn.setEnabled(false);
+            startBtn.setEnabled(true);
             playBtn.setEnabled(true);
-            startBtn.setVisibility(View.VISIBLE);
-            stopBtn.setVisibility(View.GONE);
-            text.setText("Recording Point: Stop recording");
+
+           // startBtn.setVisibility(View.VISIBLE);
+            //stopBtn.setVisibility(View.GONE);
+
+            recordingPoint.setText(": Recording stopped");
 
             Toast.makeText(getApplicationContext(), "Stop recording...",
                     Toast.LENGTH_SHORT).show();
-            //    outputFile = Environment.getExternalStorageDirectory().
-            //          getAbsolutePath() + "/lydfil.3gpp";
+
         } catch (IllegalStateException e) {
             //  it is called before start()
             e.printStackTrace();
@@ -227,18 +221,20 @@ public class Lyd extends Activity {
             // no valid audio/video data has been received
             e.printStackTrace();
         }
+
     }
 
     public void play(View view) {
         try {
             myPlayer = new MediaPlayer();
-            myPlayer.setDataSource(outputFile);
+            myPlayer.setDataSource(myFileName);
             myPlayer.prepare();
             myPlayer.start();
 
             playBtn.setEnabled(false);
             stopPlayBtn.setEnabled(true);
-            text.setText("Recording Point: Playing");
+
+            recordingPoint.setText("Recording Point: Playing");
 
             Toast.makeText(getApplicationContext(), "Start play the recording...",
                     Toast.LENGTH_SHORT).show();
@@ -256,17 +252,19 @@ public class Lyd extends Activity {
                 myRecorder.reset();
 
                 myPlayer = null;
+
                 playBtn.setEnabled(true);
                 stopPlayBtn.setEnabled(false);
-                text.setText("Recording Point: Stop playing");
+                startBtn.setEnabled(true);
+
+                recordingPoint.setText("Recording Point: Stop playing");
 
                 Toast.makeText(getApplicationContext(), "Stop playing the recording...",
                         Toast.LENGTH_SHORT).show();
 
                 myPlayer = null;
-                startBtn.setEnabled(true);
 
-                outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/lydfil.3gpp";
+                outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/lydfil";
 
             }
 
@@ -277,10 +275,21 @@ public class Lyd extends Activity {
 
     }
 
-    public void uploadFile(){
 
-        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        final String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
+    private String getFilename() {
+        String filepath = Environment.getExternalStorageDirectory().getPath();
+        File file = new File(filepath, AUDIO_RECORDER_FOLDER);
+
+        SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MMM-yyyy hh-mm-ss");
+        String currentDateandTime = sdfDate.format(new Date());
+
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        return (file.getAbsolutePath() + "/" + currentDateandTime + ".mp4");
+    }
+
+    public void uploadFile(String myFileName){
 
         class uploadFile extends AsyncTask<Bitmap,Void,String>{
 
@@ -308,11 +317,14 @@ public class Lyd extends Activity {
                 final String format = simpleDateFormat.format(new Date());
                 final String uploadFile = outputFile;
 
+                SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                final String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
+
                 HashMap<String, String> data = new HashMap<String, String>()
                 {{
                     put(UPLOAD_KEY, uploadFile);
                     put(FILNAVN, format);
-                    put(BRUKERNAVN, username);
+                    put(KEY_USERID, username);
 
 
                 }};
