@@ -19,7 +19,14 @@ public class EggAndBeacon extends Activity {
         TextView view = (TextView) findViewById(R.id.tekst);
         view.setText(uuid +"\n+"+ id1+"\n"+id2);
         ImageView imageView = (ImageView)findViewById(R.id.bilde);
-       imageView.setImageResource(R.drawable.eggogbeacon);
+        if (id2.equals("1")) {
+            imageView.setImageResource(R.drawable.eggogbeacon);
+        }
+        else if (id2.equals("2")) {
+            imageView.setImageResource(R.drawable.miiko);
+        }
+
+
 
     }
 }

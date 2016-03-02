@@ -9,23 +9,20 @@
     tools:context="com.example.inger.beaconbeachler.BeaconPage"
     android:background="#d7e7e6">
 
-<TextView
-    android:id="@+id/messages"
-    android:layout_width="200dp"
-    android:layout_height="100dp" />
+
 
     <Button
-        android:id="@+id/knapp"
+        android:id="@+id/start"
         android:text=":)"
-        android:layout_width="100dp"
+        android:layout_width="200dp"
         android:layout_height="100dp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="right"/>
     <Button
         android:id="@+id/stopp"
         android:text=":("
-        android:layout_width="100dp"
+        android:layout_width="200dp"
         android:layout_height="100dp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="left"/>
 
 
 
