@@ -16,6 +16,7 @@
         android:text=":)"
         android:layout_width="200dp"
         android:layout_height="100dp"
+        android:onClick="onRangingClicked"
         android:layout_gravity="right"/>
     <Button
         android:id="@+id/stopp"

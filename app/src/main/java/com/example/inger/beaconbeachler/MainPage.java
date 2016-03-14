@@ -1,19 +1,28 @@
 package com.example.inger.beaconbeachler;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class MainPage extends AppCompatActivity implements View.OnClickListener {
+import org.altbeacon.beacon.BeaconManager;
+
+public class MainPage extends Activity implements View.OnClickListener {
 
 
     /**
@@ -26,12 +35,12 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
     ImageButton btnBeacon;
     ImageButton btnSound;
     TextView tvUsername;
-
+    BluetoothAdapter mBluetoothAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
-
+        verifyBluetooth();
         btnText = (ImageButton)findViewById(R.id.btnText);
         btnSound = (ImageButton)findViewById(R.id.btnSound);
         btnBeacon = (ImageButton)findViewById(R.id.btnBeacon);
@@ -49,7 +58,61 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
 
         //Showing the current logged in username to textview
         tvUsername.setText("Current User: " + username);
+
+
+
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(null);
+    }
+
+    private void verifyBluetooth() {
+
+        try {
+            if (!BeaconManager.getInstanceForApplication(this).checkAvailability()) {
+                final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+                builder.setTitle("Bluetooth not enabled");
+                builder.setMessage("Please enable bluetooth in settings and restart this application.");
+                builder.setPositiveButton(android.R.string.ok, null);
+                builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        finish();
+                        System.exit(0);
+                    }
+                });
+                builder.show();
+            }
+        }
+        catch (RuntimeException e) {
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+            builder.setTitle("Bluetooth LE not available");
+            builder.setMessage("Sorry, this device does not support Bluetooth LE.");
+            builder.setPositiveButton(android.R.string.ok, null);
+            builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    finish();
+                    System.exit(0);
+                }
+
+            });
+            builder.show();
+
+        }
+
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
