@@ -43,8 +43,8 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         beaconManager.getBeaconParsers().clear();
         beaconManager.getBeaconParsers().add(new BeaconParser().
                 setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
-        beaconManager.setBackgroundBetweenScanPeriod(60000l);
-        Log.d(TAG, "setting up background monitoring for beacons and power saving");
+       // beaconManager.setBackgroundBetweenScanPeriod(60000l);
+       // Log.d(TAG, "setting up background monitoring for beacons and power saving");
         // wake up the app when a beacon is seen
         Region region = new Region("backgroundRegion",
                 null, null, null);
@@ -70,12 +70,12 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
 
             // The very first time since boot that we detect an beacon, we launch the
             // MainActivity
-            Intent intent = new Intent(this, MainPage.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //    Intent intent = new Intent(this, MainPage.class);
+        //    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             // Important:  make sure to add android:launchMode="singleInstance" in the manifest
             // to keep multiple copies of this activity from getting created if the user has
             // already manually launched the app.
-            this.startActivity(intent);
+         //   this.startActivity(intent);
             haveDetectedBeaconsSinceBoot = true;
         } else {
             if (monitoringActivity != null) {
