@@ -8,4 +8,5 @@
     <item name="light_grey" type="color">#dfdfdf</item>
     <item name="test2" type="color">#272727</item>
     <item name="shadow_color" type="color">#e0e0d1</item>
+    <item name="transparent_black" type="color">#80000000</item>
 </resources>

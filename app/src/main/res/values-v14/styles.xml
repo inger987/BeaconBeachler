@@ -4,6 +4,11 @@
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- API 14++ -->
         <item name="android:windowBackground">@color/light_grey</item>
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <!--For compatibility-->
+        <item name="actionBarStyle">@style/MyActionBar</item>
+        <item name="windowActionBarOverlay">true</item>
     </style>
 
     <style name="btnNext">

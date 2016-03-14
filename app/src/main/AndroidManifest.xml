@@ -31,7 +31,9 @@
             android:theme="@style/AppTheme.ActionBar">
         </activity>
 
-        <activity android:name=".WritingPage" />
+        <activity
+            android:name=".WritingPage"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".CameraPage"
             android:label="@string/title_activity_camera"
