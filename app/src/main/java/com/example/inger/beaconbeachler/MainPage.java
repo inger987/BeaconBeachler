@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import org.altbeacon.beacon.BeaconManager;
 
-public class MainPage extends Activity implements View.OnClickListener {
+public class MainPage extends AppCompatActivity implements View.OnClickListener {
 
 
     /**

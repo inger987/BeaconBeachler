@@ -13,6 +13,7 @@
         <item>Brødtekst</item>
         <item>Slutten</item>
     </string-array>
+
     <string name="title_activity_camera">Camera</string>
     <string name="title_activity_lyd_activity">Lyd</string>
     <string name="title_activity_beacon_page">BeaconPage</string>

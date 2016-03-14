@@ -6,6 +6,7 @@
     </style>
 
     <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:windowActionBar">true</item>
 
     </style>
 

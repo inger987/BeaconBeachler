@@ -46,6 +46,7 @@
         android:layout_height="wrap_content"
         android:text="Lagre"
         android:id="@+id/btnSave"
+        android:background="@drawable/edgebuttons"
         style="@style/btnNext"/>
 
 </LinearLayout>

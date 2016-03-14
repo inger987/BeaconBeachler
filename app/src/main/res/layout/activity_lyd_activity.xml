@@ -14,14 +14,6 @@
     android:orientation="vertical"
     tools:context="com.example.inger.beaconbeachler.Lyd_activity" >
 
-    <TextView
-        android:id="@+id/recordingPoint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Recording Point: -"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/Lagre"/>
-
     <ImageView
         android:id="@+id/micImage"
         android:layout_width="200dp"
@@ -36,15 +28,8 @@
         android:text="Lagre"
         android:id="@+id/Lagre"
         android:layout_below="@+id/play"
+        android:background="@drawable/edgebuttons"
         android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/txtUploadprogress"
-        android:layout_below="@+id/recordingPoint"
-        android:layout_alignEnd="@+id/Lagre" />
 
     <Button
         android:id="@+id/stopPlay"
@@ -95,31 +80,6 @@
         android:id="@+id/txtUsername"
         android:layout_alignTop="@+id/micImage"
         android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textView5"
-        android:layout_below="@+id/recordingPoint"
-        android:layout_toEndOf="@+id/txtUsername"
-        android:layout_marginTop="76dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textView6"
-        android:layout_below="@+id/textView5"
-        android:layout_alignEnd="@+id/stop" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="slett"
-        android:id="@+id/slett"
-        android:layout_alignBottom="@+id/Lagre"
-        android:layout_alignStart="@+id/start" />
 
 
 </RelativeLayout>

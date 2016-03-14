@@ -25,7 +25,6 @@ import android.widget.Toast;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Environment;
-import com.android.volley.RequestQueue;
 import static android.media.MediaRecorder.AudioSource.*;
 
 public class Lyd extends Activity {
@@ -62,15 +61,6 @@ public class Lyd extends Activity {
         final String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
         txtUsername = (TextView) findViewById(R.id.txtUsername);
         txtUsername.setText("Current User: " + username);
-
-        textView6 = (TextView) findViewById(R.id.textView6);
-
-        // Show current recording point
-        recordingPoint = (TextView) findViewById(R.id.recordingPoint);
-        recordingPoint = (TextView) findViewById(R.id.recordingPoint);
-
-        // Shows current uploading point
-        txtUploadprogress = (TextView) findViewById(R.id.txtUploadprogress);
 
 
         startBtn = (Button) findViewById(R.id.start);
@@ -139,13 +129,6 @@ public class Lyd extends Activity {
         outputfile = Environment.getExternalStorageDirectory().
                 getAbsolutePath() + File.separator +System.currentTimeMillis() + ".mp3";
 
-        //Shows fileName --> for testing purpose
-        String fileName = new File(outputfile).getName();
-        txtUploadprogress.setText(fileName);
-
-
-        recordingPoint = (TextView) findViewById(R.id.recordingPoint);
-        recordingPoint.setText(": Tar opp lyd");
 
         // Everytime start is click; intiate myRecorder
         myRecorder = new MediaRecorder();
