@@ -6,10 +6,17 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:text="@string/description_sound"
+        android:id="@+id/description" />
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:layout_marginTop="40dp"
     android:gravity="fill"
     android:orientation="vertical"
     tools:context="com.example.inger.beaconbeachler.Lyd_activity" >
@@ -21,10 +28,10 @@
         android:src="@mipmap/lydimage"
         android:layout_centerHorizontal="true" />
 
-
     <Button
-        android:layout_width="70dp"
+        android:layout_width="90dp"
         android:layout_height="40dp"
+        android:layout_marginTop="20dp"
         android:text="Lagre"
         android:id="@+id/Lagre"
         android:layout_below="@+id/play"

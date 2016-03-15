@@ -38,13 +38,11 @@ public class Lyd extends Activity {
     private Button stopPlayBtn;
     public Button lagre;
 
-    private TextView recordingPoint;
-    public TextView txtUploadprogress;
     public TextView txtUsername;
-    public TextView textView6;
 
     public String outputfile = null;
-    private String UPLOAD_URL = "https://home.hbv.no/110030/lyd/uploadToServer.php";
+   // private String UPLOAD_URL = "https://home.hbv.no/110030/lyd/uploadToServer.php";
+    private String UPLOAD_URL ="https://home.hbv.no/110115/bac/uploadToServer.php";
     private String UPLOAD_KEY = "audio";
     private String KEY_USERID = "userId";
     private String FILNAVN = "filnavn";
@@ -175,7 +173,6 @@ public class Lyd extends Activity {
             // startBtn.setVisibility(View.VISIBLE);
             //stopBtn.setVisibility(View.GONE);
 
-            recordingPoint.setText(": Recording stopped");
 
             Toast.makeText(getApplicationContext(), "Stop recording...",
                     Toast.LENGTH_SHORT).show();
@@ -201,7 +198,6 @@ public class Lyd extends Activity {
             playBtn.setEnabled(false);
             stopPlayBtn.setEnabled(true);
 
-            recordingPoint.setText("Recording Point: Playing");
 
             Toast.makeText(getApplicationContext(), "Start play the recording...",
                     Toast.LENGTH_SHORT).show();
@@ -224,7 +220,6 @@ public class Lyd extends Activity {
                 stopPlayBtn.setEnabled(false);
                 startBtn.setEnabled(true);
 
-                recordingPoint.setText("Recording Point: Stop playing");
 
                 Toast.makeText(getApplicationContext(), "Stop playing the recording...",
                         Toast.LENGTH_SHORT).show();

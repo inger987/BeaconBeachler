@@ -1,14 +1,38 @@
 <resources>
-    <string name="app_name">BeaconBeachler</string>
+   <string name="app_name">BeaconBeachler</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">logg ut</string>
     <string name="button">Aa</string>
     <string name="title">Write you ideas</string>
+
+    <string name="navigation_icon_description">Navigering</string>
+
+ <!-- Beskrivelse av aktiviteten -->
+ <string name="description_text">
+  Her kan du skrive om tingene du ser museet eller andre notater om besøket
+ </string>
+ <string name="description_sound">
+  Her kan ta opp lyd fra ulike attraksjoner, eller spille inn notater/kommentarer
+ </string>
+ <string name="description_camera">
+  Her kan du ta bilde av det du opplever på museet/attraksjonen
+ </string>
+ <string name="description_beacon">
+  Her kan du søke etter "beacons" som gir deg informasjon om noe i nærheten
+ </string>
+
+    <!-- Menu items -->
+    <string name="action_settings">logg ut</string>
+    <string name="action_profil">Min side</string>
+    <string name="action_sound">Lyd opptak</string>
+    <string name="action_camera">Ta bilde</string>
+    <string name="action_text">Skriv tekst</string>
+    <string name="action_beacon">Søk etter beacon</string>
 
     <string name="text_prompt">Choose a place to store</string>
 
     <string-array name="text_array">
+        <item>Velg plassering</item>
         <item>Forside</item>
         <item>Brødtekst</item>
         <item>Slutten</item>

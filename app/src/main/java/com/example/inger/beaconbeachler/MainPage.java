@@ -9,10 +9,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -59,7 +61,16 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
         //Showing the current logged in username to textview
         tvUsername.setText("Current User: " + username);
 
-
+        //Toolbar
+        /*
+        android.support.v7.widget.Toolbar actionBarToolBar = (android.support.v7.widget.Toolbar)
+                findViewById(R.id.my_action_bar_toolbar);
+        setSupportActionBar(actionBarToolBar);
+        actionBarToolBar.setNavigationIcon(R.mipmap.mainsou);
+        actionBarToolBar.setNavigationIcon(R.mipmap.maincam);
+        actionBarToolBar.setNavigationContentDescription(getResources().getString(R.string.navigation_icon_description));
+        actionBarToolBar.setLogo(R.mipmap.ic_launcher);
+        */
 
     }
 
@@ -175,6 +186,16 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
 
     }
 
+    private void showprofil() {
+        //linked to webside /profil
+
+        String url = "https://home.hbv.no/110118/bachelor/homepage/mainPage.php#";
+
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -195,8 +216,31 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
             logout();
         }
 
+        if (id == R.id.action_favorite) {
+            //se din profil / endre profil
+            showprofil();
+        }
+
+        if (id == R.id.action_sound){
+            startActivity(new Intent(MainPage.this, Lyd.class));
+        }
+
+        if (id== R.id.action_camera){
+            startActivity(new Intent(MainPage.this, CameraPage.class));
+        }
+
+        if (id==R.id.action_text){
+            startActivity(new Intent(MainPage.this, WritingPage.class));
+        }
+
+        if(id==R.id.action_beacon){
+            startActivity(new Intent(MainPage.this, BeaconPage.class));
+        }
+
         return super.onOptionsItemSelected(item);
     }
+
+
 
     @Override
     public void onStart() {

@@ -6,6 +6,7 @@
     <item name="white" type="color">#ffff</item>
     <item name="text_color" type="color">#000000</item>
     <item name="light_grey" type="color">#dfdfdf</item>
+    <item name="middle_grey" type="color">#c9c9c9</item>
     <item name="test2" type="color">#272727</item>
     <item name="shadow_color" type="color">#e0e0d1</item>
     <item name="transparent_black" type="color">#80000000</item>
