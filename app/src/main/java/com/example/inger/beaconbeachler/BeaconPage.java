@@ -109,8 +109,8 @@ public class BeaconPage extends Activity implements BeaconConsumer{
              @Override
             public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
                 for (Beacon beacon : beacons) {
-                    if (beacon.getDistance() < 0.5) {
-                        Log.d(TAG, "Det er er beacon en halv meter unna");
+                    if (beacon.getDistance() < 1.5) {
+                        Log.d(TAG, "Det er er beacon en halvannen meter unna");
                         try {
                             beaconManager.stopRangingBeaconsInRegion(region1);
                             beaconManager.stopRangingBeaconsInRegion(region2);
