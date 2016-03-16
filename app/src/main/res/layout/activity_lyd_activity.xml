@@ -80,13 +80,14 @@
         android:layout_below="@+id/micImage"
         android:layout_alignStart="@+id/micImage" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/txtUsername"
-        android:layout_alignTop="@+id/micImage"
-        android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtUsername"
+            android:layout_marginBottom="4dp"
+            android:layout_above="@+id/micImage"
+            android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

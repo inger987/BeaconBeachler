@@ -52,7 +52,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
         String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
 
         //Showing the current logged in username to textview
-        tvUsername.setText("Current User: " + username);
+        tvUsername.setText("Velkommen, " + username+"!");
 
     }
 
