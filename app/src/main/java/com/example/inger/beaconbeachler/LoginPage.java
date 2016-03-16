@@ -221,7 +221,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
                     @Override
                     public void onResponse(String response) {
                       //  Toast.makeText(LoginPage.this,response,Toast.LENGTH_LONG).show();
-                        if (response.trim().equalsIgnoreCase(Config.LOGIN_SUCCESS)) {
+                       // if (response.trim().equalsIgnoreCase(Config.LOGIN_SUCCESS)) {
                             SharedPreferences sharedPreferences = LoginPage.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
                             //Creating editor to store values to shared preferences
@@ -236,7 +236,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
                             Intent intent = new Intent(LoginPage.this, MainPage.class);
                             startActivity(intent);
                         }
-                    }
+               //    }
 
                 },
                 new Response.ErrorListener() {
