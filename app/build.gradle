@@ -4,6 +4,10 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.0"
 
+    repositories {
+        mavenCentral()
+    }
+
     defaultConfig {
         applicationId "com.example.inger.beaconbeachler"
         minSdkVersion 18
@@ -19,6 +23,7 @@ android {
     }
 }
 
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.1.1'
@@ -32,6 +37,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:design:23.0.0'
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
+
+    compile 'com.facebook.android:facebook-android-sdk:4.10.0'//Facebook
 }
 dependencies {
     compile 'org.altbeacon:android-beacon-library:2+'
