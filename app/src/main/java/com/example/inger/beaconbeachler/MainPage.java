@@ -1,35 +1,21 @@
 package com.example.inger.beaconbeachler;
 
-import android.Manifest;
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.altbeacon.beacon.BeaconManager;
-
-import java.lang.reflect.Method;
 
 public class MainPage extends AppCompatActivity implements View.OnClickListener {
 
@@ -161,6 +147,8 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
 
                         //Saving the sharedpreferences
                         editor.commit();
+
+
 
                         //Starting login activity
                         Intent intent = new Intent(MainPage.this, LoginPage.class);
