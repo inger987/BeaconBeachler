@@ -18,10 +18,12 @@
 
 <!--android:label="@string/app_name"-->
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:name="BeaconReferenceApplication"
         android:theme="@style/AppTheme">
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 
         <activity
             android:name=".MainPage"
@@ -29,6 +31,12 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.ActionBar">
         </activity>
+
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:label="@string/app_name" />
 
         <activity
             android:name=".WritingPage"
@@ -47,7 +55,9 @@
 
 
         <activity android:name=".EggAndBeacon"
-            android:label="EggAndBeacon"></activity>
+            android:label="EggAndBeacon">
+
+        </activity>
         <activity
             android:name=".Lyd"
             android:label="@string/title_activity_lyd_activity"
