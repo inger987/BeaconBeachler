@@ -2,50 +2,48 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="60dp"
     android:orientation="vertical"
     android:weightSum="1">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="268dp"
         android:layout_height="wrap_content"
-        android:text="Velg plassering"
-        android:id="@+id/textView"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="5dp"
-        style="@style/textView"/>
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:spinnerMode="dropdown"
-        android:entries="@array/text_array"
-        android:prompt="@string/text_prompt"
-        android:layout_marginBottom="15dp"
-        style="@style/editText.spinner" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Skriv inn tekst her!"
-        android:id="@+id/textView2"
-        android:layout_marginBottom="15dp"
-        style="@style/textView"/>
+        android:text="@string/description_text"
+        android:id="@+id/description"
+        android:layout_weight="0.16" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
+        android:hint="Skriv inn tekst her"
+        android:gravity="top|left"
+        android:background="@drawable/border"
         android:ems="10"
         android:id="@+id/etText"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         style="@style/editText"
-        android:layout_weight="0.19" />
+        android:layout_weight="0.45" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="20dp"
         android:text="Lagre"
         android:id="@+id/btnSave"
-        style="@style/btnNext"/>
+        android:background="@drawable/edgebuttons"
+        style="@style/btnNext"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edgebuttons"
+        android:text="Tøm tekstfelt"
+        android:id="@+id/emtyetText"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

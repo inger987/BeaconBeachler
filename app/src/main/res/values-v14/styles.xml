@@ -3,23 +3,30 @@
     <!-- Base application theme. -->
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- API 14++ -->
-        <item name="android:windowBackground">@color/test</item>
-
+        <item name="android:windowBackground">@color/light_grey</item>
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <!--For compatibility-->
+        <item name="actionBarStyle">@style/MyActionBar</item>
+        <item name="windowActionBarOverlay">true</item>
     </style>
 
     <style name="btnNext">
         <item name="android:background">@color/dark_actionBar</item>
         <item name="android:textColor">@color/text_color</item>
     </style>
+
     <style name="editText">
         <item name="android:background">@color/white</item>
         <item name="android:textColor">@color/dark_actionBar</item>
     </style>
-    <style name="editText.spinner">
 
+    <style name="editText.spinner">
     </style>
+
     <style name="textView">
         <item name="android:textColor">@color/text_color</item>
+        <item name="android:shadowColor">@color/shadow_color</item>
     </style>
 
     <!-- Style main page -->
@@ -30,6 +37,11 @@
     <style name="btnText">
     </style>
     <style name="btnBeacon">
+    </style>
+
+    <!-- Style lyd page -->
+    <style name="Lagre">
+        <item name="android:background">@color/dark_actionBar</item>
     </style>
 
 </resources>

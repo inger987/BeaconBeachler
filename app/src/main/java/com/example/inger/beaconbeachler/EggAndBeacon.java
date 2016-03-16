@@ -16,14 +16,22 @@ public class EggAndBeacon extends Activity {
         String uuid = extras.getString("uuid");
         String id1 = extras.getString("major");
         String id2 = extras.getString("minor");
+        String ds = extras.getString("distance");
         TextView view = (TextView) findViewById(R.id.tekst);
-        view.setText(uuid +"\n+"+ id1+"\n"+id2);
+
         ImageView imageView = (ImageView)findViewById(R.id.bilde);
         if (id2.equals("1")) {
             imageView.setImageResource(R.drawable.eggogbeacon);
+            view.setText(uuid + "\n+" + id1 + "\n" + id2 + "\n" + "\n" + ds +"\n" +
+                    "Egg og beacon inneholder mange viktige næringsstoffer, og anbefales av LHL som en sunn frokost");
         }
         else if (id2.equals("2")) {
             imageView.setImageResource(R.drawable.miiko);
+            view.setText(uuid +"\n+"+ id1 +"\n"+ id2 +"\n"+ ds +"\n" +
+                    "Fakta om kuer: "+"\n" +"\n"+
+                    "-Kuer sier mø"+"\n"+
+                    "-Kuer spiser grass" +"\n"+
+                    "-Kuer blir til hamburgere når de dør");
         }
 
 

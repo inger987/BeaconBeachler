@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">BeaconBeachler</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="button">Aa</string>
+    <string name="title">Write you ideas</string>
+
+    <!-- Menu items -->
+    <string name="action_settings">logga uta</string>
+    <string name="action_profil">My profile</string>
+
+    <string name="text_prompt">Choose a place to store</string>
+
+    <string-array name="text_array">
+        <item>Velg plassering</item>
+        <item>Forside</item>
+        <item>Brødtekst</item>
+        <item>Slutten</item>
+    </string-array>
+
+    <string name="title_activity_camera">Camera</string>
+    <string name="title_activity_lyd_activity">Sound</string>
+    <string name="title_activity_beacon_page">BeaconPage</string>
+    <string name="title_activity_login_page">LoginPage</string>
+    <string name="title_activity_regsiter_page">RegsiterPage</string>
+    <string name="ta_bilde">Take picture</string>
+    <string name="bilde">Picture</string>
+    <string name="beacon">Beacon</string>
+    <string name="sound">sound</string>
+</resources>

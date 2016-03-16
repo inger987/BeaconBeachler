@@ -10,7 +10,6 @@
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.BLUETOOTH"/>
@@ -23,7 +22,6 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
         <activity
             android:name=".MainPage"
             android:label="@string/app_name">
@@ -34,24 +32,17 @@
             android:name=".CameraPage"
             android:label="@string/title_activity_camera"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".BeaconPage"
             android:label="@string/title_activity_beacon_page"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
         <activity android:name=".EggAndBeacon"
-            android:label="EggAndBeacon">
-
-        </activity>
-
+            android:label="EggAndBeacon"></activity>
         <activity
             android:name=".Lyd"
             android:label="@string/title_activity_lyd_activity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".LoginPage"
             android:label="@string/title_activity_login_page">
@@ -64,14 +55,7 @@
         <activity
             android:name=".RegsiterPage"
             android:label="@string/title_activity_regsiter_page"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:label="@string/app_name" />
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <provider
 
             android:name=".MyFileContentProvider"

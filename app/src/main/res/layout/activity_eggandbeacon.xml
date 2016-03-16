@@ -8,16 +8,19 @@
         android:id="@+id/beacon"
         android:text="Egg and Beacon"
         android:textSize="50sp"/>
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="120dp"
+        android:id="@+id/bilde"/>
 <TextView
     android:layout_width="fill_parent"
     android:text="fdfdf"
-    android:layout_marginTop="150dp"
-    android:layout_height="100dp"
+    android:layout_marginTop="300dp"
+    android:layout_height="400dp"
     android:textSize="25sp"
-    android:id="@+id/tekst"/>
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="250dp"
-        android:layout_marginTop="250dp"
-        android:id="@+id/bilde"/>
+    android:id="@+id/tekst"
+    android:scrollbars="vertical"
+    android:scrollbarStyle="insideInset"/>
+
 </RelativeLayout>

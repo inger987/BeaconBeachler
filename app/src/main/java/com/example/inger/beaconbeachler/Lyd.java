@@ -1,8 +1,9 @@
 package com.example.inger.beaconbeachler;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,14 +13,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.provider.OpenableColumns;
-import android.util.Log;
+import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -29,30 +25,27 @@ import android.widget.Toast;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Environment;
-
 import static android.media.MediaRecorder.AudioSource.*;
 
 public class Lyd extends Activity {
 
     private MediaRecorder myRecorder;
     private MediaPlayer myPlayer;
-    String myFileName = "";
+
     private Button startBtn;
     private Button stopBtn;
     private Button playBtn;
     private Button stopPlayBtn;
     public Button lagre;
-    private TextView recordingPoint;
-    public TextView txtUploadprogress;
+
     public TextView txtUsername;
 
-    String UploadServerUri = null;
-
-    private String UPLOAD_URL = "https://home.hbv.no/110030/lyd/uploadToServer.php";
+    public String outputfile = null;
+   // private String UPLOAD_URL = "https://home.hbv.no/110030/lyd/uploadToServer.php";
+    private String UPLOAD_URL ="https://home.hbv.no/110115/bac/uploadToServer.php";
     private String UPLOAD_KEY = "audio";
     private String KEY_USERID = "userId";
     private String FILNAVN = "filnavn";
-    private String AUDIO_RECORDER_FOLDER = "/BeaconBeachler/";
 
 
     @Override
@@ -67,18 +60,6 @@ public class Lyd extends Activity {
         txtUsername = (TextView) findViewById(R.id.txtUsername);
         txtUsername.setText("Current User: " + username);
 
-        // Show current recording point
-        recordingPoint = (TextView) findViewById(R.id.recordingPoint);
-        recordingPoint = (TextView) findViewById(R.id.recordingPoint);
-
-        // Shows current uploading point
-        txtUploadprogress = (TextView) findViewById(R.id.txtUploadprogress);
-       // txtUploadprogress.setText("Uploading file path :- '\"/storage/emulated/0/\"" + uploadFileName + "'");
-
-        // Store file on SD card
-        /* = Environment.getExternalStorageDirectory().
-                getAbsolutePath() + "/storage/emulated/0/";*/
-
 
         startBtn = (Button) findViewById(R.id.start);
         startBtn.setOnClickListener(new OnClickListener() {
@@ -86,8 +67,8 @@ public class Lyd extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-              //  startBtn.setVisibility(View.GONE);
-              //  stopBtn.setVisibility(View.VISIBLE);
+                //  startBtn.setVisibility(View.GONE);
+                //  stopBtn.setVisibility(View.VISIBLE);
                 start(v);
             }
         });
@@ -135,26 +116,24 @@ public class Lyd extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                uploadFile(myFileName);
+
             }
         });
 
-        // Php script path
-        UploadServerUri = "https://home.hbv.no/110030/lyd/UploadToServer.php";
     }
 
     public void start(View view) {
-        myFileName = getFilename();
 
-        recordingPoint = (TextView) findViewById(R.id.recordingPoint);
-        recordingPoint.setText(": Tar opp lyd");
+        outputfile = Environment.getExternalStorageDirectory().
+                getAbsolutePath() + File.separator +System.currentTimeMillis() + ".mp3";
+
 
         // Everytime start is click; intiate myRecorder
         myRecorder = new MediaRecorder();
         myRecorder.setAudioSource(MIC);
-        myRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        myRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-        myRecorder.setOutputFile(myFileName);
+        myRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+        myRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+        myRecorder.setOutputFile(outputfile);
 
 
         try {
@@ -178,6 +157,7 @@ public class Lyd extends Activity {
 
         Toast.makeText(getApplicationContext(), "Start recording...",
                 Toast.LENGTH_SHORT).show();
+
     }
 
     public void stop(View view) {
@@ -190,10 +170,9 @@ public class Lyd extends Activity {
             startBtn.setEnabled(true);
             playBtn.setEnabled(true);
 
-           // startBtn.setVisibility(View.VISIBLE);
+            // startBtn.setVisibility(View.VISIBLE);
             //stopBtn.setVisibility(View.GONE);
 
-            recordingPoint.setText(": Recording stopped");
 
             Toast.makeText(getApplicationContext(), "Stop recording...",
                     Toast.LENGTH_SHORT).show();
@@ -212,14 +191,13 @@ public class Lyd extends Activity {
     public void play(View view) {
         try {
             myPlayer = new MediaPlayer();
-            myPlayer.setDataSource(myFileName);
+            myPlayer.setDataSource(outputfile);
             myPlayer.prepare();
             myPlayer.start();
 
             playBtn.setEnabled(false);
             stopPlayBtn.setEnabled(true);
 
-            recordingPoint.setText("Recording Point: Playing");
 
             Toast.makeText(getApplicationContext(), "Start play the recording...",
                     Toast.LENGTH_SHORT).show();
@@ -242,15 +220,13 @@ public class Lyd extends Activity {
                 stopPlayBtn.setEnabled(false);
                 startBtn.setEnabled(true);
 
-                recordingPoint.setText("Recording Point: Stop playing");
 
                 Toast.makeText(getApplicationContext(), "Stop playing the recording...",
                         Toast.LENGTH_SHORT).show();
 
                 myPlayer = null;
 
-               uploadFile(myFileName);
-
+                uploadFile1();
             }
 
         } catch (Exception e) {
@@ -260,69 +236,75 @@ public class Lyd extends Activity {
 
     }
 
-// Called on start recording
-    public String getFilename() {
-        String filepath = Environment.getExternalStorageDirectory().getPath();
-        File file = new File(filepath, AUDIO_RECORDER_FOLDER);
-
-        SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MMM-yyyy hh-mm-ss");
-        String currentDateandTime = sdfDate.format(new Date());
-
-        if (!file.exists()) {
-            file.mkdirs();
+    public String getStringAudio() {
+        String outputFile = outputfile;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(new File(outputFile));
+            byte[] buf = new byte[1024];
+            int n;
+            while ((n = fis.read(buf)) != -1) {
+                bos.write(buf, 0, n);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return (file.getAbsolutePath() + currentDateandTime + ".3gp");
+
+
+        String base64EncodedString = Base64.encodeToString(bos.toByteArray(), Base64.DEFAULT);
+
+        return base64EncodedString;
     }
 
-    public void uploadFile(final String myFileName){
+    public void uploadFile1() {
 
-        class uploadFile extends AsyncTask<Bitmap,Void,String>{
+        class uploadFile1 extends AsyncTask<String, Void, String> {
 
             ProgressDialog loading;
             RequestHandler rh = new RequestHandler();
 
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-              loading = ProgressDialog.show(Lyd.this, "Uploading...", null,true,true);
+                loading = ProgressDialog.show(Lyd.this, "Uploading...", null, true, true);
             }
 
             @Override
             protected void onPostExecute(String s) {
                 super.onPostExecute(s);
-               loading.dismiss();
-                Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
             }
 
             @Override
-            protected String doInBackground(Bitmap... params) {
-
-                //SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
-                //final String format = simpleDateFormat.format(new Date());
+            protected String doInBackground(String... params) {
 
                 SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
                 final String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
-                final String myFileName = getFilename();
-               // final String uploadfile = myFileName;
-               SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MMM-yyyy-hh-mm-ss");
-                final String currentDateandTime = sdfDate.format(new Date());
 
-                HashMap<String, String> data = new HashMap<String, String>()
-                {{
-                    put(UPLOAD_KEY, myFileName);
+                SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MMM-yyyy-hh-mm-ss");
+                final String currentDateandTime = sdfDate.format(new Date());
+                final String uploadfile = getStringAudio();
+
+                HashMap<String, String> data = new HashMap<String, String>() {{
+                    put(UPLOAD_KEY, uploadfile);
                     put(FILNAVN, currentDateandTime);
                     put(KEY_USERID, username);
 
 
                 }};
 
-                String result = rh.sendPostRequest(UPLOAD_URL,data);
+                String result = rh.sendPostRequest(UPLOAD_URL, data);
 
                 return result;
             }
         }
 
-        uploadFile ui = new uploadFile();
+        uploadFile1 ui = new uploadFile1();
         ui.execute();
     }
 }
