@@ -65,7 +65,7 @@ public class Lyd extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         final String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
         txtUsername = (TextView) findViewById(R.id.txtUsername);
-        txtUsername.setText("Current User: " + username);
+        txtUsername.setText("Velkommen," + username+"!");
 
 
         startBtn = (Button) findViewById(R.id.start);
