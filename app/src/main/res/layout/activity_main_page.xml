@@ -1,12 +1,14 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:id="@+id/relativeLayout1" android:layout_height="fill_parent">
+
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:id="@+id/relativeLayout1" android:layout_height="fill_parent">
 <!--
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_action_bar_toolbar"
@@ -31,45 +33,57 @@
 
 
     <ImageButton
-        android:layout_height="100dp"
-        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_width="150dp"
         android:text="Aa"
         android:id="@+id/btnText"
-        android:src="@mipmap/maintekst"
+        android:src="@mipmap/aa"
         android:scaleType="fitCenter"
         style="?android:attr/borderlessButtonStyle"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="0.42" />
+        android:layout_weight="0.42"
+        android:layout_above="@+id/btnBeacon"
+        android:layout_toStartOf="@+id/btnCamera"
+        android:layout_marginBottom="43dp" />
 
     <ImageButton
-        android:layout_height="100dp"
-        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_width="150dp"
         android:id="@+id/btnSound"
-        android:src="@mipmap/mainsou"
+        android:src="@mipmap/sound"
         android:scaleType="fitCenter"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="34dp"
+        android:layout_alignTop="@+id/btnBeacon"
+        android:layout_alignParentEnd="true" />
 
     <ImageButton
-        android:layout_height="100dp"
-        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_width="150dp"
         style="?android:attr/borderlessButtonStyle"
-        android:src="@mipmap/beaconicon"
+        android:src="@mipmap/beacon"
         android:scaleType="fitCenter"
         android:id="@+id/btnBeacon"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/btnSound"
+        android:layout_marginBottom="124dp" />
 
     <ImageButton
-        android:layout_height="100dp"
-        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_width="150dp"
         android:text="@string/ta_bilde"
         android:id="@+id/btnCamera"
         android:scaleType="fitCenter"
-        android:src="@mipmap/maincam"
+        android:src="@mipmap/camera"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_alignTop="@+id/btnText"
+        android:layout_toEndOf="@+id/btnBeacon" />
 
+    </RelativeLayout>
 </LinearLayout>
- </RelativeLayout>
+
 
 

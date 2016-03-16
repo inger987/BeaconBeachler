@@ -26,21 +26,23 @@
         <activity
             android:name=".MainPage"
             android:launchMode="singleInstance"
-            android:label=""
+            android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.ActionBar">
         </activity>
 
         <activity
             android:name=".WritingPage"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.ActionBar"
+            android:label="@string/title_activity_writing_page"/>
+
         <activity
             android:name=".CameraPage"
             android:label="@string/title_activity_camera"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.ActionBar" />
         <activity
             android:name=".BeaconPage"
             android:label="@string/title_activity_beacon_page"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.ActionBar">
         </activity>
 
 
@@ -49,7 +51,7 @@
         <activity
             android:name=".Lyd"
             android:label="@string/title_activity_lyd_activity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.ActionBar"></activity>
         <activity
             android:name=".LoginPage"
             android:label="@string/title_activity_login_page">
@@ -62,7 +64,7 @@
         <activity
             android:name=".RegsiterPage"
             android:label="@string/title_activity_regsiter_page"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.ActionBar"></activity>
         <provider
 
             android:name=".MyFileContentProvider"
