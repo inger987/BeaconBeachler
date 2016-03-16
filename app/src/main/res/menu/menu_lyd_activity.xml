@@ -1,7 +1,45 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.inger.beaconbeachler.Lyd_activity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools" tools:context=".Lyd">
+
+    <item
+        android:id="@+id/action_sound"
+        android:title="@string/action_sound"
+        android:icon="@mipmap/sound"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_favorite"
+        android:icon="@mipmap/profilicon"
+        android:title="@string/action_profil"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:showAsAction="always|withText"/>
+
+    <item
+        android:id="@+id/action_camera"
+        android:title="@string/action_camera"
+        android:icon="@mipmap/camera"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_text"
+        android:title="@string/action_text"
+        android:icon="@mipmap/aa"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_beacon"
+        android:title="@string/action_beacon"
+        android:icon="@mipmap/beacon"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
 </menu>

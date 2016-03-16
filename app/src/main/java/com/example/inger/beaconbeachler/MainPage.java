@@ -15,14 +15,21 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.altbeacon.beacon.BeaconManager;
+
+import java.lang.reflect.Method;
 
 public class MainPage extends AppCompatActivity implements View.OnClickListener {
 
@@ -60,17 +67,6 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
 
         //Showing the current logged in username to textview
         tvUsername.setText("Current User: " + username);
-
-        //Toolbar
-        /*
-        android.support.v7.widget.Toolbar actionBarToolBar = (android.support.v7.widget.Toolbar)
-                findViewById(R.id.my_action_bar_toolbar);
-        setSupportActionBar(actionBarToolBar);
-        actionBarToolBar.setNavigationIcon(R.mipmap.mainsou);
-        actionBarToolBar.setNavigationIcon(R.mipmap.maincam);
-        actionBarToolBar.setNavigationContentDescription(getResources().getString(R.string.navigation_icon_description));
-        actionBarToolBar.setLogo(R.mipmap.ic_launcher);
-        */
 
     }
 
@@ -200,6 +196,11 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main_page, menu);
+       /* --> Try to show icon in overflow       MenuItem item = menu.findItem(R.id.action_sound);
+        SpannableStringBuilder builder = new SpannableStringBuilder("sound.png Login");
+        // replace "*" with icon
+        builder.setSpan(new ImageSpan(this, R.mipmap.sound), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        item.setTitle(builder);*/
         return true;
     }
 

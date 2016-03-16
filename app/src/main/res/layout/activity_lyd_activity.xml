@@ -25,7 +25,7 @@
         android:id="@+id/micImage"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@mipmap/lydimage"
+        android:src="@mipmap/microphone"
         android:layout_centerHorizontal="true" />
 
     <Button

@@ -29,6 +29,7 @@
     <string name="action_camera">Ta bilde</string>
     <string name="action_text">Skriv tekst</string>
     <string name="action_beacon">Søk etter beacon</string>
+    <string name="overflow">meny</string>
 
     <string name="text_prompt">Choose a place to store</string>
 
@@ -39,9 +40,11 @@
         <item>Slutten</item>
     </string-array>
 
+    <string name="title_activity_main">BeaconBeachler</string>
     <string name="title_activity_camera">Camera</string>
     <string name="title_activity_lyd_activity">Lyd</string>
     <string name="title_activity_beacon_page">BeaconPage</string>
+    <string name="title_activity_writing_page">Tekst</string>
     <string name="title_activity_login_page">LoginPage</string>
     <string name="title_activity_regsiter_page">RegsiterPage</string>
     <string name="ta_bilde">Ta bilde</string>
