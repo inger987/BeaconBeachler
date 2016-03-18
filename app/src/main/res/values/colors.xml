@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- COLORS-->
+    <item name="header" type="color">#000000</item>
+    <item name="actionBar" type="color">#689a92</item>
+    <item name="textActionBar" type="color">#077348</item>
+    <item name="window_background" type="color">#689a92</item>
+    <item name="textPrimary" type="color">#ffff</item>
+    <item name="navbar" type="color">#000000</item>
+
+
+
+
+
     <item name="dark_grey" type="color">#FF3B3B3B</item>
     <item name="dark_actionBar" type="color">#689a92</item>
     <item name="white" type="color">#ffff</item>

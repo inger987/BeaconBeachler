@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -34,7 +35,8 @@ import java.util.Map;
 
 public class LoginPage extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btnLogin, btnNewUser;
+    private Button btnLogin;
+    private TextView textViewRegistrer;
     private EditText etUsername, etPassword;
     private LoginButton btnFacebook;
     private boolean loggedIn = false;
@@ -48,17 +50,19 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
-        setContentView(R.layout.activity_login_page);
         callbackManager = CallbackManager.Factory.create();
+        setContentView(R.layout.activity_login_page);
+
 
 
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
 
+        textViewRegistrer =(TextView)findViewById(R.id.textViewRegistrer);
+
         btnLogin = (Button) findViewById(R.id.btnLogin);
-        btnNewUser = (Button) findViewById(R.id.btnNewUser);
         btnLogin.setOnClickListener(this);
-        btnNewUser.setOnClickListener(this);
+        textViewRegistrer.setOnClickListener(this);
 
         btnFacebook = (LoginButton) findViewById(R.id.login_button);
         btnFacebook.setReadPermissions("public_profile");
@@ -123,7 +127,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
             case R.id.btnLogin:
                 login();
                 break;
-            case R.id.btnNewUser:
+            case R.id.textViewRegistrer:
                 startActivity(new Intent(LoginPage.this, RegsiterPage.class));
                 break;
 
@@ -221,7 +225,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
                     @Override
                     public void onResponse(String response) {
                       //  Toast.makeText(LoginPage.this,response,Toast.LENGTH_LONG).show();
-                       // if (response.trim().equalsIgnoreCase(Config.LOGIN_SUCCESS)) {
+                        if (response.trim().equalsIgnoreCase(Config.LOGIN_SUCCESS)) {
                             SharedPreferences sharedPreferences = LoginPage.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
                             //Creating editor to store values to shared preferences
@@ -236,7 +240,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
                             Intent intent = new Intent(LoginPage.this, MainPage.class);
                             startActivity(intent);
                         }
-               //    }
+                   }
 
                 },
                 new Response.ErrorListener() {

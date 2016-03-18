@@ -20,16 +20,15 @@
     <application
 
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/launcherlogo"
         android:name="BeaconReferenceApplication"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppBaseTheme" >
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 
         <activity
             android:name=".MainPage"
             android:launchMode="singleInstance"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.ActionBar">
+            android:label="@string/title_activity_main">
         </activity>
 
         <activity android:name="com.facebook.FacebookActivity"
@@ -40,17 +39,15 @@
 
         <activity
             android:name=".WritingPage"
-            android:theme="@style/AppTheme.ActionBar"
             android:label="@string/title_activity_writing_page"/>
 
         <activity
             android:name=".CameraPage"
             android:label="@string/title_activity_camera"
-            android:theme="@style/AppTheme.ActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".BeaconPage"
-            android:label="@string/title_activity_beacon_page"
-            android:theme="@style/AppTheme.ActionBar">
+            android:label="@string/title_activity_beacon_page">
         </activity>
 
 
@@ -60,10 +57,11 @@
         </activity>
         <activity
             android:name=".Lyd"
-            android:label="@string/title_activity_lyd_activity"
-            android:theme="@style/AppTheme.ActionBar"></activity>
+            android:label="@string/title_activity_lyd_activity">
+        </activity>
         <activity
             android:name=".LoginPage"
+            android:theme="@style/AppTheme"
             android:label="@string/title_activity_login_page">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -73,8 +71,10 @@
         </activity>
         <activity
             android:name=".RegsiterPage"
-            android:label="@string/title_activity_regsiter_page"
-            android:theme="@style/AppTheme.ActionBar"></activity>
+            android:theme="@style/AppTheme"
+            android:label="@string/title_activity_regsiter_page">
+
+        </activity>
         <provider
 
             android:name=".MyFileContentProvider"

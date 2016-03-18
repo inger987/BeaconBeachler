@@ -2,41 +2,53 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="60dp"
     android:orientation="vertical"
+    android:background="@drawable/greybackground"
     android:weightSum="1">
 
     <TextView
-        android:layout_width="268dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:textSize="30dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="WRITINGPAGE"
+        android:id="@+id/textView4"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="340dp"
+        android:layout_height="42dp"
+        android:ems="20"
+        android:padding="10dp"
         android:text="@string/description_text"
-        android:id="@+id/description"
-        android:layout_weight="0.16" />
+        android:id="@+id/description" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:hint="Skriv inn tekst her"
-        android:gravity="top|left"
+        android:gravity="center_horizontal"
+        android:minLines="6"
+        android:maxLines="6"
         android:background="@drawable/border"
         android:ems="10"
         android:id="@+id/etText"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        style="@style/editText"
-        android:layout_weight="0.45" />
+         />
 
     <Button
-        android:layout_width="90dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="20dp"
-        android:text="Lagre"
+        android:layout_width="270dp"
+        android:layout_height="50dp"
+        android:text="LAGRE"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="15dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/rounded_edges_button"
         android:id="@+id/btnSave"
-        android:background="@drawable/edgebuttons"
-        style="@style/btnNext"
-        android:layout_gravity="center_horizontal" />
+         />
 
     <Button
         android:layout_width="90dp"

@@ -2,16 +2,36 @@
 <resources>
     <!-- Base application theme. -->
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- API 14++ -->
-        <item name="android:windowBackground">@color/light_grey_background</item>
-        <item name="android:actionBarStyle">@style/MyActionBar</item>
-        <item name="android:windowActionBarOverlay">true</item>
-        <!--For compatibility-->
-        <item name="actionBarStyle">@style/MyActionBar</item>
-        <item name="windowActionBarOverlay">true</item>
+        <!-- API 14-19 -->
+        <!-- Main colors in application-->
+        <item name = "colorPrimaryDark">@color/header</item>
+        <item name="android:textColor">@color/white</item>
+      <!--  <item name = "">@color/textActionBar</item>
+        <item name = "">@color/textPrimary</item>
+        <item name = "android:background">@color/window_background</item>-->
+
+    </style>
+    <!-- inherit everything from AppBaseTheme, Here you are able to override eg, colors,background -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+
     </style>
 
-    <style name="btnNext">
+
+
+
+</resources>
+
+<!--
+<item name="android:actionBarStyle">@style/MyActionBar</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        For compatibility
+        <item name="actionBarStyle">@style/MyActionBar</item>
+        <item name="windowActionBarOverlay">true</item>
+
+        <style name="btnNext">
         <item name="android:background">@color/dark_actionBar</item>
         <item name="android:textColor">@color/text_color</item>
     </style>
@@ -29,7 +49,6 @@
         <item name="android:shadowColor">@color/shadow_color</item>
     </style>
 
-    <!-- Style main page -->
     <style name="btnCamera">
     </style>
     <style name="btnSound">
@@ -39,9 +58,13 @@
     <style name="btnBeacon">
     </style>
 
-    <!-- Style lyd page -->
+
     <style name="Lagre">
         <item name="android:background">@color/dark_actionBar</item>
     </style>
 
-</resources>
+
+    <style name="loginpage" parent="android:Theme.Holo.DialogWhenLarge.NoActionBar">
+        <item name="android:background">@drawable/testbak</item>
+    </style>
+-->

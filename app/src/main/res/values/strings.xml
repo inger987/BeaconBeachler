@@ -45,7 +45,7 @@
     <string name="title_activity_lyd_activity">Lyd</string>
     <string name="title_activity_beacon_page">BeaconPage</string>
     <string name="title_activity_writing_page">Tekst</string>
-    <string name="title_activity_login_page">LoginPage</string>
+    <string name="title_activity_login_page">MuseumScan</string>
     <string name="title_activity_regsiter_page">RegsiterPage</string>
     <string name="ta_bilde">Ta bilde</string>
     <string name="bilde">bilde</string>

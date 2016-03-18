@@ -1,26 +1,97 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.example.inger.beaconbeachler.RegsiterPage">
+    android:orientation="vertical"
+    tools:context="com.example.inger.beaconbeachler.RegsiterPage"
+    android:background="@drawable/greybackground">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="15dp"
+        android:text="NEW ACCOUNT"
+        android:id="@+id/textView2"
+        android:layout_gravity="center_horizontal" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    <EditText
+        android:layout_width="275dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:ems="10"
+        android:hint="Username"
+        android:background="@drawable/rounded_border_edittext"
+        android:drawableLeft="@drawable/usericon"
 
-    </android.support.design.widget.AppBarLayout>
+        android:id="@+id/editTextUsername">
+        <requestFocus/>
+    </EditText>
 
-    <include layout="@layout/content_regsiter_page" />
 
-</android.support.design.widget.CoordinatorLayout>
+    <EditText
+        android:layout_width="275dp"
+        android:layout_height="50dp"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:layout_marginBottom="15dp"
+        android:layout_gravity="center_horizontal"
+        android:hint="Password"
+        android:background="@drawable/rounded_border_edittext"
+        android:drawableLeft="@drawable/passwordicon"
+
+        android:id="@+id/editTextPassword">
+        <requestFocus/>
+    </EditText>
+
+
+    <EditText
+        android:layout_width="275dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="15dp"
+        android:ems="10"
+        android:hint="Firstname"
+        android:background="@drawable/rounded_border_edittext"
+        android:drawableLeft="@drawable/usericon"
+        android:id="@+id/editTextFirstName">
+        <requestFocus/>
+    </EditText>
+
+
+    <EditText
+        android:layout_width="275dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="15dp"
+        android:ems="10"
+        android:hint="Lastname"
+        android:background="@drawable/rounded_border_edittext"
+        android:drawableLeft="@drawable/usericon"
+        android:id="@+id/editTextLastName">
+        <requestFocus/>
+    </EditText>
+
+    <Button
+        android:layout_width="270dp"
+        android:layout_height="50dp"
+        android:text="REGISTRER"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="15dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/rounded_edges_button"
+        android:id="@+id/buttonRegister" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TILBAKE TIL INNLOGGING"
+        android:id="@+id/textView3"
+        android:layout_gravity="center_horizontal" />
+
+
+</LinearLayout>

@@ -4,25 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/greybackground"
     android:weightSum="1">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:id="@+id/relativeLayout1" android:layout_height="fill_parent">
-<!--
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_action_bar_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:minHeight="200dp" >
 
-    <imageView
-        android:id="@+id/sound"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/mainsou" />
-        </android.support.v7.widget.Toolbar>
--->
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,55 +23,55 @@
     <!-- btnCamera width =109 -->
 
 
-    <ImageButton
+    <Button
         android:layout_height="150dp"
         android:layout_width="150dp"
-        android:text="Aa"
-        android:id="@+id/btnText"
-        android:src="@mipmap/aa"
-        android:scaleType="fitCenter"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_gravity="center_horizontal"
+        android:background="@drawable/rounded_edges_button"
+        android:drawableTop="@mipmap/writeicon"
+        android:text="NOTATER"
+        android:paddingTop="45dp"
         android:layout_weight="0.42"
         android:layout_above="@+id/btnBeacon"
         android:layout_toStartOf="@+id/btnCamera"
-        android:layout_marginBottom="43dp" />
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="15dp"
+        android:id="@+id/btnText"/>
 
-    <ImageButton
+    <Button
         android:layout_height="150dp"
         android:layout_width="150dp"
-        android:id="@+id/btnSound"
-        android:src="@mipmap/sound"
-        android:scaleType="fitCenter"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_gravity="center_horizontal"
+        android:background="@drawable/rounded_edges_button"
+        android:drawableTop="@mipmap/soundicon"
+        android:text="LYDOPPTAK"
+        android:paddingTop="45dp"
         android:layout_marginEnd="34dp"
         android:layout_alignTop="@+id/btnBeacon"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:id="@+id/btnSound"/>
 
-    <ImageButton
+    <Button
         android:layout_height="150dp"
         android:layout_width="150dp"
-        style="?android:attr/borderlessButtonStyle"
-        android:src="@mipmap/beacon"
-        android:scaleType="fitCenter"
-        android:id="@+id/btnBeacon"
-        android:layout_gravity="center_horizontal"
+        android:background="@drawable/rounded_edges_button"
+        android:drawableTop="@mipmap/ibeaconicon"
+        android:text="BEACON"
+        android:paddingTop="45dp"
+        android:layout_marginRight="15dp"
         android:layout_alignParentBottom="true"
         android:layout_toStartOf="@+id/btnSound"
-        android:layout_marginBottom="124dp" />
+        android:layout_marginBottom="124dp"
+        android:id="@+id/btnBeacon"/>
 
-    <ImageButton
+    <Button
         android:layout_height="150dp"
         android:layout_width="150dp"
-        android:text="@string/ta_bilde"
-        android:id="@+id/btnCamera"
-        android:scaleType="fitCenter"
-        android:src="@mipmap/camera"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_gravity="center_horizontal"
+        android:background="@drawable/rounded_edges_button"
+        android:drawableTop="@mipmap/cameraicon"
+        android:text="TA BILDE"
+        android:paddingTop="45dp"
         android:layout_alignTop="@+id/btnText"
-        android:layout_toEndOf="@+id/btnBeacon" />
+        android:layout_toEndOf="@+id/btnBeacon"
+        android:id="@+id/btnCamera"/>
 
     </RelativeLayout>
 </LinearLayout>

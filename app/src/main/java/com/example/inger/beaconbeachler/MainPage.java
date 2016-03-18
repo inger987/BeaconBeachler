@@ -12,8 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.TextView;
+
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 
 import org.altbeacon.beacon.BeaconManager;
 
@@ -25,21 +28,22 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
 
-    ImageButton btnCamera;
-    ImageButton btnText;
-    ImageButton btnBeacon;
-    ImageButton btnSound;
+    Button btnCamera;
+    Button btnText;
+    Button btnBeacon;
+    Button btnSound;
     TextView tvUsername;
     BluetoothAdapter mBluetoothAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_main_page);
         verifyBluetooth();
-        btnText = (ImageButton)findViewById(R.id.btnText);
-        btnSound = (ImageButton)findViewById(R.id.btnSound);
-        btnBeacon = (ImageButton)findViewById(R.id.btnBeacon);
-        btnCamera = (ImageButton)findViewById(R.id.btnCamera);
+        btnText = (Button)findViewById(R.id.btnText);
+        btnSound = (Button)findViewById(R.id.btnSound);
+        btnBeacon = (Button)findViewById(R.id.btnBeacon);
+        btnCamera = (Button)findViewById(R.id.btnCamera);
         tvUsername = (TextView)findViewById(R.id.tvUsername);
 
         btnText.setOnClickListener(this);
@@ -148,7 +152,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
                         //Saving the sharedpreferences
                         editor.commit();
 
-
+                        LoginManager.getInstance().logOut();
 
                         //Starting login activity
                         Intent intent = new Intent(MainPage.this, LoginPage.class);
