@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -48,7 +47,6 @@ public class Lyd extends AppCompatActivity {
     public TextView txtUsername;
 
     public String outputfile = null;
-   // private String UPLOAD_URL = "https://home.hbv.no/110030/lyd/uploadToServer.php";
     private String UPLOAD_URL ="https://home.hbv.no/110115/bac/uploadToServer.php";
     private String UPLOAD_KEY = "audio";
     private String KEY_USERID = "userId";
@@ -262,7 +260,6 @@ public class Lyd extends AppCompatActivity {
 
 
         String base64EncodedString = Base64.encodeToString(bos.toByteArray(), Base64.DEFAULT);
-
         return base64EncodedString;
     }
 
@@ -372,11 +369,7 @@ public class Lyd extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main_page, menu);
-       /* --> Try to show icon in overflow       MenuItem item = menu.findItem(R.id.action_sound);
-        SpannableStringBuilder builder = new SpannableStringBuilder("sound.png Login");
-        // replace "*" with icon
-        builder.setSpan(new ImageSpan(this, R.mipmap.sound), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        item.setTitle(builder);*/
+
         return true;
     }
 
