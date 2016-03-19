@@ -233,7 +233,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
 
                             //Adding values to editor
                             editor.putBoolean(Config.LOGGEDIN_SHARED_PREF, true);
-                            editor.putString(Config.USERNAME_SHARED_PREF, config.firstName);
+                            editor.putString(Config.USERNAME_SHARED_PREF, config.facebookID);
 
                             //Saving values to editor
                             editor.commit();

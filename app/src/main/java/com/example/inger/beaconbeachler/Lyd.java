@@ -1,5 +1,27 @@
 package com.example.inger.beaconbeachler;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,42 +31,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import android.media.MediaPlayer;
-import android.media.MediaRecorder;
-import android.os.Environment;
-import static android.media.MediaRecorder.AudioSource.*;
-
-public class Lyd extends AppCompatActivity {
+public class Lyd extends AppCompatActivity implements View.OnClickListener {
 
     private MediaRecorder myRecorder;
     private MediaPlayer myPlayer;
 
-    private Button startBtn;
-    private Button stopBtn;
-    private Button playBtn;
-    private Button stopPlayBtn;
-    public Button lagre;
+    private Button btnStart, btnStop, btnPlay, btnStopPlay, btnLagre;
+    public TextView tvTimer;
 
-    public TextView txtUsername;
+    long startTime = 0;
 
     public String outputfile = null;
     private String UPLOAD_URL ="https://home.hbv.no/110115/bac/uploadToServer.php";
@@ -52,94 +47,89 @@ public class Lyd extends AppCompatActivity {
     private String KEY_USERID = "userId";
     private String FILNAVN = "filnavn";
 
-
+    Handler timerHandler = new Handler();
+    Runnable timerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            long millis = System.currentTimeMillis() - startTime;
+            int seconds = (int) (millis / 1000);
+            int minutes = seconds / 60;
+            seconds = seconds % 60;
+            tvTimer.setText(String.format("%2S:%02d:%02d","00", minutes,seconds));
+            timerHandler.postDelayed(this, 500);
+        }
+    };
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_lyd_activity);
 
-        // to determine the named of current logged in user
-        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        final String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
-        txtUsername = (TextView) findViewById(R.id.txtUsername);
-        txtUsername.setText("Velkommen," + username+"!");
+        tvTimer = (TextView)findViewById(R.id.tvTimer);
 
+        btnStart = (Button) findViewById(R.id.btnStart);
+        btnStop = (Button) findViewById(R.id.btnStop);
+        btnPlay = (Button) findViewById(R.id.btnPlay);
+        btnStopPlay = (Button) findViewById(R.id.btnStopPlay);
+        btnLagre = (Button) findViewById(R.id.btnLagre);
 
-        startBtn = (Button) findViewById(R.id.start);
-        startBtn.setOnClickListener(new OnClickListener() {
+        btnLagre.setEnabled(false);
+        btnPlay.setEnabled(false);
 
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                //  startBtn.setVisibility(View.GONE);
-                //  stopBtn.setVisibility(View.VISIBLE);
-                start(v);
-            }
-        });
-
-        stopBtn = (Button) findViewById(R.id.stop);
-        stopBtn.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                stop(v);
-                //stopBtn.setVisibility(View.GONE);
-                //playBtn.setVisibility(View.VISIBLE);
-            }
-        });
-
-
-        playBtn = (Button) findViewById(R.id.play);
-        playBtn.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                play(v);
-                //playBtn.setVisibility(View.GONE);
-                //stopBtn.setVisibility(View.VISIBLE);
-            }
-        });
-
-        stopPlayBtn = (Button) findViewById(R.id.stopPlay);
-        stopPlayBtn.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                stopPlay(v);
-                //stopBtn.setVisibility(View.GONE);
-                //startBtn.setVisibility(View.VISIBLE);
-            }
-        });
-
-        lagre = (Button) findViewById(R.id.Lagre);
-        lagre.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-
-            }
-        });
+        btnStart.setOnClickListener(this);
+        btnStop.setOnClickListener(this);
+        btnPlay.setOnClickListener(this);
+        btnStopPlay.setOnClickListener(this);
+        btnLagre.setOnClickListener(this);
 
     }
 
-    public void start(View view) {
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnStart:
+                startRecording(v);
+                btnStart.setVisibility(v.INVISIBLE);
+                btnStop.setVisibility(v.VISIBLE);
+                btnPlay.setEnabled(false);
 
+                startTime = System.currentTimeMillis();
+                timerHandler.postDelayed(timerRunnable, 0);
+                break;
+            case R.id.btnStop:
+                stopRecording(v);
+                btnStop.setVisibility(v.INVISIBLE);
+                btnStart.setVisibility(v.VISIBLE);
+                btnLagre.setEnabled(true);
+                btnPlay.setEnabled(true);
+
+                timerHandler.removeCallbacks(timerRunnable);
+                break;
+            case R.id.btnPlay:
+                startPlayback(v);
+                btnPlay.setVisibility(v.INVISIBLE);
+                btnStopPlay.setVisibility(v.VISIBLE);
+                break;
+            case R.id.btnStopPlay:
+                stopPlayback(v);
+                btnStopPlay.setVisibility(v.INVISIBLE);
+                btnPlay.setVisibility(v.VISIBLE);
+                break;
+            case R.id.btnLagre:
+                uploadFile1();
+                break;
+        }
+
+    }
+
+    public void startRecording(View v){
         outputfile = Environment.getExternalStorageDirectory().
                 getAbsolutePath() + File.separator +System.currentTimeMillis() + ".mp3";
 
-
-        // Everytime start is click; intiate myRecorder
         myRecorder = new MediaRecorder();
-        myRecorder.setAudioSource(MIC);
+        myRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         myRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         myRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
         myRecorder.setOutputFile(outputfile);
-
 
         try {
             myRecorder.prepare();
@@ -154,31 +144,13 @@ public class Lyd extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-        //startBtn.setEnabled(false);
-        stopBtn.setEnabled(true);
-        playBtn.setEnabled(false);
-        stopPlayBtn.setEnabled(false);
-
         Toast.makeText(getApplicationContext(), "Start recording...",
                 Toast.LENGTH_SHORT).show();
-
     }
 
-    public void stop(View view) {
+    public void stopRecording(View v){
         try {
             myRecorder.stop();
-            //  myRecorder.release();
-            //     myRecorder.reset();
-            //  myRecorder  = null;
-
-            startBtn.setEnabled(true);
-            playBtn.setEnabled(true);
-
-            // startBtn.setVisibility(View.VISIBLE);
-            //stopBtn.setVisibility(View.GONE);
-
-
             Toast.makeText(getApplicationContext(), "Stop recording...",
                     Toast.LENGTH_SHORT).show();
 
@@ -190,19 +162,14 @@ public class Lyd extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
     }
 
-    public void play(View view) {
+    public void startPlayback(View v){
         try {
             myPlayer = new MediaPlayer();
             myPlayer.setDataSource(outputfile);
             myPlayer.prepare();
             myPlayer.start();
-
-            playBtn.setEnabled(false);
-            stopPlayBtn.setEnabled(true);
-
 
             Toast.makeText(getApplicationContext(), "Start play the recording...",
                     Toast.LENGTH_SHORT).show();
@@ -210,28 +177,21 @@ public class Lyd extends AppCompatActivity {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
     }
 
-    public void stopPlay(View view) {
+    public void stopPlayback(View v){
         try {
             if (myPlayer != null) {
                 myPlayer.stop();
                 myPlayer.release();
                 myRecorder.reset();
-
                 myPlayer = null;
-
-                playBtn.setEnabled(true);
-                stopPlayBtn.setEnabled(false);
-                startBtn.setEnabled(true);
-
 
                 Toast.makeText(getApplicationContext(), "Stop playing the recording...",
                         Toast.LENGTH_SHORT).show();
 
                 myPlayer = null;
-
-                uploadFile1();
             }
 
         } catch (Exception e) {
@@ -298,8 +258,6 @@ public class Lyd extends AppCompatActivity {
                     put(UPLOAD_KEY, uploadfile);
                     put(FILNAVN, currentDateandTime);
                     put(KEY_USERID, username);
-
-
                 }};
 
                 String result = rh.sendPostRequest(UPLOAD_URL, data);
@@ -409,4 +367,6 @@ public class Lyd extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
