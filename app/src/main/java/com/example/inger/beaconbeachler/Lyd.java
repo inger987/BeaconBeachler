@@ -115,7 +115,7 @@ public class Lyd extends AppCompatActivity implements View.OnClickListener {
                 btnPlay.setVisibility(v.VISIBLE);
                 break;
             case R.id.btnLagre:
-                uploadFile1();
+                UploadFile();
                 break;
         }
 
@@ -218,14 +218,13 @@ public class Lyd extends AppCompatActivity implements View.OnClickListener {
             e.printStackTrace();
         }
 
-
         String base64EncodedString = Base64.encodeToString(bos.toByteArray(), Base64.DEFAULT);
         return base64EncodedString;
     }
 
-    public void uploadFile1() {
+    public void UploadFile() {
 
-        class uploadFile1 extends AsyncTask<String, Void, String> {
+        class uploadFile extends AsyncTask<String, Void, String> {
 
             ProgressDialog loading;
             RequestHandler rh = new RequestHandler();
@@ -266,7 +265,7 @@ public class Lyd extends AppCompatActivity implements View.OnClickListener {
             }
         }
 
-        uploadFile1 ui = new uploadFile1();
+        uploadFile ui = new uploadFile();
         ui.execute();
     }
     //Logout function

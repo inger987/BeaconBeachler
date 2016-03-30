@@ -20,7 +20,7 @@
 
     <TextView
         android:layout_width="340dp"
-        android:layout_height="42dp"
+        android:layout_height="wrap_content"
         android:ems="20"
         android:padding="10dp"
         android:text="@string/description_text"
@@ -28,7 +28,7 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="73dp"
         android:inputType="textMultiLine"
         android:hint="Skriv inn tekst her"
         android:gravity="center_horizontal"
@@ -37,7 +37,7 @@
         android:background="@drawable/border"
         android:ems="10"
         android:id="@+id/etText"
-         />
+        android:layout_weight="0.12" />
 
     <Button
         android:layout_width="270dp"

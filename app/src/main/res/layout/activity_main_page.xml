@@ -16,8 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvUsername"
-        android:layout_marginBottom="2dp"
-        android:layout_alignTop="@+id/btnText"
+        android:layout_marginBottom="20dp"
+       android:layout_above="@+id/btnText"
         android:layout_centerHorizontal="true" />
 
     <!-- btnCamera width =109 -->
@@ -33,8 +33,9 @@
         android:layout_weight="0.42"
         android:layout_above="@+id/btnBeacon"
         android:layout_toStartOf="@+id/btnCamera"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="5dp"
         android:id="@+id/btnText"/>
 
     <Button
@@ -45,6 +46,8 @@
         android:text="LYDOPPTAK"
         android:paddingTop="45dp"
         android:layout_marginEnd="34dp"
+        android:layout_marginLeft="5dp"
+        android:layout_centerHorizontal="true"
         android:layout_alignTop="@+id/btnBeacon"
         android:layout_alignParentEnd="true"
         android:id="@+id/btnSound"/>
@@ -56,7 +59,8 @@
         android:drawableTop="@mipmap/ibeaconicon"
         android:text="BEACON"
         android:paddingTop="45dp"
-        android:layout_marginRight="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="5dp"
         android:layout_alignParentBottom="true"
         android:layout_toStartOf="@+id/btnSound"
         android:layout_marginBottom="124dp"
@@ -68,7 +72,9 @@
         android:background="@drawable/rounded_edges_button"
         android:drawableTop="@mipmap/cameraicon"
         android:text="TA BILDE"
+        android:layout_centerHorizontal="true"
         android:paddingTop="45dp"
+        android:layout_marginLeft="5dp"
         android:layout_alignTop="@+id/btnText"
         android:layout_toEndOf="@+id/btnBeacon"
         android:id="@+id/btnCamera"/>
