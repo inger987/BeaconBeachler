@@ -7,8 +7,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.RemoteException;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -35,12 +37,13 @@ public class BeaconPage extends Activity implements BeaconConsumer{
     Region region2;
     Intent intent;
     ProgressDialog loading;
+    private Handler mHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        // setContentView(R.layout.activity_beacon_page);
-        loading = ProgressDialog.show(BeaconPage.this, "Leter etter beacons", null,true,true);
-
+        loading = ProgressDialog.show(BeaconPage.this, "Leter etter beacons", null, true,true);
+        mHandler = new Handler();
         beaconManager.bind(this);
 
     }
@@ -61,19 +64,47 @@ public class BeaconPage extends Activity implements BeaconConsumer{
         super.onResume();
         if (beaconManager.isBound(this)) beaconManager.setBackgroundMode(false);
     }
+    private Runnable mUpdateTimeTask = new Runnable() {
+        public void run() {
+            try {
+                beaconManager.stopRangingBeaconsInRegion(region1);
+                beaconManager.stopRangingBeaconsInRegion(region2);
+
+                loading.dismiss();
+            //    intent = new Intent(getApplicationContext(), MainPage.class);
+            //   intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            //    startActivity(intent);
+
+                   ingenBeacon();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+
+            }
+        }
+    };
     public void ingenBeacon() {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
             builder.setMessage("Ingen beacons funnet")
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
+
                             intent = new Intent(getApplicationContext(), MainPage.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                             startActivity(intent);
                         }
                     });
             AlertDialog alert = builder.create();
             alert.show();
+
+        alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextSize(50);
+        alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.BLUE);
+        alert.getWindow().setLayout(500, 350);
+
+
+
 
     }
     @Override
@@ -103,21 +134,21 @@ public class BeaconPage extends Activity implements BeaconConsumer{
                             e.printStackTrace();
                         }
                     } else {
+                        mHandler.postDelayed(mUpdateTimeTask, 2000);
+                     //   try {
+                    //        beaconManager.stopRangingBeaconsInRegion(region1);
+                     //       beaconManager.stopRangingBeaconsInRegion(region2);
 
-                        try {
-                            beaconManager.stopRangingBeaconsInRegion(region1);
-                            beaconManager.stopRangingBeaconsInRegion(region2);
-
-                            loading.dismiss();
-                            intent = new Intent(getApplicationContext(), MainPage.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                            startActivity(intent);
+                     //       loading.dismiss();
+                      //      intent = new Intent(getApplicationContext(), MainPage.class);
+                      //      intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                      //      startActivity(intent);
 
                             //    ingenBeacon();
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
+                   //     } catch (RemoteException e) {
+                   //         e.printStackTrace();
 
-                        }
+                   //     }
 
                     }
                     break;
