@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
@@ -34,11 +35,15 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
     Button btnSound;
     TextView tvUsername;
     BluetoothAdapter mBluetoothAdapter;
+
+
+    private final static int REQUEST_ENABLE_BT = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_main_page);
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         verifyBluetooth();
         btnText = (Button)findViewById(R.id.btnText);
         btnSound = (Button)findViewById(R.id.btnSound);
@@ -74,40 +79,30 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
 
     private void verifyBluetooth() {
 
-        try {
-            if (!BeaconManager.getInstanceForApplication(this).checkAvailability()) {
-                final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-                builder.setTitle("Bluetooth not enabled");
-                builder.setMessage("Please enable bluetooth in settings and restart this application.");
-                builder.setPositiveButton(android.R.string.ok, null);
-                builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        finish();
-                        System.exit(0);
-                    }
-                });
-                builder.show();
-            }
-        }
-        catch (RuntimeException e) {
-            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
-            builder.setTitle("Bluetooth LE not available");
-            builder.setMessage("Sorry, this device does not support Bluetooth LE.");
-            builder.setPositiveButton(android.R.string.ok, null);
-            builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+        if (!mBluetoothAdapter.isEnabled()) {
 
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    finish();
-                    System.exit(0);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Vennligst aktiver bluetooth")
+                    .setCancelable(true)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+                        }
+                    });
+            builder.setNegativeButton("Nei, ellers takk!", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                 dialog.dismiss();
                 }
-
             });
-            builder.show();
+            AlertDialog alert = builder.create();
+            alert.show();
+
 
         }
+        else {
 
+        }
     }
 
     @Override
@@ -120,7 +115,14 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
                 startActivity(new Intent(MainPage.this,CameraPage.class));
                 break;
             case R.id.btnBeacon:
-                startActivity(new Intent(MainPage.this,BeaconPage.class));
+
+                if (mBluetoothAdapter.isEnabled()) {
+
+                    startActivity(new Intent(MainPage.this, BeaconPage.class).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
+                }
+                else {
+                    Toast.makeText(getBaseContext(), "Du må aktivere bluetooth hvis du ønsker å bruke denne funksjonen", Toast.LENGTH_LONG).show();
+                }
                 break;
             case R.id.btnSound:
                 startActivity(new Intent(MainPage.this, Lyd.class));

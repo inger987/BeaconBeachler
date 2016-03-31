@@ -2,6 +2,7 @@ package com.example.inger.beaconbeachler;
 
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +15,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
+
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
@@ -30,38 +33,16 @@ public class BeaconPage extends Activity implements BeaconConsumer{
 
     Region region1;
     Region region2;
-    Button start;
-    Button stopp;
     Intent intent;
-
+    ProgressDialog loading;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_beacon_page);
-
+       // setContentView(R.layout.activity_beacon_page);
+        loading = ProgressDialog.show(BeaconPage.this, "Leter etter beacons", null,true,true);
 
         beaconManager.bind(this);
-    //    start = (Button)findViewById(R.id.start);
-    //    stopp = (Button)findViewById(R.id.stopp);
-      //  start.setOnClickListener(new View.OnClickListener() {
-      //      @Override
-         //   public void onClick(View v) {
-         //       beaconManager = BeaconManager.getInstanceForApplication(BeaconPage.this);
-          //      beaconManager.getBeaconParsers().add(new BeaconParser().
-          //              setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
-          //      beaconManager.bind(BeaconPage.this);
-          //      onBeaconServiceConnect();
-          //      Toast.makeText(getBaseContext(), "Beacon-scanner på", Toast.LENGTH_LONG).show();
-        //    }
-    //    });
-      //  stopp.setOnClickListener(new View.OnClickListener() {
-      //      @Override
-      //      public void onClick(View v) {
-//
-      //          intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-      //          Toast.makeText(getBaseContext(), "Beacon-scanner av", Toast.LENGTH_LONG).show();
-      //      }
-    //    });
+
     }
     @Override
     protected void onDestroy() {
@@ -80,43 +61,29 @@ public class BeaconPage extends Activity implements BeaconConsumer{
         super.onResume();
         if (beaconManager.isBound(this)) beaconManager.setBackgroundMode(false);
     }
+    public void ingenBeacon() {
 
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Ingen beacons funnet")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            intent = new Intent(getApplicationContext(), MainPage.class);
+                            startActivity(intent);
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+
+    }
     @Override
     public void onBeaconServiceConnect() {
         beaconManager.setRangeNotifier(new RangeNotifier() {
-        //    @Override
 
-         //   public void didEnterRegion(Region region) {
-
-          //      intent = new Intent(getApplicationContext(), EggAndBeacon.class);
-          //      intent.putExtra("uuid", region.getId1().toString());
-          //      intent.putExtra("major", region.getId2().toString());
-          //      intent.putExtra("minor", region.getId3().toString());
-
-         //       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-          //      startActivity(intent);
-          //      Log.i(TAG, "Beacon!!!!!!" + region.getId1().toString());
-          //      Log.i(TAG, "Yeeeey!!!!!!" + region.getId2().toString());
-          //      Log.i(TAG, "Jiiiiihaaaaa!!!!" + region.getId3().toString());
-
-           //     Boolean beacon = true;
-           //     if (beacon == true) {
-           //         try {
-            //            beaconManager.startRangingBeaconsInRegion(new Region("myRangingUniqueId", null, null, null));
-             //           beaconManager.setRangeNotifier(this);
-              //          intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-              //          beaconManager.stopMonitoringBeaconsInRegion(region1);
-              //          beaconManager.stopMonitoringBeaconsInRegion(region2);
-              //      } catch (RemoteException e) {
-              //          e.printStackTrace();
-             //       }
-            //    }
-         //   }
-
-             @Override
+            @Override
             public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
                 for (Beacon beacon : beacons) {
-                    if (beacon.getDistance() < 1.5) {
+                    if (beacon.getDistance() < 0.1) {
                         Log.d(TAG, "Det er er beacon en halvannen meter unna");
                         try {
                             beaconManager.stopRangingBeaconsInRegion(region1);
@@ -129,24 +96,45 @@ public class BeaconPage extends Activity implements BeaconConsumer{
                             intent.putExtra("minor", beacon.getId3().toString());
                             intent.putExtra("distance", beacon.getDistance());
 
-                           // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                            loading.dismiss();
                         } catch (RemoteException e) {
-                                 e.printStackTrace();
-                               }
+                            e.printStackTrace();
+                        }
+                    } else {
+
+                        try {
+                            beaconManager.stopRangingBeaconsInRegion(region1);
+                            beaconManager.stopRangingBeaconsInRegion(region2);
+
+                            loading.dismiss();
+                            intent = new Intent(getApplicationContext(), MainPage.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            startActivity(intent);
+
+                            //    ingenBeacon();
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+
+                        }
+
                     }
+                    break;
+
                 }
+
             }
 
-       //     @Override
-     //       public void didExitRegion(Region region) {
-     //           Log.i(TAG, "Kor e beacon?");
-     //       }
+            //     @Override
+            //       public void didExitRegion(Region region) {
+            //           Log.i(TAG, "Kor e beacon?");
+            //       }
 
-        //    @Override
-     //       public void didDetermineStateForRegion(int state, Region region) {
-     //           Log.i(TAG, "Eg så ein beacon/beacon blei borte " + state);
-    //        }
+            //    @Override
+            //       public void didDetermineStateForRegion(int state, Region region) {
+            //           Log.i(TAG, "Eg så ein beacon/beacon blei borte " + state);
+            //        }
         });
 
         try {
@@ -164,6 +152,7 @@ public class BeaconPage extends Activity implements BeaconConsumer{
                //     Identifier.fromInt(Constants.BT_MINOR)));
 
         } catch (RemoteException e) { e.printStackTrace(); }
+
     }
     //Logout function
     private void logout(){
