@@ -92,7 +92,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
                     });
             builder.setNegativeButton("Nei, ellers takk!", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                 dialog.dismiss();
+                    dialog.dismiss();
                 }
             });
             AlertDialog alert = builder.create();

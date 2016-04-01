@@ -108,7 +108,8 @@ public class CameraPage extends AppCompatActivity {
             }
         });
 
-
+        BeaconPage  BcPag= new BeaconPage();
+        BcPag.onBeaconServiceConnect();
 
 }
     public void cameraActivity()

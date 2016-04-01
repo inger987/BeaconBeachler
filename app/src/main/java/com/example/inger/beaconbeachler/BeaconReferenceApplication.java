@@ -43,8 +43,8 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         beaconManager.getBeaconParsers().clear();
         beaconManager.getBeaconParsers().add(new BeaconParser().
                 setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
-       // beaconManager.setBackgroundBetweenScanPeriod(60000l);
-       // Log.d(TAG, "setting up background monitoring for beacons and power saving");
+        // beaconManager.setBackgroundBetweenScanPeriod(60000l);
+        // Log.d(TAG, "setting up background monitoring for beacons and power saving");
         // wake up the app when a beacon is seen
         Region region = new Region("backgroundRegion",
                 null, null, null);
@@ -65,23 +65,24 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         // In this example, this class sends a notification to the user whenever a Beacon
         // matching a Region (defined above) are first seen.
         Log.d(TAG, "did enter region.");
+        sendNotification();
         if (!haveDetectedBeaconsSinceBoot) {
             Log.d(TAG, "auto launching MainActivity");
 
             // The very first time since boot that we detect an beacon, we launch the
             // MainActivity
-        //    Intent intent = new Intent(this, MainPage.class);
-        //    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //    Intent intent = new Intent(this, MainPage.class);
+            //    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             // Important:  make sure to add android:launchMode="singleInstance" in the manifest
             // to keep multiple copies of this activity from getting created if the user has
             // already manually launched the app.
-         //   this.startActivity(intent);
+            //   this.startActivity(intent);
             haveDetectedBeaconsSinceBoot = true;
         } else {
             if (monitoringActivity != null) {
                 // If the Monitoring Activity is visible, we log info about the beacons we have
                 // seen on its display
-            //    monitoringActivity.logToDisplay("I see a beacon again" );
+                //    monitoringActivity.logToDisplay("I see a beacon again" );
             } else {
                 // If we have already seen beacons before, but the monitoring activity is not in
                 // the foreground, we send a notification to the user on subsequent detections.
@@ -96,14 +97,14 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
     @Override
     public void didExitRegion(Region region) {
         if (monitoringActivity != null) {
-        //    monitoringActivity.logToDisplay("I no longer see a beacon.");
+            //    monitoringActivity.logToDisplay("I no longer see a beacon.");
         }
     }
 
     @Override
     public void didDetermineStateForRegion(int state, Region region) {
         if (monitoringActivity != null) {
-         //   monitoringActivity.logToDisplay("I have just switched from seeing/not seeing beacons: " + state);
+            //   monitoringActivity.logToDisplay("I have just switched from seeing/not seeing beacons: " + state);
         }
     }
 
@@ -112,10 +113,10 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
                 new NotificationCompat.Builder(this)
                         .setContentTitle("Egg and Beacon app")
                         .setContentText("Du er i nærheten av en beacon")
-                        .setSmallIcon(R.drawable.miiko);
+                        .setSmallIcon(R.mipmap.beacon);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addNextIntent(new Intent(this, MainPage.class));
+        stackBuilder.addNextIntent(new Intent(this, BeaconPage.class));
         PendingIntent resultPendingIntent =
                 stackBuilder.getPendingIntent(
                         0,
@@ -131,10 +132,6 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
     public void setMonitoringActivity(MainPage activity) {
         this.monitoringActivity = activity;
     }
-
-
-
-
 
 
 }
