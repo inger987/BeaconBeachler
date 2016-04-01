@@ -33,6 +33,7 @@ public class WritingPage extends AppCompatActivity implements View.OnClickListen
     private static final String INSERTWRITING_URL = "https://home.hbv.no/110118/bachelor/insertWriting.php";
     public static final String KEY_TEXT = "text";
     public static final String KEY_USERID = "userId";
+    public static final String KEY_MIN = "minor";
 
     private EditText etText;
     private Button btnSave;
@@ -176,6 +177,10 @@ public class WritingPage extends AppCompatActivity implements View.OnClickListen
         SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         final String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
         final String text = etText.getText().toString().trim();
+
+       // SharedPreferences sharedPref = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+       // final String minor = sharedPref.getString(Config.KEY_MINOR, "Not Available");
+
         StringRequest stringRequest = new StringRequest(Request.Method.POST, INSERTWRITING_URL,
                 new Response.Listener<String>() {
                     @Override
@@ -194,6 +199,7 @@ public class WritingPage extends AppCompatActivity implements View.OnClickListen
                 Map<String,String> params = new HashMap<String, String>();
                 params.put(KEY_TEXT,text);
                 params.put(KEY_USERID,username);
+               // params.put(KEY_MIN, minor);
                 return params;
             }
 

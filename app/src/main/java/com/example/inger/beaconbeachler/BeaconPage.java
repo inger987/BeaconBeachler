@@ -29,19 +29,27 @@ import java.util.Collection;
 public class BeaconPage extends Activity implements BeaconConsumer{
     protected static final String TAG = "RangingActivity";
     private BeaconManager beaconManager = BeaconManager.getInstanceForApplication(this);
-
+    public static Context mContext;
 
     Region region1;
     Region region2;
     Intent intent;
     ProgressDialog loading;
+
+    public static Context getContext() {
+        //  return instance.getApplicationContext();
+        return mContext;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_beacon_page);
+        // setContentView(R.layout.activity_beacon_page);
         loading = ProgressDialog.show(BeaconPage.this, "Leter etter beacons", null,true,true);
 
         beaconManager.bind(this);
+
+        mContext = getApplicationContext();
 
     }
     @Override
@@ -63,17 +71,17 @@ public class BeaconPage extends Activity implements BeaconConsumer{
     }
     public void ingenBeacon() {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Ingen beacons funnet")
-                    .setCancelable(false)
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            intent = new Intent(getApplicationContext(), MainPage.class);
-                            startActivity(intent);
-                        }
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Ingen beacons funnet")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        intent = new Intent(getApplicationContext(), MainPage.class);
+                        startActivity(intent);
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
 
     }
     @Override
@@ -83,7 +91,7 @@ public class BeaconPage extends Activity implements BeaconConsumer{
             @Override
             public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
                 for (Beacon beacon : beacons) {
-                    if (beacon.getDistance() < 0.1) {
+                    if (beacon.getDistance() < 1.5) {
                         Log.d(TAG, "Det er er beacon en halvannen meter unna");
                         try {
                             beaconManager.stopRangingBeaconsInRegion(region1);
@@ -95,6 +103,11 @@ public class BeaconPage extends Activity implements BeaconConsumer{
                             intent.putExtra("major", beacon.getId2().toString());
                             intent.putExtra("minor", beacon.getId3().toString());
                             intent.putExtra("distance", beacon.getDistance());
+
+                            SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR,Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putString("categoryId", beacon.getId2().toString());
+                            editor.commit();
 
                             // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
@@ -109,6 +122,7 @@ public class BeaconPage extends Activity implements BeaconConsumer{
                             beaconManager.stopRangingBeaconsInRegion(region2);
 
                             loading.dismiss();
+
                             intent = new Intent(getApplicationContext(), MainPage.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                             startActivity(intent);
@@ -141,15 +155,15 @@ public class BeaconPage extends Activity implements BeaconConsumer{
             region1 = new Region("myIdentifier1", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"), Identifier.parse("1"));
             region2 = new Region("myIdentifier2", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"), Identifier.parse("2"));
 
-      //      beaconManager.startMonitoringBeaconsInRegion(region1);
-      //      beaconManager.startMonitoringBeaconsInRegion(region2);
+            //      beaconManager.startMonitoringBeaconsInRegion(region1);
+            //      beaconManager.startMonitoringBeaconsInRegion(region2);
             beaconManager.startRangingBeaconsInRegion(region1);
             beaconManager.startRangingBeaconsInRegion(region2);
 
             // beaconManager.startMonitoringBeaconsInRegion(new Region("com.example.inger.beaconbeachler.boostrapRegion",
-                //    Identifier.parse(Constants.BT_UUID),
-               //     Identifier.fromInt(Constants.BT_MAJOR),
-               //     Identifier.fromInt(Constants.BT_MINOR)));
+            //    Identifier.parse(Constants.BT_UUID),
+            //     Identifier.fromInt(Constants.BT_MAJOR),
+            //     Identifier.fromInt(Constants.BT_MINOR)));
 
         } catch (RemoteException e) { e.printStackTrace(); }
 
@@ -259,5 +273,3 @@ public class BeaconPage extends Activity implements BeaconConsumer{
 
 
 }
-
-

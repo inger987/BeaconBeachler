@@ -45,6 +45,7 @@ public class Lyd extends AppCompatActivity implements View.OnClickListener {
     private String UPLOAD_URL ="https://home.hbv.no/110115/bac/uploadToServer.php";
     private String UPLOAD_KEY = "audio";
     private String KEY_USERID = "userId";
+    private String KEY_CATID = "categoryId";
     private String FILNAVN = "filnavn";
 
     Handler timerHandler = new Handler();
@@ -201,6 +202,31 @@ public class Lyd extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+    /*
+    public void onResume() {
+        super.onResume();
+        ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(Lyd.class);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(null);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+    }
+    */
+
     public String getStringAudio() {
         String outputFile = outputfile;
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -249,6 +275,9 @@ public class Lyd extends AppCompatActivity implements View.OnClickListener {
                 SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
                 final String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
 
+                SharedPreferences sharedPref = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+                final String minor = sharedPref.getString(Config.KEY_MINOR, "Not Available");
+
                 SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MMM-yyyy-hh-mm-ss");
                 final String currentDateandTime = sdfDate.format(new Date());
                 final String uploadfile = getStringAudio();
@@ -257,6 +286,7 @@ public class Lyd extends AppCompatActivity implements View.OnClickListener {
                     put(UPLOAD_KEY, uploadfile);
                     put(FILNAVN, currentDateandTime);
                     put(KEY_USERID, username);
+                    put(KEY_CATID, minor);
                 }};
 
                 String result = rh.sendPostRequest(UPLOAD_URL, data);

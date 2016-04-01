@@ -1,6 +1,8 @@
 package com.example.inger.beaconbeachler;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;

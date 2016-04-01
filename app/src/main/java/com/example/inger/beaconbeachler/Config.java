@@ -14,6 +14,9 @@ public class Config {
     public static final String KEY_FIRSTNAME = "firstName";
     public static final String KEY_LASTNAME = "lastName";
 
+    //Store minor for beacon
+    public static final String KEY_MINOR = "minor";
+
     //If server response is equal to this that means login is successful
     public static final String LOGIN_SUCCESS = "success";
 
