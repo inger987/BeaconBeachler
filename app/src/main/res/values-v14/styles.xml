@@ -19,6 +19,12 @@
 
     </style>
 
+    <style name="loading">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:textColor">#000</item>
+    </style>
+
 
 
 
