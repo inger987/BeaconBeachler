@@ -18,7 +18,11 @@
         android:id="@+id/tvUsername"
         android:layout_marginBottom="20dp"
        android:layout_above="@+id/btnText"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textSize="35dp"
+        android:fontFamily="sans-serif-condensed"/>
+
 
     <!-- btnCamera width =109 -->
 

@@ -46,6 +46,7 @@ public class BeaconPage extends Activity implements BeaconConsumer{
         super.onCreate(savedInstanceState);
         // setContentView(R.layout.activity_beacon_page);
         loading = ProgressDialog.show(BeaconPage.this, "Leter etter beacons", null,true,true);
+        // R.style.loading (Svart tekst)
 
         beaconManager.bind(this);
 
@@ -127,7 +128,7 @@ public class BeaconPage extends Activity implements BeaconConsumer{
                             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                             startActivity(intent);
 
-                            //    ingenBeacon();
+                            //   ingenBeacon();
                         } catch (RemoteException e) {
                             e.printStackTrace();
 

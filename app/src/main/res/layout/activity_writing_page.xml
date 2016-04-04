@@ -23,8 +23,8 @@
         android:layout_height="wrap_content"
         android:ems="20"
         android:padding="10dp"
-        android:text="@string/description_text"
         android:id="@+id/description" />
+    <!--- android:text="@string/description_text"-->
 
     <EditText
         android:layout_width="match_parent"
