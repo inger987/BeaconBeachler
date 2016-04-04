@@ -4,27 +4,26 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.inger.beaconbeachler.RegsiterPage"
-    android:background="@drawable/greybackground">
+    android:background="@color/white">
 
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ImageView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_marginTop="35dp"
-        android:layout_marginBottom="15dp"
-        android:text="NEW ACCOUNT"
-        android:id="@+id/textView2"
-        android:layout_gravity="center_horizontal" />
+        android:id="@+id/imageView"
+        android:background="@drawable/nybruker"/>
 
     <EditText
-        android:layout_width="275dp"
-        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="15dp"
         android:ems="10"
-        android:hint="Username"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="10dp"
+        android:padding="20dp"
+        android:hint="Brukernavn"
         android:background="@drawable/rounded_border_edittext"
         android:drawableLeft="@drawable/usericon"
 
@@ -34,13 +33,16 @@
 
 
     <EditText
-        android:layout_width="275dp"
-        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:layout_marginBottom="15dp"
-        android:layout_gravity="center_horizontal"
-        android:hint="Password"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="10dp"
+        android:padding="20dp"
+        android:hint="Passord"
         android:background="@drawable/rounded_border_edittext"
         android:drawableLeft="@drawable/passwordicon"
 
@@ -50,12 +52,15 @@
 
 
     <EditText
-        android:layout_width="275dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Firstname"
+        android:hint="Fornavn"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="10dp"
+        android:padding="20dp"
         android:background="@drawable/rounded_border_edittext"
         android:drawableLeft="@drawable/usericon"
         android:id="@+id/editTextFirstName">
@@ -64,12 +69,15 @@
 
 
     <EditText
-        android:layout_width="275dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Lastname"
+        android:hint="Etternavn"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="10dp"
+        android:padding="20dp"
         android:background="@drawable/rounded_border_edittext"
         android:drawableLeft="@drawable/usericon"
         android:id="@+id/editTextLastName">
@@ -77,12 +85,15 @@
     </EditText>
 
     <Button
-        android:layout_width="270dp"
-        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="REGISTRER"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="15dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="10dp"
+        android:padding="20dp"
+        android:textColor="@color/white"
         android:background="@drawable/rounded_edges_button"
         android:id="@+id/buttonRegister" />
 

@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#d7e7e6">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="300dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:id="@+id/image"/>
     <Button
-        android:layout_marginTop="300dp"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/tabilde"
-        android:text="Ta nytt bilde"
-        android:background="@drawable/edgebuttons"
-        android:textSize="50sp"
-        />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="10dp"
+        android:text="TA NYTT BILDE"
+        android:background="@drawable/rounded_edges_button"
+        android:textColor="@color/white"
+        android:id="@+id/tabilde"/>
 
     <Button
-        android:layout_marginTop="450dp"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/lastopp"
-        android:text="Last opp"
-        android:background="@drawable/edgebuttons"
-        android:textSize="50sp"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:text="LAST OPP"
+        android:background="@drawable/rounded_edges_button"
+        android:textColor="@color/white"
+        android:id="@+id/lastopp"/>
     <ImageView
         android:id="@+id/zoom"
         android:layout_width="match_parent"
@@ -31,4 +40,4 @@
         android:visibility="invisible"
         />
 
-</RelativeLayout>
+</LinearLayout>

@@ -5,69 +5,85 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.inger.beaconbeachler.LoginPage"
-    android:background="@drawable/greybackground"
-    android:weightSum="1">
+    android:background="@color/white"
+    >
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="35dp"
         android:id="@+id/imageView"
-        android:background="@drawable/logologin"/>
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/test"/>
 
     <EditText
-        android:layout_width="275dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="35dp"
         android:ems="10"
-        android:hint="Username"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="10dp"
+        android:padding="20dp"
+        android:hint="Brukernavn"
         android:background="@drawable/rounded_border_edittext"
         android:drawableLeft="@drawable/usericon"
-        android:id="@+id/etUsername"
-        android:layout_weight="0.22">
+        android:id="@+id/etUsername">
         <requestFocus/>
     </EditText>
 
     <EditText
-        android:layout_width="275dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="20dp"
+        android:padding="20dp"
         android:layout_gravity="center_horizontal"
-        android:hint="Password"
+        android:hint="Passord"
         android:background="@drawable/rounded_border_edittext"
         android:drawableLeft="@drawable/passwordicon"
-        android:layout_weight="0.22"
+
         android:id="@+id/etPassword">
         <requestFocus/>
     </EditText>
 
     <Button
-        android:layout_width="270dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Logg inn"
-        android:layout_margin="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="10dp"
+        android:padding="20dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/rounded_edges_button"
+        android:textColor="@color/white"
         android:id="@+id/btnLogin"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="OR"
+
+        android:text="ELLER"
         android:layout_gravity="center_horizontal"
         android:id="@+id/textView"/>
 
     <com.facebook.login.widget.LoginButton
-        android:layout_width="270dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="10dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"
+        android:background="@drawable/rounded_edges_button2"
         android:id="@+id/login_button"/>
 
     <TextView
