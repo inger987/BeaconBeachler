@@ -107,7 +107,7 @@ public class BeaconPage extends Activity implements BeaconConsumer{
 
                             SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR,Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = settings.edit();
-                            editor.putString("categoryId", beacon.getId2().toString());
+                            editor.putString("categoryId", beacon.getId3().toString());
                             editor.commit();
 
                             // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
