@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -65,6 +66,8 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         // In this example, this class sends a notification to the user whenever a Beacon
         // matching a Region (defined above) are first seen.
         Log.d(TAG, "did enter region.");
+
+
         sendNotification();
         if (!haveDetectedBeaconsSinceBoot) {
             Log.d(TAG, "auto launching MainActivity");
@@ -77,6 +80,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
             // to keep multiple copies of this activity from getting created if the user has
             // already manually launched the app.
             //   this.startActivity(intent);
+
             haveDetectedBeaconsSinceBoot = true;
         } else {
             if (monitoringActivity != null) {
