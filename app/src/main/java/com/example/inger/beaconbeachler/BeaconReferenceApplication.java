@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -117,7 +116,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
                 new NotificationCompat.Builder(this)
                         .setContentTitle("Egg and Beacon app")
                         .setContentText("Du er i nærheten av en beacon")
-                        .setSmallIcon(R.mipmap.beacon);
+                        .setSmallIcon(R.mipmap.ibeaconicon);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addNextIntent(new Intent(this, BeaconPage.class));

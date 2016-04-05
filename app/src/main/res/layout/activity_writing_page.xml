@@ -3,59 +3,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/greybackground"
-    android:weightSum="1">
+    android:background="@color/white">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:textSize="30dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="WRITINGPAGE"
-        android:id="@+id/textView4"
-        android:layout_gravity="center_horizontal" />
-
-    <TextView
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        android:ems="20"
-        android:padding="10dp"
-        android:id="@+id/description" />
-    <!--- android:text="@string/description_text"-->
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="73dp"
+        android:layout_height="0dp"
         android:inputType="textMultiLine"
         android:hint="Skriv inn tekst her"
         android:gravity="center_horizontal"
         android:minLines="6"
         android:maxLines="6"
-        android:background="@drawable/border"
+        android:background="@drawable/rounded_border_edittext"
         android:ems="10"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:id="@+id/etText"
         android:layout_weight="0.12" />
 
     <Button
-        android:layout_width="270dp"
-        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="LAGRE"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="15dp"
-        android:layout_gravity="center_horizontal"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="10dp"
+        android:padding="20dp"
         android:background="@drawable/rounded_edges_button"
         android:id="@+id/btnSave"
          />
 
-    <Button
-        android:layout_width="90dp"
-        android:layout_height="40dp"
-        android:background="@drawable/edgebuttons"
-        android:text="Tøm tekstfelt"
-        android:id="@+id/emtyetText"
-        android:layout_gravity="center_horizontal" />
+
 
 </LinearLayout>

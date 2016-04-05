@@ -43,8 +43,7 @@
 
         <activity
             android:name=".CameraPage"
-            android:label="@string/title_activity_camera"
-            android:theme="@style/AppTheme" />
+            android:label="@string/title_activity_camera" />
         <activity
             android:name=".BeaconPage"
             android:label="@string/title_activity_beacon_page">

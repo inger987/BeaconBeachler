@@ -2,20 +2,8 @@
 <resources>
     <!-- COLORS-->
     <item name="header" type="color">#000000</item>
-    <item name="actionBar" type="color">#689a92</item>
-    <item name="textActionBar" type="color">#077348</item>
-    <item name="window_background" type="color">#689a92</item>
     <item name="textPrimary" type="color">#ffff</item>
-    <item name="navbar" type="color">#000000</item>
-
-
-    <item name="dark_grey" type="color">#FF3B3B3B</item>
-    <item name="dark_actionBar" type="color">#689a92</item>
+    <item name="mainBackground" type="color">#e0e1dc</item>
     <item name="white" type="color">#ffff</item>
-    <item name="text_color" type="color">#000000</item>
-    <item name="light_grey_background" type="color">#dfdfdf</item>
-    <item name="middle_grey" type="color">#c9c9c9</item>
-    <item name="test2" type="color">#272727</item>
-    <item name="shadow_color" type="color">#e0e0d1</item>
-    <item name="transparent_green" type="color">#077348</item>
+
 </resources>

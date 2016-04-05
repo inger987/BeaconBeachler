@@ -37,8 +37,6 @@ public class WritingPage extends AppCompatActivity implements View.OnClickListen
 
     private EditText etText;
     private Button btnSave;
-    private Button emtyetText;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +45,6 @@ public class WritingPage extends AppCompatActivity implements View.OnClickListen
 
         etText = (EditText) findViewById(R.id.etText);
         btnSave = (Button) findViewById(R.id.btnSave);
-        emtyetText = (Button) findViewById(R.id.emtyetText);
-
 
         btnSave.setOnClickListener(this);
     }
@@ -58,9 +54,6 @@ public class WritingPage extends AppCompatActivity implements View.OnClickListen
         switch (v.getId()){
             case R.id.btnSave:
                 insertText();
-            case R.id.emtyetText:
-                emtyTextView();
-                break;
         }
     }
 
@@ -165,11 +158,6 @@ public class WritingPage extends AppCompatActivity implements View.OnClickListen
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void emtyTextView() {
-
-            etText.setText(null);
     }
 
     private void insertText() {

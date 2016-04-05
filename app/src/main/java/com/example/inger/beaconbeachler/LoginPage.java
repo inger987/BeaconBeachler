@@ -43,17 +43,12 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
     CallbackManager callbackManager;
     Config config;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_login_page);
-
-
 
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
@@ -89,8 +84,8 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
                                 }catch (Exception e){
                                     e.printStackTrace();
                                 }
-                                config.username= config.firstName+config.lastName+Math.random()*50;
-                                Toast.makeText(LoginPage.this,"welcome "+config.username,Toast.LENGTH_LONG).show();
+                                config.username = config.firstName +Math.random()*50;
+                                Toast.makeText(LoginPage.this,"Velkommen "+config.firstName+" "+config.lastName,Toast.LENGTH_LONG).show();
                                 loggedInShare();
 
 
@@ -158,66 +153,7 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
-    /*   private void loginFacebook() {
 
-
-        // callback registration
-        btnFacebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-
-              //  progressDialog.dismiss();
-
-                // App code
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(
-                                    JSONObject object,
-                                    GraphResponse response) {
-
-                                Log.e("response: ", response + "");
-                                try {
-                                    config = new Config();
-                                    config.facebookID = object.getString("id").toString();
-                                    config.firstName = object.getString("first_name").toString();
-                                    config.lastName = object.getString("last_name").toString();
-                                   // PrefUtils.setCurrentUser(user,LoginActivity.this);
-
-
-                                }catch (Exception e){
-                                    e.printStackTrace();
-                                }
-                                Toast.makeText(LoginPage.this,"welcome "+config.firstName,Toast.LENGTH_LONG).show();
-
-
-                                Intent intent=new Intent(LoginPage.this, MainPage.class);
-                                startActivity(intent);
-                                finish();
-
-                            }
-
-                        });
-
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,first_name,last_name");
-                request.setParameters(parameters);
-                request.executeAsync();
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-
-            }
-        });
-    } */
 
     private void loggedInShare(){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, config.REGISTER_URL,
