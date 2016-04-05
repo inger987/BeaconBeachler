@@ -1,18 +1,11 @@
 <LinearLayout
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:gravity="fill"
     android:id="@+id/linear1"
     android:orientation="vertical"
-    android:background="@drawable/greybackground"
+    android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="44dp"
-        android:id="@+id/description" />
-       <!-- android:text="@string/description_sound"-->
-
 
     <TextView
         android:layout_width="wrap_content"
@@ -36,72 +29,70 @@
 
     <Button
 
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:background="@drawable/round_button"
         android:drawableTop="@mipmap/stopplaybackmicicon"
         android:paddingTop="30dp"
         android:layout_marginRight="20dp"
         android:visibility="invisible"
+        android:textColor="@color/white"
         android:layout_alignTop="@+id/btnLagre"
         android:layout_alignParentEnd="true"
         android:id="@+id/btnStopPlay"/>
 
     <Button
 
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:background="@drawable/round_button"
         android:drawableTop="@mipmap/playbackmicico"
         android:paddingTop="30dp"
         android:layout_marginRight="20dp"
         android:visibility="visible"
+        android:textColor="@color/white"
         android:layout_alignTop="@+id/btnLagre"
         android:layout_alignParentEnd="true"
         android:id="@+id/btnPlay"/>
 
     <Button
 
-        android:layout_width="170dp"
-        android:layout_height="170dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:background="@drawable/round_button"
         android:drawableTop="@mipmap/soundicon"
         android:paddingTop="60dp"
-        android:text="RECORD"
+        android:text="TA OPP LYD"
+        android:textColor="@color/white"
         android:visibility="visible"
         android:layout_centerHorizontal="true"
         android:id="@+id/btnStart"/>
 
     <Button
 
-        android:layout_width="170dp"
-        android:layout_height="170dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:background="@drawable/round_button"
         android:drawableTop="@mipmap/stopmicicon"
         android:paddingTop="60dp"
-        android:text="STOP RECORDING"
+        android:text="STOPP OPPTAKET"
+        android:textColor="@color/white"
         android:visibility="invisible"
         android:layout_centerHorizontal="true"
         android:id="@+id/btnStop"/>
 
     <Button
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginLeft="20dp"
         android:layout_below="@+id/btnStart"
         android:background="@drawable/round_button"
         android:drawableTop="@mipmap/uploadmicicon"
-        android:text="UPLOADE"
+        android:text="LAGRE"
+        android:textColor="@color/white"
         android:paddingTop="25dp"
         android:id="@+id/btnLagre"/>
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtUsername"
-            android:layout_marginBottom="4dp"
-            android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
 </LinearLayout>

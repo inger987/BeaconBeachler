@@ -5,7 +5,6 @@
     <item
         android:id="@+id/action_sound"
         android:title="@string/action_sound"
-        android:icon="@mipmap/sound"
         android:layout_width="80dp"
         android:layout_height="match_parent"
         app:showAsAction="never"/>
@@ -21,19 +20,19 @@
     <item
         android:id="@+id/action_camera"
         android:title="@string/action_camera"
-        android:icon="@mipmap/camera"
+
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/action_text"
         android:title="@string/action_text"
-        android:icon="@mipmap/aa"
+
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/action_beacon"
         android:title="@string/action_beacon"
-        android:icon="@mipmap/beacon"
+
         app:showAsAction="never"/>
 
     <item

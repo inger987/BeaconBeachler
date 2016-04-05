@@ -5,8 +5,8 @@
     <corners android:radius="8dp" />
     <solid android:color="#ffffff"/> <!-- Background color inside border-->
     <stroke
-        android:width="2dp"
-        android:color="#c9c9c9" /> <!-- Border around button -->
+        android:width="0.5dp"
+        android:color="#000" /> <!-- Border around button -->
 
     <padding
         android:bottom="8dp"

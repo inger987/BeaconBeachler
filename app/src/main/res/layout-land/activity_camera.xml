@@ -19,7 +19,7 @@
         android:id="@+id/tabilde"
         android:text="Ta nytt bilde"
 
-        android:background="@drawable/edgebuttons"
+        android:background="@drawable/rounded_edges_button"
         android:textSize="20sp"
 
         />
@@ -32,7 +32,7 @@
         android:layout_marginTop="200dp"
         android:id="@+id/lastopp"
         android:text="Last opp"
-        android:background="@drawable/edgebuttons"
+        android:background="@drawable/rounded_edges_button"
         android:textSize="20sp"/>
 
     <ImageView

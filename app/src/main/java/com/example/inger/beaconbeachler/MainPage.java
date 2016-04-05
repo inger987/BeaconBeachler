@@ -19,8 +19,6 @@ import android.widget.Toast;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 
-import org.altbeacon.beacon.BeaconManager;
-
 public class MainPage extends AppCompatActivity implements View.OnClickListener {
 
 
@@ -49,7 +47,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
         btnSound = (Button)findViewById(R.id.btnSound);
         btnBeacon = (Button)findViewById(R.id.btnBeacon);
         btnCamera = (Button)findViewById(R.id.btnCamera);
-        tvUsername = (TextView)findViewById(R.id.tvUsername);
+
 
         btnText.setOnClickListener(this);
         btnCamera.setOnClickListener(this);
@@ -57,11 +55,11 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
         btnSound.setOnClickListener(this);
 
         //Fetching username from shared preferences
-        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+     /*   SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
 
         //Showing the current logged in username to textview
-        tvUsername.setText("Velkommen, " + username+"!");
+        tvUsername.setText("Velkommen, " + username+"!"); */
 
     }
 

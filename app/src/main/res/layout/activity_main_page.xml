@@ -1,90 +1,156 @@
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/greybackground"
-    android:weightSum="1">
+    android:background="@color/mainBackground">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:id="@+id/relativeLayout1" android:layout_height="fill_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+
+        android:orientation="horizontal" >
+
+        <Button
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:background="@drawable/rounded_edges_button"
+            android:drawableTop="@mipmap/writeicon"
+            android:text="NOTATER"
+            android:paddingTop="45dp"
+            android:layout_weight="1.0"
+            android:layout_marginTop="2.5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="2.5dp"
+            android:layout_marginLeft="2.5dp"
+            android:textColor="@color/white"
+
+            android:id="@+id/btnText"/>
+
+        <Button
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:background="@drawable/rounded_edges_button"
+            android:drawableTop="@mipmap/soundicon"
+            android:text="LYDOPPTAK"
+            android:paddingTop="45dp"
+            android:layout_weight="1.0"
+            android:layout_marginTop="2.5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="2.5dp"
+            android:layout_marginLeft="2.5dp"
+            android:textColor="@color/white"
+            android:id="@+id/btnSound"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.0"
+        android:orientation="horizontal" >
+
+        <Button
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:background="@drawable/rounded_edges_button"
+            android:drawableTop="@mipmap/ibeaconicon"
+            android:text="BEACON"
+            android:paddingTop="45dp"
+            android:layout_weight="1.0"
+            android:layout_marginBottom="2.5dp"
+            android:layout_marginRight="2.5dp"
+            android:layout_marginLeft="2.5dp"
+            android:textColor="@color/white"
+            android:id="@+id/btnBeacon"/>
+
+        <Button
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:background="@drawable/rounded_edges_button"
+            android:drawableTop="@mipmap/cameraicon"
+            android:text="TA BILDE"
+            android:paddingTop="45dp"
+            android:layout_weight="1.0"
+            android:layout_marginBottom="2.5dp"
+            android:layout_marginRight="2.5dp"
+            android:layout_marginLeft="2.5dp"
+            android:textColor="@color/white"
+            android:id="@+id/btnCamera"/>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvUsername"
-        android:layout_marginBottom="20dp"
-       android:layout_above="@+id/btnText"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold"
-        android:textSize="35dp"
-        android:fontFamily="sans-serif-condensed"/>
+    </LinearLayout>
+</LinearLayout>
+
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layout_width="match_parent"
+   android:layout_height="match_parent"
+   android:orientation="vertical"
+   android:background="@drawable/greybackground"
+   android:weightSum="1">
+
+   <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+       android:layout_height="match_parent"
+       android:layout_width="match_parent"
+       android:id="@+id/relativeLayout1"
+
+       >
 
 
-    <!-- btnCamera width =109 -->
+
+
+   btnCamera width =109
 
 
     <Button
-        android:layout_height="150dp"
+        android:layout_height="250dp"
         android:layout_width="150dp"
         android:background="@drawable/rounded_edges_button"
         android:drawableTop="@mipmap/writeicon"
         android:text="NOTATER"
         android:paddingTop="45dp"
-        android:layout_weight="0.42"
         android:layout_above="@+id/btnBeacon"
         android:layout_toStartOf="@+id/btnCamera"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginRight="5dp"
         android:id="@+id/btnText"/>
 
     <Button
-        android:layout_height="150dp"
+        android:layout_height="250dp"
         android:layout_width="150dp"
         android:background="@drawable/rounded_edges_button"
         android:drawableTop="@mipmap/soundicon"
         android:text="LYDOPPTAK"
         android:paddingTop="45dp"
         android:layout_marginEnd="34dp"
-        android:layout_marginLeft="5dp"
-        android:layout_centerHorizontal="true"
         android:layout_alignTop="@+id/btnBeacon"
         android:layout_alignParentEnd="true"
         android:id="@+id/btnSound"/>
 
     <Button
-        android:layout_height="150dp"
+        android:layout_height="250dp"
         android:layout_width="150dp"
         android:background="@drawable/rounded_edges_button"
         android:drawableTop="@mipmap/ibeaconicon"
         android:text="BEACON"
         android:paddingTop="45dp"
-        android:layout_centerHorizontal="true"
         android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_alignParentBottom="true"
         android:layout_toStartOf="@+id/btnSound"
-        android:layout_marginBottom="124dp"
         android:id="@+id/btnBeacon"/>
 
     <Button
-        android:layout_height="150dp"
+        android:layout_height="250dp"
         android:layout_width="150dp"
         android:background="@drawable/rounded_edges_button"
         android:drawableTop="@mipmap/cameraicon"
         android:text="TA BILDE"
-        android:layout_centerHorizontal="true"
         android:paddingTop="45dp"
-        android:layout_marginLeft="5dp"
         android:layout_alignTop="@+id/btnText"
         android:layout_toEndOf="@+id/btnBeacon"
         android:id="@+id/btnCamera"/>
 
     </RelativeLayout>
-</LinearLayout>
+</LinearLayout>-->
 
 
 
