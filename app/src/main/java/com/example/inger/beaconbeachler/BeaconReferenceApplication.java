@@ -4,17 +4,30 @@ import android.app.Application;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import org.altbeacon.beacon.Beacon;
+import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
+import org.altbeacon.beacon.Identifier;
+import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 import org.altbeacon.beacon.powersave.BackgroundPowerSaver;
 import org.altbeacon.beacon.startup.BootstrapNotifier;
 import org.altbeacon.beacon.startup.RegionBootstrap;
+
+
+import java.util.Collection;
 
 /**
  * Created by Elin on 08.03.2016.
@@ -27,11 +40,33 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
     private BackgroundPowerSaver backgroundPowerSaver;
     private boolean haveDetectedBeaconsSinceBoot = false;
     private MainPage monitoringActivity = null;
+    Region region1;
+    Region region2;
+    private static final String uuid = "00000000-0000-0000-c000-000000000028";
+    private BluetoothAdapter mBluetoothAdapter;
+    private String Minor;
+    private String Major;
+    private String UUID1;
+    private BluetoothManager bluemanager;
+    private BeaconManager mBeaconManager;
+    public boolean enabler;
+    public Context context;
 
 
     public void onCreate() {
         super.onCreate();
+
+        bluemanager= (BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE);
+        mBluetoothAdapter = bluemanager.getAdapter();
+
+        mBeaconManager = BeaconManager.getInstanceForApplication(this);
+        //BeaconManager.getInstanceForApplication(this).getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:0-3=4c000215,i:4-19,i:20-21,i:22-23,p:24-24"));
+        mBeaconManager.setBackgroundScanPeriod(1100l);
+
+        mBeaconManager.setBackgroundBetweenScanPeriod(1100l);
+
         BeaconManager beaconManager = org.altbeacon.beacon.BeaconManager.getInstanceForApplication(this);
+       // BeaconManager.getInstanceForApplication(this).getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:0-3=4c000215,i:4-19,i:20-21,i:22-23,p:24-24"));
 
         // By default the AndroidBeaconLibrary will only find AltBeacons.  If you wish to make it
         // find a different type of beacon, you must specify the byte layout for that beacon's
@@ -40,6 +75,9 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         // layout expression for other beacon types, do a web search for "setBeaconLayout"
         // including the quotes.
         //
+
+
+
         beaconManager.getBeaconParsers().clear();
         beaconManager.getBeaconParsers().add(new BeaconParser().
                 setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
@@ -47,8 +85,15 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         // Log.d(TAG, "setting up background monitoring for beacons and power saving");
         // wake up the app when a beacon is seen
         Region region = new Region("backgroundRegion",
-                null, null, null);
-        regionBootstrap = new RegionBootstrap(this, region);
+                Identifier.parse("00000000-0000-0000-c000-000000000028"), null, null);
+        Region region1 = new Region("myIdentifier1", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"), Identifier.parse("1"));
+        Region region2 = new Region("myIdentifier2", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"), Identifier.parse("2"));
+
+        regionBootstrap = new RegionBootstrap(this, region1);
+        regionBootstrap = new RegionBootstrap(this, region2);
+
+        BeaconManager.getInstanceForApplication(this).getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:0-3=4c000215,i:4-19,i:20-21,i:22-23,p:24-24"));
+
 
         // simply constructing this class and holding a reference to it in your custom Application
         // class will automatically cause the BeaconLibrary to save battery whenever the application
@@ -60,14 +105,55 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         // ((TimedBeaconSimulator) BeaconManager.getBeaconSimulator()).createTimedSimulatedBeacons();
     }
 
-    @Override
+   // @Override
     public void didEnterRegion(Region arg0) {
         // In this example, this class sends a notification to the user whenever a Beacon
         // matching a Region (defined above) are first seen.
+
         Log.d(TAG, "did enter region.");
+
+        Log.d(TAG, "Got a didEnterRegion call region:"+arg0.getId3());
+
+        SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("minor",arg0.getId3().toString());
+        editor.commit();
+
+        /*
+        mBeaconManager.setRangeNotifier(new RangeNotifier() {
+
+            @Override
+            public void didRangeBeaconsInRegion(Collection<Beacon> arg0,
+                                                Region arg1) {
+                // TODO Auto-generated method stub
+                if (arg0.size() > 0) {
+                    Log.i(TAG, "The first beacon I see has UUID: "+arg0.iterator().next().getId1()+" major id:"+arg0.iterator().next().getId2()+"  minor id: "+arg0.iterator().next().getId3());
+                    SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR,Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putString(Config.KEY_MINOR, arg0.toString());
+                    editor.apply();
+                }
+                try {
+                    mBeaconManager.stopRangingBeaconsInRegion(arg1);
+                } catch (RemoteException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        //Beacon.getId2().toString();
+
+/*        SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("categoryId",arg0.getId3().toString());
+        editor.commit();
+        */
 
 
         sendNotification();
+
         if (!haveDetectedBeaconsSinceBoot) {
             Log.d(TAG, "auto launching MainActivity");
 
@@ -90,18 +176,21 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
                 // If we have already seen beacons before, but the monitoring activity is not in
                 // the foreground, we send a notification to the user on subsequent detections.
                 Log.d(TAG, "Sending notification.");
-                sendNotification();
+                //sendNotification();
             }
         }
 
 
     }
 
+
+
     @Override
     public void didExitRegion(Region region) {
         if (monitoringActivity != null) {
             //    monitoringActivity.logToDisplay("I no longer see a beacon.");
         }
+        enabler=true;
     }
 
     @Override
@@ -110,13 +199,41 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
             //   monitoringActivity.logToDisplay("I have just switched from seeing/not seeing beacons: " + state);
         }
     }
+/*
+    public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
+        // TODO Auto-generated method stub
+        Log.d(TAG, "Entra en onLeScan");
+        Major = "";
+        Minor = "";
+        UUID1 = "";
 
-    private void sendNotification() {
+        for (int i = 0; i < scanRecord.length; i++) {
+            if (i > 8 && i < 25)
+                UUID1 += String.format("%02x", scanRecord[i]);
+            else if (i > 24 && i < 27)
+                Major += String.format("%02x", scanRecord[i]);
+            else if (i > 26 && i < 29)
+                Minor += String.format("%02x", scanRecord[i]);
+
+        }
+        stop();
+    }
+
+    public void stop(){
+
+        mBluetoothAdapter.stopLeScan(this);
+        Log.d(TAG, ": scanLeDevice-> REGION Stopped");
+        Log.d(TAG, "Got a didExitRegion call with MAJOR:"+Major+" MINOR: "+Minor );
+
+
+    }
+*/
+    public void sendNotification() {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this)
                         .setContentTitle("Egg and Beacon app")
                         .setContentText("Du er i nærheten av en beacon")
-                        .setSmallIcon(R.mipmap.ibeaconicon);
+                        .setSmallIcon(R.mipmap.beacon);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addNextIntent(new Intent(this, BeaconPage.class));
@@ -135,6 +252,9 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
     public void setMonitoringActivity(MainPage activity) {
         this.monitoringActivity = activity;
     }
+
+
+
 
 
 }
