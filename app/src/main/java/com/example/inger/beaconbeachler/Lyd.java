@@ -86,6 +86,18 @@ public class Lyd extends AppCompatActivity implements View.OnClickListener {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringAct(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringAct(null);
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnStart:
@@ -398,6 +410,18 @@ public class Lyd extends AppCompatActivity implements View.OnClickListener {
 
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    public void onStart() {
+        super.onStart();
 
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+
+    }
 
 }
