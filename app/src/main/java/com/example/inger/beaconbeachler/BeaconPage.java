@@ -2,6 +2,7 @@ package com.example.inger.beaconbeachler;
 
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Menu;
@@ -36,6 +38,8 @@ public class BeaconPage extends Activity implements BeaconConsumer{
     Intent intent;
     ProgressDialog loading;
 
+  //  String minor;
+
     public static Context getContext() {
         //  return instance.getApplicationContext();
         return mContext;
@@ -51,6 +55,7 @@ public class BeaconPage extends Activity implements BeaconConsumer{
         beaconManager.bind(this);
 
         mContext = getApplicationContext();
+
 
     }
     @Override
@@ -85,6 +90,8 @@ public class BeaconPage extends Activity implements BeaconConsumer{
         alert.show();
 
     }
+
+
     @Override
     public void onBeaconServiceConnect() {
         beaconManager.setRangeNotifier(new RangeNotifier() {
@@ -92,7 +99,7 @@ public class BeaconPage extends Activity implements BeaconConsumer{
             @Override
             public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
                 for (Beacon beacon : beacons) {
-                    if (beacon.getDistance() < 1.5) {
+                    if (beacon.getDistance() < 0.1) {
                         Log.d(TAG, "Det er er beacon en halvannen meter unna");
                         try {
                             beaconManager.stopRangingBeaconsInRegion(region1);
@@ -105,10 +112,12 @@ public class BeaconPage extends Activity implements BeaconConsumer{
                             intent.putExtra("minor", beacon.getId3().toString());
                             intent.putExtra("distance", beacon.getDistance());
 
+                            /*
                             SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR,Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = settings.edit();
-                            editor.putString("categoryId", beacon.getId3().toString());
-                            editor.commit();
+                            editor.putString(Config.KEY_MINOR, beacon.getId3().toString());
+                            editor.apply();
+                            */
 
                             // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
@@ -168,6 +177,16 @@ public class BeaconPage extends Activity implements BeaconConsumer{
 
         } catch (RemoteException e) { e.printStackTrace(); }
 
+    }
+
+    public void minorString(){
+        /*SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(Config.KEY_MINOR, minor);
+        editor.apply();
+
+        Log.d(TAG,"hei");
+        */
     }
     //Logout function
     private void logout(){

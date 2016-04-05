@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
@@ -277,6 +278,7 @@ public class Lyd extends AppCompatActivity implements View.OnClickListener {
 
                 SharedPreferences sharedPref = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
                 final String minor = sharedPref.getString(Config.KEY_MINOR, "Not Available");
+
 
                 SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MMM-yyyy-hh-mm-ss");
                 final String currentDateandTime = sdfDate.format(new Date());
