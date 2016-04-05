@@ -40,6 +40,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
     private BackgroundPowerSaver backgroundPowerSaver;
     private boolean haveDetectedBeaconsSinceBoot = false;
     private MainPage monitoringActivity = null;
+    private Lyd monitoringAct = null;
     Region region1;
     Region region2;
     private static final String uuid = "00000000-0000-0000-c000-000000000028";
@@ -51,6 +52,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
     private BeaconManager mBeaconManager;
     public boolean enabler;
     public Context context;
+   // private BeaconManager beaconManager = BeaconManager.getInstanceForApplication(this);
 
 
     public void onCreate() {
@@ -86,8 +88,8 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         // wake up the app when a beacon is seen
         Region region = new Region("backgroundRegion",
                 Identifier.parse("00000000-0000-0000-c000-000000000028"), null, null);
-        Region region1 = new Region("myIdentifier1", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"), Identifier.parse("1"));
-        Region region2 = new Region("myIdentifier2", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"), Identifier.parse("2"));
+        final Region region1 = new Region("myIdentifier1", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"), Identifier.parse("1"));
+        final Region region2 = new Region("myIdentifier2", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"), Identifier.parse("2"));
 
         regionBootstrap = new RegionBootstrap(this, region1);
         regionBootstrap = new RegionBootstrap(this, region2);
@@ -103,6 +105,11 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         // If you wish to test beacon detection in the Android Emulator, you can use code like this:
         // BeaconManager.setBeaconSimulator(new TimedBeaconSimulator() );
         // ((TimedBeaconSimulator) BeaconManager.getBeaconSimulator()).createTimedSimulatedBeacons();
+
+        SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(Config.KEY_MINOR, "5");
+        editor.commit();
     }
 
    // @Override
@@ -112,36 +119,73 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
 
         Log.d(TAG, "did enter region.");
 
-        Log.d(TAG, "Got a didEnterRegion call region:"+arg0.getId3());
-
-        SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR,Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString("minor",arg0.getId3().toString());
-        editor.commit();
+        Log.d(TAG, "Got a didEnterRegion call region:" + arg0.getId3());
 
         /*
+        SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(Config.KEY_MINOR, arg0.getId3().toString());
+        editor.commit();
+        */
+/*
         mBeaconManager.setRangeNotifier(new RangeNotifier() {
 
             @Override
-            public void didRangeBeaconsInRegion(Collection<Beacon> arg0,
-                                                Region arg1) {
-                // TODO Auto-generated method stub
-                if (arg0.size() > 0) {
-                    Log.i(TAG, "The first beacon I see has UUID: "+arg0.iterator().next().getId1()+" major id:"+arg0.iterator().next().getId2()+"  minor id: "+arg0.iterator().next().getId3());
-                    SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR,Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putString(Config.KEY_MINOR, arg0.toString());
-                    editor.apply();
-                }
-                try {
-                    mBeaconManager.stopRangingBeaconsInRegion(arg1);
-                } catch (RemoteException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+            public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
+                for (Beacon beacon : beacons) {
+                    if (beacon.getDistance() < 0.1) {
+                        Log.d(TAG, "Det er er beacon en halvannen meter unna");
+                        try {
+                            mBeaconManager.stopRangingBeaconsInRegion(region1);
+                            mBeaconManager.stopRangingBeaconsInRegion(region2);
+
+
+                            SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putString(Config.KEY_MINOR, beacon.getId3().toString());
+                            editor.commit();
+
+
+                            // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+
+                        try {
+                            mBeaconManager.stopRangingBeaconsInRegion(region1);
+                            mBeaconManager.stopRangingBeaconsInRegion(region2);
+
+                            SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putString(Config.KEY_MINOR, "5");
+                            editor.commit();
+
+                            //   ingenBeacon();
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+
+                        }
+
+                    }
+                    break;
+
                 }
 
             }
         });
+        */
+
+            //     @Override
+            //       public void didExitRegion(Region region) {
+            //           Log.i(TAG, "Kor e beacon?");
+            //       }
+
+            //    @Override
+            //       public void didDetermineStateForRegion(int state, Region region) {
+            //           Log.i(TAG, "Eg så ein beacon/beacon blei borte " + state);
+            //        }
+
 
         //Beacon.getId2().toString();
 
@@ -166,6 +210,11 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
             // already manually launched the app.
             //   this.startActivity(intent);
 
+            SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString(Config.KEY_MINOR, arg0.getId3().toString());
+            editor.commit();
+
             haveDetectedBeaconsSinceBoot = true;
         } else {
             if (monitoringActivity != null) {
@@ -178,10 +227,17 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
                 Log.d(TAG, "Sending notification.");
                 //sendNotification();
             }
+
+            if (monitoringAct != null) {
+            }
+                else {
+                    // If we have already seen beacons before, but the monitoring activity is not in
+                    // the foreground, we send a notification to the user on subsequent detections.
+                    Log.d(TAG, "Sending notification.");
+                    //sendNotification();
+                }
+            }
         }
-
-
-    }
 
 
 
@@ -189,8 +245,21 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
     public void didExitRegion(Region region) {
         if (monitoringActivity != null) {
             //    monitoringActivity.logToDisplay("I no longer see a beacon.");
+
+            SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString(Config.KEY_MINOR, "5");
+            editor.commit();
+
         }
-        enabler=true;
+
+        if (monitoringAct != null){
+            SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString(Config.KEY_MINOR, "5");
+            editor.commit();
+        }
+
     }
 
     @Override
@@ -233,7 +302,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
                 new NotificationCompat.Builder(this)
                         .setContentTitle("Egg and Beacon app")
                         .setContentText("Du er i nærheten av en beacon")
-                        .setSmallIcon(R.mipmap.beacon);
+                        .setSmallIcon(R.mipmap.ibeaconicon);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addNextIntent(new Intent(this, BeaconPage.class));
@@ -251,8 +320,13 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
 
     public void setMonitoringActivity(MainPage activity) {
         this.monitoringActivity = activity;
+
     }
 
+    public void setMonitoringAct(Lyd activity) {
+        this.monitoringAct = activity;
+
+    }
 
 
 
