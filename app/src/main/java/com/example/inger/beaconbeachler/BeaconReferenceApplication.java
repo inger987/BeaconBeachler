@@ -43,16 +43,11 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
     private Lyd monitoringAct = null;
     Region region1;
     Region region2;
-    private static final String uuid = "00000000-0000-0000-c000-000000000028";
     private BluetoothAdapter mBluetoothAdapter;
-    private String Minor;
-    private String Major;
-    private String UUID1;
     private BluetoothManager bluemanager;
     private BeaconManager mBeaconManager;
-    public boolean enabler;
     public Context context;
-   // private BeaconManager beaconManager = BeaconManager.getInstanceForApplication(this);
+
 
 
     public void onCreate() {
@@ -110,6 +105,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(Config.KEY_MINOR, "5");
         editor.commit();
+
     }
 
    // @Override
@@ -120,81 +116,6 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         Log.d(TAG, "did enter region.");
 
         Log.d(TAG, "Got a didEnterRegion call region:" + arg0.getId3());
-
-        /*
-        SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString(Config.KEY_MINOR, arg0.getId3().toString());
-        editor.commit();
-        */
-/*
-        mBeaconManager.setRangeNotifier(new RangeNotifier() {
-
-            @Override
-            public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
-                for (Beacon beacon : beacons) {
-                    if (beacon.getDistance() < 0.1) {
-                        Log.d(TAG, "Det er er beacon en halvannen meter unna");
-                        try {
-                            mBeaconManager.stopRangingBeaconsInRegion(region1);
-                            mBeaconManager.stopRangingBeaconsInRegion(region2);
-
-
-                            SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = settings.edit();
-                            editor.putString(Config.KEY_MINOR, beacon.getId3().toString());
-                            editor.commit();
-
-
-                            // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-
-                        try {
-                            mBeaconManager.stopRangingBeaconsInRegion(region1);
-                            mBeaconManager.stopRangingBeaconsInRegion(region2);
-
-                            SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = settings.edit();
-                            editor.putString(Config.KEY_MINOR, "5");
-                            editor.commit();
-
-                            //   ingenBeacon();
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
-
-                        }
-
-                    }
-                    break;
-
-                }
-
-            }
-        });
-        */
-
-            //     @Override
-            //       public void didExitRegion(Region region) {
-            //           Log.i(TAG, "Kor e beacon?");
-            //       }
-
-            //    @Override
-            //       public void didDetermineStateForRegion(int state, Region region) {
-            //           Log.i(TAG, "Eg så ein beacon/beacon blei borte " + state);
-            //        }
-
-
-        //Beacon.getId2().toString();
-
-/*        SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR,Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString("categoryId",arg0.getId3().toString());
-        editor.commit();
-        */
-
 
         sendNotification();
 
@@ -237,8 +158,8 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
                     //sendNotification();
                 }
             }
-        }
 
+        }
 
 
     @Override
@@ -268,35 +189,8 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
             //   monitoringActivity.logToDisplay("I have just switched from seeing/not seeing beacons: " + state);
         }
     }
-/*
-    public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-        // TODO Auto-generated method stub
-        Log.d(TAG, "Entra en onLeScan");
-        Major = "";
-        Minor = "";
-        UUID1 = "";
-
-        for (int i = 0; i < scanRecord.length; i++) {
-            if (i > 8 && i < 25)
-                UUID1 += String.format("%02x", scanRecord[i]);
-            else if (i > 24 && i < 27)
-                Major += String.format("%02x", scanRecord[i]);
-            else if (i > 26 && i < 29)
-                Minor += String.format("%02x", scanRecord[i]);
-
-        }
-        stop();
-    }
-
-    public void stop(){
-
-        mBluetoothAdapter.stopLeScan(this);
-        Log.d(TAG, ": scanLeDevice-> REGION Stopped");
-        Log.d(TAG, "Got a didExitRegion call with MAJOR:"+Major+" MINOR: "+Minor );
 
 
-    }
-*/
     public void sendNotification() {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this)
@@ -327,8 +221,6 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         this.monitoringAct = activity;
 
     }
-
-
 
 
 }

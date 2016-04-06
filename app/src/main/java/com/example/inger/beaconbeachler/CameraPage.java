@@ -48,6 +48,7 @@ public class CameraPage extends AppCompatActivity {
     private String UPLOAD_URL = "https://home.hbv.no/110115/bac/upload.php";
     private String UPLOAD_KEY = "image";
     private String BILDENAVN = "bilde";
+    private String KEY_CATID = "categoryId";
     public static final String KEY_USERID = "userId";
     Bitmap mBitmap;
 
@@ -203,12 +204,15 @@ public class CameraPage extends AppCompatActivity {
                 final String format = simpleDateFormat.format(new Date());
                 final String uploadImage = getStringImage(bitmap);
                 final String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
+                SharedPreferences sharedPref = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+                final String minor = sharedPref.getString(Config.KEY_MINOR, "Not Available");
 
                HashMap<String, String> data = new HashMap<String, String>()
                 {{
                         put(UPLOAD_KEY, uploadImage);
                         put(BILDENAVN, format);
                         put(KEY_USERID, username);
+                        put(KEY_CATID, minor);
 
                     }};
 

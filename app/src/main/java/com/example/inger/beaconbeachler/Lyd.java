@@ -215,31 +215,6 @@ public class Lyd extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    /*
-    public void onResume() {
-        super.onResume();
-        ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(Lyd.class);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(null);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-    }
-    */
-
     public String getStringAudio() {
         String outputFile = outputfile;
         ByteArrayOutputStream bos = new ByteArrayOutputStream();

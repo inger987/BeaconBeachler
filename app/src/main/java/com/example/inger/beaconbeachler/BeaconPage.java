@@ -112,13 +112,6 @@ public class BeaconPage extends Activity implements BeaconConsumer{
                             intent.putExtra("minor", beacon.getId3().toString());
                             intent.putExtra("distance", beacon.getDistance());
 
-                            /*
-                            SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR,Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = settings.edit();
-                            editor.putString(Config.KEY_MINOR, beacon.getId3().toString());
-                            editor.apply();
-                            */
-
                             // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                             loading.dismiss();
