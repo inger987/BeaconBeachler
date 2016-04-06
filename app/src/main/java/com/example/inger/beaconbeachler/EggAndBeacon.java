@@ -2,6 +2,7 @@ package com.example.inger.beaconbeachler;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -39,4 +40,10 @@ public class EggAndBeacon extends Activity {
 
 
     }
+    public void onBackPressed() {
+        Intent intent = new Intent(this,MainPage.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+    }
+
 }
