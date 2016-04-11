@@ -36,6 +36,16 @@ public class EggAndBeacon extends Activity {
                     "-Kuer spiser grass" +"\n"+
                     "-Kuer blir til hamburgere når de dør");
         }
+        else if (id2.equals("3")) {
+            imageView.setImageResource(R.drawable.miiko);
+            view.setText(uuid + "\n+" + id1 + "\n" + id2 + "\n" + ds + "\n" +
+                    "Beacon 3!!!");
+        }
+        else if (id2.equals("4")) {
+            imageView.setImageResource(R.drawable.miiko);
+            view.setText(uuid +"\n+"+ id1 +"\n"+ id2 +"\n"+ ds +"\n" +
+                    "Enda en beacon!");
+        }
 
 
 
