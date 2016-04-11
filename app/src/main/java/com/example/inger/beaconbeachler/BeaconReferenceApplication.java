@@ -1,6 +1,7 @@
 package com.example.inger.beaconbeachler;
 
 import android.app.Application;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
@@ -10,6 +11,7 @@ import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.v4.app.NotificationCompat;
@@ -197,6 +199,8 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
                         .setContentTitle("Egg and Beacon app")
                         .setContentText("Du er i nærheten av en beacon")
                         .setSmallIcon(R.mipmap.ibeaconicon);
+
+        builder.setLights(Color.MAGENTA, 1, 1);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addNextIntent(new Intent(this, BeaconPage.class));

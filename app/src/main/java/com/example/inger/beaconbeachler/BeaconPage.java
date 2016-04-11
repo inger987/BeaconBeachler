@@ -53,8 +53,6 @@ public class BeaconPage extends Activity implements BeaconConsumer{
         // setContentView(R.layout.activity_beacon_page);
         loading = ProgressDialog.show(BeaconPage.this, "Leter etter beacons", null,true,true);
 
-        // R.style.loading (Svart tekst)
-
         beaconManager.bind(this);
         mHandler = new Handler();
         mContext = getApplicationContext();
@@ -206,15 +204,6 @@ public class BeaconPage extends Activity implements BeaconConsumer{
 
     }
 
-    public void minorString(){
-        /*SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR,Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString(Config.KEY_MINOR, minor);
-        editor.apply();
-
-        Log.d(TAG,"hei");
-        */
-    }
     //Logout function
     private void logout(){
         //Creating an alert dialog to confirm logout
