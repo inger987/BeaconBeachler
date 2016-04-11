@@ -5,6 +5,6 @@
     <item name="textPrimary" type="color">#ffff</item>
     <item name="mainBackground" type="color">#e0e1dc</item>
     <item name="white" type="color">#ffff</item>
-    <item name="red" type="color">#B71C1C</item>
+    <item name="red" type="color">#c34e68</item>
 
 </resources>
