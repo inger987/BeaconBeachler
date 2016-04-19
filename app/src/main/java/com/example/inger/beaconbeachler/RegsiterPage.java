@@ -1,10 +1,12 @@
 package com.example.inger.beaconbeachler;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -31,6 +33,7 @@ public class RegsiterPage extends AppCompatActivity implements View.OnClickListe
     private EditText editTextEmail;
     private EditText editTextPassword;
     private EditText editTextLastName,editTextFirstName;
+    private TextView backToLoginPage;
 
     private Button buttonRegister;
 
@@ -44,6 +47,9 @@ public class RegsiterPage extends AppCompatActivity implements View.OnClickListe
 
         editTextLastName = (EditText) findViewById(R.id.editTextLastName);
         editTextFirstName = (EditText) findViewById(R.id.editTextFirstName);
+
+        backToLoginPage = (TextView) findViewById(R.id.textView3);
+        backToLoginPage.setOnClickListener(this);
 
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
 
@@ -90,6 +96,10 @@ public class RegsiterPage extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v == buttonRegister){
             registerUser();
+        }
+        if(v == backToLoginPage){
+            Intent myIntent = new Intent(RegsiterPage.this, LoginPage.class);
+            RegsiterPage.this.startActivity(myIntent);
         }
     }
 }
