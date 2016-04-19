@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,13 +25,14 @@ public class EggAndBeacon extends AppCompatActivity {
         TextView view = (TextView) findViewById(R.id.tekst);
         TextView overskrift = (TextView) findViewById(R.id.overskrift);
 
-        TextView text = new TextView(this);
-        text.setTextSize(6 * getResources().getDisplayMetrics().density);
+        TextView tekst = new TextView(this);
+        tekst.setTextSize(7 * getResources().getDisplayMetrics().density);
+        tekst.setMovementMethod(new ScrollingMovementMethod());
 
         overskrift.setTextSize(6 * getResources().getDisplayMetrics().density);
 
         TextView beacon = (TextView) findViewById(R.id.beacon);
-        beacon.setTextSize(6 * getResources().getDisplayMetrics().density);
+        beacon.setTextSize(7 * getResources().getDisplayMetrics().density);
 
         ImageView imageView = (ImageView)findViewById(R.id.bilde);
         if (id2.equals("1")) {
