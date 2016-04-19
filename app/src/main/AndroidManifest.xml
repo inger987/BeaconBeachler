@@ -39,7 +39,8 @@
 
         <activity
             android:name=".WritingPage"
-            android:label="@string/title_activity_writing_page"/>
+            android:label="@string/title_activity_writing_page"
+            android:windowSoftInputMode="adjustResize"/>
 
         <activity
             android:name=".CameraPage"
@@ -56,12 +57,14 @@
         </activity>
         <activity
             android:name=".Lyd"
-            android:label="@string/title_activity_lyd_activity">
+            android:label="@string/title_activity_lyd_activity"
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
             android:name=".LoginPage"
             android:theme="@style/AppTheme"
-            android:label="@string/title_activity_login_page">
+            android:label="@string/title_activity_login_page"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
