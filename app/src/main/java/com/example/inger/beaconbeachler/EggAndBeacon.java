@@ -5,13 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
  * Created by Elin on 01.03.2016.
  */
-public class EggAndBeacon extends Activity {
+public class EggAndBeacon extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eggandbeacon);
@@ -22,6 +23,14 @@ public class EggAndBeacon extends Activity {
         String ds = extras.getString("distance");
         TextView view = (TextView) findViewById(R.id.tekst);
         TextView overskrift = (TextView) findViewById(R.id.overskrift);
+
+        TextView text = new TextView(this);
+        text.setTextSize(6 * getResources().getDisplayMetrics().density);
+
+        overskrift.setTextSize(6 * getResources().getDisplayMetrics().density);
+
+        TextView beacon = (TextView) findViewById(R.id.beacon);
+        beacon.setTextSize(6 * getResources().getDisplayMetrics().density);
 
         ImageView imageView = (ImageView)findViewById(R.id.bilde);
         if (id2.equals("1")) {

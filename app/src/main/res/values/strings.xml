@@ -44,6 +44,7 @@
     <string name="title_activity_camera">KAMERA</string>
     <string name="title_activity_lyd_activity">LYDOPPTAK</string>
     <string name="title_activity_beacon_page">BeaconPage</string>
+    <string name="title_activity_egg_and_beacon_page">Beacon</string>
     <string name="title_activity_writing_page">NOTATER</string>
     <string name="title_activity_login_page">MuseumScan</string>
     <string name="title_activity_regsiter_page">RegsiterPage</string>
