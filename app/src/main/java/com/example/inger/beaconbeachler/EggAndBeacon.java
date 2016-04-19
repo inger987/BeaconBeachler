@@ -21,10 +21,12 @@ public class EggAndBeacon extends Activity {
         String id2 = extras.getString("minor");
         String ds = extras.getString("distance");
         TextView view = (TextView) findViewById(R.id.tekst);
+        TextView overskrift = (TextView) findViewById(R.id.overskrift);
 
         ImageView imageView = (ImageView)findViewById(R.id.bilde);
         if (id2.equals("1")) {
-            imageView.setImageResource(R.drawable.vr_briller);
+            imageView.setImageResource(R.mipmap.vrbriller);
+            overskrift.setText("VIRITUELL VIRKELIGHET");
             view.setText(uuid + "\n+" + id1 + "\n" + id2 + "\n" + "\n" + ds + "\n" +
                     "Kunstig virkelighet eller virtuell virkelighet (etter det engelske virtual reality), ofte forkortet VR, " +
                     "er en datateknologi som lar brukeren påvirke og bli påvirket av et dataskapt miljø som skal etterlikne " +
@@ -34,7 +36,8 @@ public class EggAndBeacon extends Activity {
         }
 
         else if (id2.equals("2")) {
-            imageView.setImageResource(R.drawable.un_hand);
+            imageView.setImageResource(R.mipmap.unhand);
+            overskrift.setText("UNLIMITED HAND");
             view.setText(uuid +"\n+"+ id1 +"\n"+ id2 +"\n"+ ds +"\n" +
                     "Dette er en teknologi som kan brukes sammen med VR briller. Du plaserer sensoren rundt armen(som vist på bildet) " +
                     "og den finner ut hvordan og hvor du beveger hånden. Dette gjør det mulig å bruke hendene når du spiller " +
@@ -42,7 +45,8 @@ public class EggAndBeacon extends Activity {
         }
 
         else if (id2.equals("3")) {
-            imageView.setImageResource(R.drawable.contact_lens);
+            imageView.setImageResource(R.mipmap.contactlens);
+            overskrift.setText("GOOGLE KONTAKTLINSER");
             view.setText(uuid + "\n+" + id1 + "\n" + id2 + "\n" + ds + "\n" +
                     "Google kontaktliser er en smartteknologi som er spesielt utviklet for personer med diabetes." +
                     " Den sjekker konstant glukose(sukker) - nivået i tårene. Produktet er enda ikke på markedet, " +
@@ -51,7 +55,8 @@ public class EggAndBeacon extends Activity {
         }
 
         else if (id2.equals("4")) {
-            imageView.setImageResource(R.drawable.driverless_car);
+            imageView.setImageResource(R.mipmap.driverless);
+            overskrift.setText("FØRERLØS BIL");
             view.setText(uuid +"\n+"+ id1 +"\n"+ id2 +"\n"+ ds +"\n" +
                     "Tenk deg biler uten fører! Ny teknologi, tankegang og forskning gjør dette mulig. " +
                     "Ved hjelp av kameraer og sensorer som er plassert rundt bilen, leser den trafikkskilt, " +

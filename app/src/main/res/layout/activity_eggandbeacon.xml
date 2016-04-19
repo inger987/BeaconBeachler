@@ -1,26 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#d7e7e6">
+    android:background="@color/mainBackground">
     <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="100dp"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
         android:id="@+id/beacon"
-        android:text="Egg and Beacon"
-        android:textSize="50sp"/>
+        android:text="Teknologiske inovasjoner"
+        android:layout_marginTop="15dp"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textAlignment="viewEnd"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
     <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="120dp"
-        android:id="@+id/bilde"/>
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:id="@+id/bilde"
+        android:scaleType="centerCrop"
+        android:layout_below="@+id/overskrift"
+        android:layout_centerHorizontal="true" />
 <TextView
     android:layout_width="fill_parent"
-    android:text="fdfdf"
-    android:layout_marginTop="300dp"
-    android:layout_height="400dp"
-    android:textSize="25sp"
+    android:layout_height="200dp"
+    android:textSize="13sp"
+    android:fontFamily="sans-serif"
     android:id="@+id/tekst"
     android:scrollbars="vertical"
-    android:scrollbarStyle="insideInset"/>
+    android:scrollbarStyle="insideInset"
+    android:layout_below="@+id/bilde"
+    android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:textSize="15dp"
+        android:id="@+id/overskrift"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/beacon"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
