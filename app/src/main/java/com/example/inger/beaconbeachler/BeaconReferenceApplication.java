@@ -43,8 +43,6 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
     private boolean haveDetectedBeaconsSinceBoot = false;
     private MainPage monitoringActivity = null;
     private Lyd monitoringAct = null;
-    Region region1;
-    Region region2;
     private BluetoothAdapter mBluetoothAdapter;
     private BluetoothManager bluemanager;
     private BeaconManager mBeaconManager;
@@ -85,15 +83,11 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         // wake up the app when a beacon is seen
         Region region = new Region("backgroundRegion",
                 Identifier.parse("00000000-0000-0000-c000-000000000028"), null, null);
-        final Region region1 = new Region("myIdentifier1", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"), Identifier.parse("1"));
-        final Region region2 = new Region("myIdentifier2", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"), Identifier.parse("2"));
-        final Region region3 = new Region("myIdentifier2", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"), Identifier.parse("3"));
-        final Region region4 = new Region("myIdentifier2", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"), Identifier.parse("4"));
+        final Region region1 = new Region("myIdentifier1", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"), null);
+
 
         regionBootstrap = new RegionBootstrap(this, region1);
-        regionBootstrap = new RegionBootstrap(this, region2);
-        regionBootstrap = new RegionBootstrap(this, region3);
-        regionBootstrap = new RegionBootstrap(this,region4);
+
 
         BeaconManager.getInstanceForApplication(this).getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:0-3=4c000215,i:4-19,i:20-21,i:22-23,p:24-24"));
 

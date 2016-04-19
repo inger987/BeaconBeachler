@@ -35,9 +35,6 @@ public class BeaconPage extends Activity implements BeaconConsumer{
     public static Context mContext;
 
     Region region1;
-    Region region2;
-    Region region3;
-    Region region4;
     Intent intent;
     ProgressDialog loading;
     private Handler mHandler;
@@ -83,9 +80,6 @@ public class BeaconPage extends Activity implements BeaconConsumer{
         public void run() {
             try {
                 beaconManager.stopRangingBeaconsInRegion(region1);
-                beaconManager.stopRangingBeaconsInRegion(region2);
-                beaconManager.stopRangingBeaconsInRegion(region3);
-                beaconManager.stopRangingBeaconsInRegion(region4);
 
                 loading.dismiss();
                 //    intent = new Intent(getApplicationContext(), MainPage.class);
@@ -134,11 +128,6 @@ public class BeaconPage extends Activity implements BeaconConsumer{
                         Log.d(TAG, "Det er er beacon en halvannen meter unna");
                         try {
                             beaconManager.stopRangingBeaconsInRegion(region1);
-                            beaconManager.stopRangingBeaconsInRegion(region2);
-                            beaconManager.stopRangingBeaconsInRegion(region3);
-                            beaconManager.stopRangingBeaconsInRegion(region4);
-
-
                             intent = new Intent(getApplicationContext(), EggAndBeacon.class);
                             intent.putExtra("uuid", beacon.getId1().toString());
                             intent.putExtra("major", beacon.getId2().toString());
@@ -172,7 +161,6 @@ public class BeaconPage extends Activity implements BeaconConsumer{
                     //    }
 
                     }
-                    break;
 
                 }
 
@@ -190,17 +178,13 @@ public class BeaconPage extends Activity implements BeaconConsumer{
         });
 
         try {
-            region1 = new Region("myIdentifier1", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"), Identifier.parse("1"));
-            region2 = new Region("myIdentifier2", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"), Identifier.parse("2"));
-            region3 = new Region("myIdentifier2", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"), Identifier.parse("3"));
-            region4 = new Region("myIdentifier2", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"), Identifier.parse("4"));
+            region1 = new Region("myIdentifier1", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"),null);
+
 
             //      beaconManager.startMonitoringBeaconsInRegion(region1);
             //      beaconManager.startMonitoringBeaconsInRegion(region2);
             beaconManager.startRangingBeaconsInRegion(region1);
-            beaconManager.startRangingBeaconsInRegion(region2);
-            beaconManager.startRangingBeaconsInRegion(region3);
-            beaconManager.startRangingBeaconsInRegion(region4);
+
 
 
             // beaconManager.startMonitoringBeaconsInRegion(new Region("com.example.inger.beaconbeachler.boostrapRegion",
