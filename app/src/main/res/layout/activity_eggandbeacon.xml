@@ -21,7 +21,7 @@
 
     <ImageView
         android:layout_width="300dp"
-        android:layout_height="150dp"
+        android:layout_height="200dp"
         android:id="@+id/bilde"
         android:scaleType="centerCrop"
         android:layout_below="@+id/overskrift"
