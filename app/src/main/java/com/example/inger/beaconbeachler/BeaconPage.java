@@ -2,7 +2,6 @@ package com.example.inger.beaconbeachler;
 
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.RemoteException;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.util.Log;
@@ -26,6 +24,7 @@ import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.Identifier;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
+
 import java.util.Collection;
 
 
@@ -124,7 +123,7 @@ public class BeaconPage extends Activity implements BeaconConsumer{
             @Override
             public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
                 for (Beacon beacon : beacons) {
-                    if (beacon.getDistance() < 5.5) {
+                    if (beacon.getDistance() < 1.0) {
                         Log.d(TAG, "Det er er beacon en halvannen meter unna");
                         try {
                             beaconManager.stopRangingBeaconsInRegion(region1);
