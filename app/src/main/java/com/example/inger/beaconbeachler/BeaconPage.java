@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.RemoteException;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
@@ -28,7 +29,7 @@ import org.altbeacon.beacon.Region;
 import java.util.Collection;
 
 
-public class BeaconPage extends Activity implements BeaconConsumer{
+public class BeaconPage extends AppCompatActivity implements BeaconConsumer{
     protected static final String TAG = "RangingActivity";
     private BeaconManager beaconManager = BeaconManager.getInstanceForApplication(this);
     public static Context mContext;
@@ -54,9 +55,6 @@ public class BeaconPage extends Activity implements BeaconConsumer{
         beaconManager.bind(this);
         mHandler = new Handler();
         mContext = getApplicationContext();
-
-
-
     }
     @Override
     protected void onDestroy() {
@@ -95,7 +93,7 @@ public class BeaconPage extends Activity implements BeaconConsumer{
     public void ingenBeacon() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this,android.R.style.Theme_Material_Dialog_Alert);
-        builder.setTitle( Html.fromHtml("<font color='#cc0099'>Ingen beacon funnet</font>"));
+        builder.setTitle( Html.fromHtml("<font color='#ffffff'>Ingen beacon funnet</font>"));
               //  builder.setMessage("Ingen beacons funnet")
                 builder.setCancelable(false)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -107,11 +105,10 @@ public class BeaconPage extends Activity implements BeaconConsumer{
                         });
         AlertDialog alert = builder.create();
         alert.show();
-        alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextSize(50);
-        alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.MAGENTA);
+        alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextSize(30);
+        alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.WHITE);
 
     //    alert.getWindow().setLayout(500, 350);
-
 
     }
 

@@ -227,7 +227,7 @@ public class MainPage extends AppCompatActivity implements View.OnClickListener 
         }
 
         if(id==R.id.action_beacon){
-            startActivity(new Intent(MainPage.this, BeaconPage.class));
+            startActivity(new Intent(this, BeaconPage.class));
         }
 
         return super.onOptionsItemSelected(item);
