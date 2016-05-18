@@ -85,7 +85,6 @@ public class RegsiterPage extends AppCompatActivity implements View.OnClickListe
                 params.put(KEY_LASTNAME, lastname);
                 return params;
             }
-
         };
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);

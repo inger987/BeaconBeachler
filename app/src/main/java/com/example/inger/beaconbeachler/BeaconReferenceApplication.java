@@ -1,35 +1,25 @@
 package com.example.inger.beaconbeachler;
 
 import android.app.Application;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.os.RemoteException;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import org.altbeacon.beacon.Beacon;
-import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
 import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.Identifier;
-import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
 import org.altbeacon.beacon.powersave.BackgroundPowerSaver;
 import org.altbeacon.beacon.startup.BootstrapNotifier;
 import org.altbeacon.beacon.startup.RegionBootstrap;
-
-
-import java.util.Collection;
 
 /**
  * Created by Elin on 08.03.2016.
@@ -101,11 +91,16 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         // BeaconManager.setBeaconSimulator(new TimedBeaconSimulator() );
         // ((TimedBeaconSimulator) BeaconManager.getBeaconSimulator()).createTimedSimulatedBeacons();
 
-        SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+      /*  SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(Config.KEY_MINOR, "5");
-        editor.commit();
+        editor.commit();*/
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Config.KEY_MINOR, "21");
 
+        //Saving values to editor
+        editor.commit();
     }
 
    // @Override
@@ -118,6 +113,10 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
         Log.d(TAG, "Got a didEnterRegion call region:" + arg0.getId3());
 
         sendNotification();
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Config.KEY_MINOR, "15");
+        editor.commit();
 
         if (!haveDetectedBeaconsSinceBoot) {
             Log.d(TAG, "auto launching MainActivity");
@@ -131,9 +130,12 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
             // already manually launched the app.
             //   this.startActivity(intent);
 
-            SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = settings.edit();
+         /*   SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(Config.KEY_MINOR, arg0.getId3().toString());
+            editor.commit(); */
+
+            editor.putString(Config.KEY_MINOR, "10");
             editor.commit();
 
             haveDetectedBeaconsSinceBoot = true;
@@ -166,18 +168,26 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
     public void didExitRegion(Region region) {
         if (monitoringActivity != null) {
             //    monitoringActivity.logToDisplay("I no longer see a beacon.");
+            SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(Config.KEY_MINOR, "11");
+            editor.commit();
 
-            SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+           /* SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = settings.edit();
             editor.putString(Config.KEY_MINOR, "5");
-            editor.commit();
+            editor.commit(); */
 
         }
 
         if (monitoringAct != null){
-            SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+          /*  SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = settings.edit();
             editor.putString(Config.KEY_MINOR, "5");
+            editor.commit(); */
+            SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(Config.KEY_MINOR, "12");
             editor.commit();
         }
 

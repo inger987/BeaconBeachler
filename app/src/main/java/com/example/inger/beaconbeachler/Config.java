@@ -15,14 +15,14 @@ public class Config {
     public static final String KEY_LASTNAME = "lastName";
 
     //Store minor for beacon
-    public static final String KEY_MINOR = "minor";
+    public static final String KEY_MINOR = "8";
 
     //If server response is equal to this that means login is successful
     public static final String LOGIN_SUCCESS = "success";
 
     //Keys for Sharedpreferences
     //This would be the name of our shared preferences
-    public static final String SHARED_PREF_NAME = "myloginapp";
+    public static final String SHARED_PREF_NAME = "sessionVar";
 
     //This would be used to store the email of current logged in user
     public static final String USERNAME_SHARED_PREF = "username";
@@ -30,9 +30,4 @@ public class Config {
     //We will use this to store the boolean in sharedpreference to track user is loggedin or not
     public static final String LOGGEDIN_SHARED_PREF = "loggedin";
 
-    //Facebook values
-    public String facebookID;
-    public String firstName;
-    public String lastName;
-    public String username;
 }
