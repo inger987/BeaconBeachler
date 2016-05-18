@@ -1,11 +1,9 @@
 package com.example.inger.beaconbeachler;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -15,6 +13,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,6 +28,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Lyd extends Menu implements View.OnClickListener {
 
@@ -35,11 +41,15 @@ public class Lyd extends Menu implements View.OnClickListener {
     long startTime = 0;
 
     public String outputfile = null;
-    private String UPLOAD_URL ="https://home.hbv.no/110115/bac/uploadToServer.php";
-    private String UPLOAD_KEY = "audio";
-    private String KEY_USERID = "userId";
-    private String KEY_CATID = "categoryId";
-    private String FILNAVN = "filnavn";
+    private String username ="";
+    private String minor ="";
+    private String uploadfile ="";
+    private String currentDateandTime ="";
+    private static String UPLOAD_URL ="https://home.hbv.no/110115/bac/uploadToServer.php";
+    private static String UPLOAD_KEY = "audio";
+    private static String KEY_USERID = "userId";
+    private static String KEY_CATID = "categoryId";
+    private static String FILNAVN = "filnavn";
 
     Handler timerHandler = new Handler();
     Runnable timerRunnable = new Runnable() {
@@ -150,14 +160,14 @@ public class Lyd extends Menu implements View.OnClickListener {
             e.printStackTrace();
         }
 
-        Toast.makeText(getApplicationContext(), "Start recording...",
+        Toast.makeText(getApplicationContext(), "Starter lydopptaket",
                 Toast.LENGTH_SHORT).show();
     }
 
     public void stopRecording(View v){
         try {
             myRecorder.stop();
-            Toast.makeText(getApplicationContext(), "Stop recording...",
+            Toast.makeText(getApplicationContext(), "Stopper lydopptaket",
                     Toast.LENGTH_SHORT).show();
 
         } catch (IllegalStateException e) {
@@ -177,7 +187,7 @@ public class Lyd extends Menu implements View.OnClickListener {
             myPlayer.prepare();
             myPlayer.start();
 
-            Toast.makeText(getApplicationContext(), "Start play the recording...",
+            Toast.makeText(getApplicationContext(), "Starter avspilling",
                     Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -194,7 +204,7 @@ public class Lyd extends Menu implements View.OnClickListener {
                 myRecorder.reset();
                 myPlayer = null;
 
-                Toast.makeText(getApplicationContext(), "Stop playing the recording...",
+                Toast.makeText(getApplicationContext(), "Stopper avspilling",
                         Toast.LENGTH_SHORT).show();
 
                 myPlayer = null;
@@ -230,7 +240,49 @@ public class Lyd extends Menu implements View.OnClickListener {
 
     public void UploadFile() {
 
-        class uploadFile extends AsyncTask<String, Void, String> {
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                        username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
+                        minor = sharedPreferences.getString(Config.KEY_MINOR, "5");
+
+                        SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MMM-yyyy-hh-mm-ss");
+                        currentDateandTime = sdfDate.format(new Date());
+                        uploadfile = getStringAudio();
+
+                        Toast.makeText(Lyd.this, response, Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(Lyd.this,error.toString(),Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                params.put(UPLOAD_KEY, uploadfile);
+                params.put(FILNAVN, currentDateandTime);
+                params.put(KEY_USERID, username);
+                params.put(KEY_CATID, minor);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
+
+
+
+
+
+
+     /*   class uploadFile extends AsyncTask<String, Void, String> {
 
             ProgressDialog loading;
             RequestHandler rh = new RequestHandler();
@@ -277,7 +329,7 @@ public class Lyd extends Menu implements View.OnClickListener {
         }
 
         uploadFile ui = new uploadFile();
-        ui.execute();
+        ui.execute(); */
     }
 
     @Override
