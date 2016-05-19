@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -16,11 +15,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 public class CameraPage extends Menu {
     Button tabilde;
@@ -29,6 +36,10 @@ public class CameraPage extends Menu {
     ImageView zoom;
 
 
+    private String username;
+    private String minor;
+    private String format;
+
     private final int CAMERA_RESULT = 1;
     private String UPLOAD_URL = "https://home.hbv.no/110115/bac/upload.php";
     private String UPLOAD_KEY = "image";
@@ -36,6 +47,7 @@ public class CameraPage extends Menu {
     private String KEY_CATID = "categoryId";
     public static final String KEY_USERID = "userId";
     Bitmap mBitmap;
+    ProgressDialog loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,7 +170,45 @@ public class CameraPage extends Menu {
     }
 
     private void uploadImage(){
-        class UploadImage extends AsyncTask<Bitmap,Void,String>{
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
+        minor = sharedPreferences.getString(Config.KEY_MINOR, "5");
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+        format = simpleDateFormat.format(new Date());
+        loading = ProgressDialog.show(this, "Uploading...", "Please wait...", false, false);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        loading.dismiss();
+                        Toast.makeText(CameraPage.this, response, Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading.dismiss();
+                        Toast.makeText(CameraPage.this,error.toString(),Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String,String> getParams(){
+                String uploadImage = getStringImage(mBitmap);
+
+                Map<String,String> params = new HashMap<String, String>();
+                params.put(UPLOAD_KEY,uploadImage);
+                params.put(BILDENAVN, format);
+                params.put(KEY_USERID, username);
+                params.put(KEY_CATID, minor);
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+      /*  class UploadImage extends AsyncTask<Bitmap,Void,String>{
 
             ProgressDialog loading;
             RequestHandler rh = new RequestHandler();
@@ -209,7 +259,7 @@ public class CameraPage extends Menu {
         }
 
         UploadImage ui = new UploadImage();
-        ui.execute(mBitmap);
+        ui.execute(mBitmap); */
     }
 
 }

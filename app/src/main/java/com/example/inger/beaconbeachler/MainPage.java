@@ -108,7 +108,6 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
 
         TextView text= (TextView) view.findViewById(R.id.textView);
 
-
         builder.setView(view);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
