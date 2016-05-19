@@ -5,8 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,14 +30,19 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
     BluetoothAdapter mBluetoothAdapter;
 
 
+
     private final static int REQUEST_ENABLE_BT = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_main_page);
+
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        verifyBluetooth();
+        boolean blueToothFinnish = verifyBluetooth();
+        if(blueToothFinnish)
+            userManualDialog();
+
         btnText = (Button)findViewById(R.id.btnText);
         btnSound = (Button)findViewById(R.id.btnSound);
         btnBeacon = (Button)findViewById(R.id.btnBeacon);
@@ -62,7 +69,7 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
         ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(null);
     }
 
-    private void verifyBluetooth() {
+    private boolean verifyBluetooth() {
 
         if (!mBluetoothAdapter.isEnabled()) {
 
@@ -82,13 +89,37 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
             });
             AlertDialog alert = builder.create();
             alert.show();
-
-
         }
         else {
 
         }
+        return true;
     }
+
+    private void userManualDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("BRUKERVEILEDNING");
+
+        LayoutInflater factory = LayoutInflater.from(MainPage.this);
+        final View view = factory.inflate(R.layout.dialogboxmanual, null);
+
+        ImageView image= (ImageView)view.findViewById(R.id.imageView);
+        image.setImageResource(R.drawable.beaconclose);
+
+        TextView text= (TextView) view.findViewById(R.id.textView);
+
+
+        builder.setView(view);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -100,14 +131,10 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
                 startActivity(new Intent(MainPage.this,CameraPage.class));
                 break;
             case R.id.btnBeacon:
-
-                if (mBluetoothAdapter.isEnabled()) {
-
+                if (mBluetoothAdapter.isEnabled())
                     startActivity(new Intent(MainPage.this, BeaconPage.class).setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
-                }
-                else {
+                else
                     Toast.makeText(getBaseContext(), "Du må aktivere bluetooth hvis du ønsker å bruke denne funksjonen", Toast.LENGTH_LONG).show();
-                }
                 break;
             case R.id.btnSound:
                 startActivity(new Intent(MainPage.this, Lyd.class));

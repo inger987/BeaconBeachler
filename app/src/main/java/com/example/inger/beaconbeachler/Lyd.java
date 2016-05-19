@@ -239,20 +239,17 @@ public class Lyd extends Menu implements View.OnClickListener {
     }
 
     public void UploadFile() {
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
+        minor = sharedPreferences.getString(Config.KEY_MINOR, "5");
+        SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MMM-yyyy-hh-mm-ss");
+        currentDateandTime = sdfDate.format(new Date());
+        uploadfile = getStringAudio();
 
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+       StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                        username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
-                        minor = sharedPreferences.getString(Config.KEY_MINOR, "5");
-
-                        SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MMM-yyyy-hh-mm-ss");
-                        currentDateandTime = sdfDate.format(new Date());
-                        uploadfile = getStringAudio();
-
                         Toast.makeText(Lyd.this, response, Toast.LENGTH_LONG).show();
                     }
                 },

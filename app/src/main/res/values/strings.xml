@@ -52,4 +52,7 @@
     <string name="bilde">bilde</string>
     <string name="beacon">Beacon</string>
     <string name="sound">sound</string>
+    <string name="brukerInfo">Når du er innenfor rekkevidde av en beacon vil beacon knappen bytte farge (se bilde).
+    Når du er innenfor rekkevidde av en beacon, vil alt av notater, bilder og lydopptak bli lagret på samme sted. Ønsker du
+    mer informasjon finner du dette i menyen over.</string>
 </resources>
