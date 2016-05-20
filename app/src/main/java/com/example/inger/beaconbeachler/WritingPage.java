@@ -1,6 +1,7 @@
 package com.example.inger.beaconbeachler;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -87,5 +88,10 @@ public class WritingPage extends com.example.inger.beaconbeachler.Menu implement
         requestQueue.add(stringRequest);
     }
 
+    public void onBackPressed() {
+        Intent intent = new Intent(this,MainPage.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+    }
 
 }

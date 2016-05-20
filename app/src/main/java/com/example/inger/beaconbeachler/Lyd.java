@@ -1,6 +1,7 @@
 package com.example.inger.beaconbeachler;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -327,6 +328,12 @@ public class Lyd extends Menu implements View.OnClickListener {
 
         uploadFile ui = new uploadFile();
         ui.execute(); */
+    }
+
+    public void onBackPressed() {
+        Intent intent = new Intent(this,MainPage.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
     }
 
     @Override

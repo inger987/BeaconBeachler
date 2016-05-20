@@ -2,7 +2,7 @@
 <resources>
     <!-- COLORS-->
     <item name="header" type="color">#000000</item>
-    <item name="textPrimary" type="color">#ffff</item>
+    <item name="textPrimary" type="color">#222222</item>
     <item name="mainBackground" type="color">#e0e1dc</item>
     <item name="white" type="color">#ffff</item>
     <item name="red" type="color">#c34e68</item>

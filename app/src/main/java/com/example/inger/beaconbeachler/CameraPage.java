@@ -41,10 +41,10 @@ public class CameraPage extends Menu {
     private String format;
 
     private final int CAMERA_RESULT = 1;
-    private String UPLOAD_URL = "https://home.hbv.no/110115/bac/upload.php";
-    private String UPLOAD_KEY = "image";
-    private String BILDENAVN = "bilde";
-    private String KEY_CATID = "categoryId";
+    private static final String UPLOAD_URL = "https://home.hbv.no/110115/bac/upload.php";
+    private static final String UPLOAD_KEY = "image";
+    private static final String BILDENAVN = "bilde";
+    private static final String KEY_CATID = "categoryId";
     public static final String KEY_USERID = "userId";
     Bitmap mBitmap;
     ProgressDialog loading;
@@ -260,6 +260,12 @@ public class CameraPage extends Menu {
 
         UploadImage ui = new UploadImage();
         ui.execute(mBitmap); */
+    }
+
+    public void onBackPressed() {
+        Intent intent = new Intent(this,MainPage.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
     }
 
 }
