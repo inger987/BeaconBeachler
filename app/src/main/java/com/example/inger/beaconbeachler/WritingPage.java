@@ -24,7 +24,7 @@ import java.util.Map;
  */
 public class WritingPage extends com.example.inger.beaconbeachler.Menu implements View.OnClickListener {
 
-    private static final String INSERTWRITING_URL = "https://home.hbv.no/110118/bachelor/insertWriting.php";
+    private static final String INSERTWRITING_URL = "https://home.hbv.no/110118/bachelor/insertText.php";
     public static final String KEY_TEXT = "text";
     public static final String KEY_USERID = "userId";
     private static final String KEY_CAT = "categoryId";

@@ -24,7 +24,7 @@ import java.util.Map;
 /**
  * Created by Elin on 01.03.2016.
  */
-public class EggAndBeacon extends AppCompatActivity {
+public class ShowBeaconInfo extends AppCompatActivity {
 
 
     private static final String KEY_CATID = "categoryId";

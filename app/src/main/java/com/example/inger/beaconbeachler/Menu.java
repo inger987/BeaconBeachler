@@ -20,8 +20,8 @@ public class Menu extends AppCompatActivity {
     private void logout(){
         //Creating an alert dialog to confirm logout
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("Are you sure you want to logout?");
-        alertDialogBuilder.setPositiveButton("Yes",
+        alertDialogBuilder.setMessage("Er du sikker på at du ønsker å logge ut?");
+        alertDialogBuilder.setPositiveButton("JA",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
@@ -92,30 +92,25 @@ public class Menu extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            logout();
-        }
-
-        if (id == R.id.action_favorite) {
-            //se din profil / endre profil
-            showprofil();
-        }
-
-        if (id == R.id.action_sound){
-            startActivity(new Intent(this, Lyd.class));
-        }
-
-        if (id== R.id.action_camera){
-            startActivity(new Intent(this, CameraPage.class));
-        }
-
-        if (id==R.id.action_text){
-            startActivity(new Intent(this, WritingPage.class));
-        }
-
-        if(id==R.id.action_beacon){
-            startActivity(new Intent(this, BeaconPage.class));
+        switch (id){
+            case R.id.action_sound:
+                startActivity(new Intent(this, AudioPage.class));
+                break;
+            case R.id.action_camera:
+                startActivity(new Intent(this, CameraPage.class));
+                break;
+            case R.id.action_text:
+                startActivity(new Intent(this, WritingPage.class));
+                break;
+            case R.id.action_beacon:
+                startActivity(new Intent(this, BeaconPage.class));
+                break;
+            case R.id.action_settings:
+                logout();
+                break;
+            case R.id.action_favorite:
+                showprofil();
+                break;
         }
 
         return super.onOptionsItemSelected(item);

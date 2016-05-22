@@ -118,7 +118,7 @@ public class BeaconPage extends Menu implements BeaconConsumer{
                         Log.d(TAG, "Det er er beacon en halvannen meter unna");
                         try {
                             beaconManager.stopRangingBeaconsInRegion(region1);
-                            intent = new Intent(getApplicationContext(), EggAndBeacon.class);
+                            intent = new Intent(getApplicationContext(), ShowBeaconInfo.class);
                             intent.putExtra("uuid", beacon.getId1().toString());
                             intent.putExtra("major", beacon.getId2().toString());
                             intent.putExtra("minor", beacon.getId3().toString());

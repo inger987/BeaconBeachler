@@ -32,7 +32,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
     private BackgroundPowerSaver backgroundPowerSaver;
     private boolean haveDetectedBeaconsSinceBoot = false;
     private MainPage monitoringActivity = null;
-    private Lyd monitoringAct = null;
+    private AudioPage monitoringAct = null;
     private BluetoothAdapter mBluetoothAdapter;
     private BluetoothManager bluemanager;
     private BeaconManager mBeaconManager;
@@ -229,7 +229,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
 
     }
 
-    public void setMonitoringAct(Lyd activity) {
+    public void setMonitoringAct(AudioPage activity) {
         this.monitoringAct = activity;
 
     }

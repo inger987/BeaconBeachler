@@ -31,7 +31,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Lyd extends Menu implements View.OnClickListener {
+public class AudioPage extends Menu implements View.OnClickListener {
 
     private MediaRecorder myRecorder;
     private MediaPlayer myPlayer;
@@ -46,7 +46,7 @@ public class Lyd extends Menu implements View.OnClickListener {
     private String minor ="";
     private String uploadfile ="";
     private String currentDateandTime ="";
-    private static String UPLOAD_URL ="https://home.hbv.no/110115/bac/uploadToServer.php";
+    private static String AUDIO_URL ="https://home.hbv.no/110115/bac/uploadToServer.php";
     private static String UPLOAD_KEY = "audio";
     private static String KEY_USERID = "userId";
     private static String KEY_CATID = "categoryId";
@@ -247,17 +247,17 @@ public class Lyd extends Menu implements View.OnClickListener {
         currentDateandTime = sdfDate.format(new Date());
         uploadfile = getStringAudio();
 
-       StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+       StringRequest stringRequest = new StringRequest(Request.Method.POST, AUDIO_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(Lyd.this, response, Toast.LENGTH_LONG).show();
+                        Toast.makeText(AudioPage.this, response, Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(Lyd.this,error.toString(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(AudioPage.this,error.toString(),Toast.LENGTH_LONG).show();
                     }
                 }){
             @Override
@@ -289,7 +289,7 @@ public class Lyd extends Menu implements View.OnClickListener {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loading = ProgressDialog.show(Lyd.this, "Uploading...", null, true, true);
+                loading = ProgressDialog.show(AudioPage.this, "Uploading...", null, true, true);
             }
 
             @Override
@@ -320,7 +320,7 @@ public class Lyd extends Menu implements View.OnClickListener {
                     put(KEY_CATID, minor);
                 }};
 
-                String result = rh.sendPostRequest(UPLOAD_URL, data);
+                String result = rh.sendPostRequest(AUDIO_URL, data);
 
                 return result;
             }

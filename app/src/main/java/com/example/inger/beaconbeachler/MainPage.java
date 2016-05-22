@@ -136,7 +136,7 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
                     Toast.makeText(getBaseContext(), "Du må aktivere bluetooth hvis du ønsker å bruke denne funksjonen", Toast.LENGTH_LONG).show();
                 break;
             case R.id.btnSound:
-                startActivity(new Intent(MainPage.this, Lyd.class));
+                startActivity(new Intent(MainPage.this, AudioPage.class));
                 break;
         }
     }

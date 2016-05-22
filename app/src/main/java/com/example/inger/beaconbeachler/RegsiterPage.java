@@ -30,7 +30,6 @@ public class RegsiterPage extends AppCompatActivity implements View.OnClickListe
 
 
     private EditText editTextUsername;
-    private EditText editTextEmail;
     private EditText editTextPassword;
     private EditText editTextLastName,editTextFirstName;
     private TextView backToLoginPage;

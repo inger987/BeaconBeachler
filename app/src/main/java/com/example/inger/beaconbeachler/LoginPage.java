@@ -51,6 +51,15 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
     private String lastName;
     private String passwordF;
 
+    // SERVER SIDE VARIABLES
+    public static final String LOGIN_URL = "https://home.hbv.no/110118/bachelor/test.php";
+    public static final String REGISTER_URL ="https://home.hbv.no/110118/bachelor/registrerFacebook.php";
+    public static final String LOGIN_SUCCESS = "success";
+    public static final String KEY_USERNAME = "username";
+    public static final String KEY_PASSWORD = "password";
+    public static final String KEY_FIRSTNAME = "firstName";
+    public static final String KEY_LASTNAME = "lastName";
+
     CallbackManager callbackManager;
     Config config;
     /**
@@ -92,7 +101,6 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
 
                                 Log.e("response: ", response + "");
                                 try {
-                                   // config = new Config();
                                     facebookID = object.getString("id").toString();
                                     firstName = object.getString("first_name").toString();
                                     lastName = object.getString("last_name").toString();
@@ -173,12 +181,12 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
 
 
     private void loggedInShare() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, config.REGISTER_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         //  Toast.makeText(LoginPage.this,response,Toast.LENGTH_LONG).show();
-                        if (response.trim().equalsIgnoreCase(Config.LOGIN_SUCCESS)) {
+                        if (response.trim().equalsIgnoreCase(LOGIN_SUCCESS)) {
                             SharedPreferences sharedPreferences = LoginPage.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
                             //Creating editor to store values to shared preferences
@@ -207,10 +215,10 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put(Config.KEY_USERNAME, facebookID);
-                params.put(Config.KEY_PASSWORD, passwordF);
-                params.put(Config.KEY_FIRSTNAME, firstName);
-                params.put(Config.KEY_LASTNAME, lastName);
+                params.put(KEY_USERNAME, facebookID);
+                params.put(KEY_PASSWORD, passwordF);
+                params.put(KEY_FIRSTNAME, firstName);
+                params.put(KEY_LASTNAME, lastName);
                 return params;
             }
 
@@ -224,38 +232,14 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
         //Getting values from edittext
         final String username = etUsername.getText().toString().trim();
         final String password = etPassword.getText().toString().trim();
-    /*    StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.REGISTER_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                       // response
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //Error
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                //Adding parameters to request
-                params.put(Config.KEY_USERNAME, facebookID);
-                params.put(Config.KEY_PASSWORD, passwordF);
-                params.put(Config.KEY_FIRSTNAME, firstName);
-                params.put(Config.KEY_LASTNAME, lastName);
-                return params;
-            }
-        };*/
 
         //Creating a string request
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.LOGIN_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, LOGIN_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         //If we are getting success from server
-                        if (response.trim().equalsIgnoreCase(Config.LOGIN_SUCCESS)) {
+                        if (response.trim().equalsIgnoreCase(LOGIN_SUCCESS)) {
                             //Creating a sharedPreference
                             SharedPreferences sharedPreferences = LoginPage.this.getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
 
@@ -289,8 +273,8 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 //Adding parameters to request
-                params.put(Config.KEY_USERNAME, username);
-                params.put(Config.KEY_PASSWORD, password);
+                params.put(KEY_USERNAME, username);
+                params.put(KEY_PASSWORD, password);
 
                 //returning parameter
                 return params;

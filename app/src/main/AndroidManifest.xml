@@ -52,12 +52,12 @@
 
 
         <activity
-            android:name=".EggAndBeacon"
+            android:name=".ShowBeaconInfo"
             android:label="@string/title_activity_egg_and_beacon_page">
 
         </activity>
         <activity
-            android:name=".Lyd"
+            android:name=".AudioPage"
             android:label="@string/title_activity_lyd_activity"
             android:windowSoftInputMode="adjustResize">
         </activity>
