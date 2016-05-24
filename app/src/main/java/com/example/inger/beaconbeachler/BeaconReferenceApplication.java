@@ -46,16 +46,14 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
     private BeaconManager beaconManager;
     public Context context;
 
-    public Button btnBeacon;
+    //public Button btnBeacon;
     Region region1;
     Intent intent;
     private Handler mHandler;
 
 
-
     public void onCreate() {
         super.onCreate();
-
 
         bluemanager= (BluetoothManager)getSystemService(Context.BLUETOOTH_SERVICE);
         mBluetoothAdapter = bluemanager.getAdapter();
@@ -142,8 +140,10 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
 
         sendNotification();
 
-        MainPage ma = new MainPage();
-        ma.changeImage();
+        MainPage.btnBeacon.setBackgroundResource(R.drawable.beaconclose);
+
+        //MainPage ma = new MainPage();
+        //ma.changeImage();
 
         //Intent act2= new Intent(BeaconReferenceApplication.this,MainPage.class);
         //act2.putExtra("myImageResource", R.drawable.beaconclose);
@@ -249,8 +249,9 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
 
         Log.d(TAG,"Did exit region");
 
-        MainPage ma = new MainPage();
-        ma.changePic();
+        MainPage.btnBeacon.setBackgroundResource(R.mipmap.ibeaconicon);
+       // MainPage ma = new MainPage();
+       // ma.changePic();
 
        // Intent act2= new Intent(BeaconReferenceApplication.this,MainPage.class);
        // act2.putExtra("myImageResource", R.mipmap.ibeaconicon);

@@ -24,9 +24,10 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
 
+
     Button btnCamera;
     Button btnText;
-    private Button btnBeacon;
+    public static Button btnBeacon;
     Button btnSound;
     TextView tvUsername;
     BluetoothAdapter mBluetoothAdapter;
@@ -44,10 +45,10 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         boolean blueToothFinnish = verifyBluetooth();
         if(blueToothFinnish)
-            userManualDialog();
+           // userManualDialog();
 
         btnText = (Button)findViewById(R.id.btnText);
-        btnSound = (Button)findViewById(R.id.btnSound);
+       btnSound = (Button)findViewById(R.id.btnSound);
         btnBeacon = (Button)findViewById(R.id.btnBeacon);
         btnCamera = (Button)findViewById(R.id.btnCamera);
 
@@ -56,11 +57,21 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
         btnBeacon.setOnClickListener(this);
         btnSound.setOnClickListener(this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences minor = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = minor.edit();
         editor.putString(Config.KEY_MINOR, "5");
         //Saving values to editor
         editor.apply();
+
+        if (minor.equals ("2")){
+            btnBeacon.setBackgroundResource(R.drawable.beaconclose);
+        }
+
+        if (minor.equals("5")){
+            btnBeacon.setBackgroundResource(R.mipmap.ibeaconicon);
+        }
+
+
 
     }
 
@@ -70,6 +81,8 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
         ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(this);
         SharedPreferences sharedPreferences = getSharedPreferences(Config.BEACON_PICTURE_PREF, Context.MODE_PRIVATE);
 
+        Button btnBeacon=(Button)findViewById(R.id.btnBeacon);
+        btnBeacon.setEnabled(false);
     }
 
     @Override
@@ -111,15 +124,16 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
         }
         return true;
     }
-    public void changeImage(){
 
-                btnBeacon = (Button)findViewById(R.id.btnBeacon);
+    public void changeImage(){
+                //Button btnBeacon;
+                //btnBeacon = (Button)findViewById(R.id.btnBeacon);
                 btnBeacon.setBackgroundResource(R.drawable.beaconclose);
     }
 
     public void changePic(){
-
-        btnBeacon = (Button)findViewById(R.id.btnBeacon);
+       // Button btnBeacon;
+        //btnBeacon = (Button)findViewById(R.id.btnBeacon);
         btnBeacon.setBackgroundResource(R.mipmap.ibeaconicon);
     }
     private void userManualDialog(){
