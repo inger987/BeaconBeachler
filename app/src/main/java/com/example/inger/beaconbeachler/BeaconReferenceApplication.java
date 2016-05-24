@@ -140,7 +140,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
 
         sendNotification();
 
-        MainPage.btnBeacon.setBackgroundResource(R.drawable.beaconclose);
+        //MainPage.btnBeacon.setBackgroundResource(R.drawable.beaconclose);
 
         //MainPage ma = new MainPage();
         //ma.changeImage();
@@ -249,7 +249,7 @@ public class BeaconReferenceApplication extends Application implements Bootstrap
 
         Log.d(TAG,"Did exit region");
 
-        MainPage.btnBeacon.setBackgroundResource(R.mipmap.ibeaconicon);
+//        MainPage.btnBeacon.setBackgroundResource(R.mipmap.ibeaconicon);
        // MainPage ma = new MainPage();
        // ma.changePic();
 

@@ -27,7 +27,7 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
 
     Button btnCamera;
     Button btnText;
-    public static Button btnBeacon;
+    Button btnBeacon;
     Button btnSound;
     TextView tvUsername;
     BluetoothAdapter mBluetoothAdapter;
@@ -81,8 +81,6 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
         ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(this);
         SharedPreferences sharedPreferences = getSharedPreferences(Config.BEACON_PICTURE_PREF, Context.MODE_PRIVATE);
 
-        Button btnBeacon=(Button)findViewById(R.id.btnBeacon);
-        btnBeacon.setEnabled(false);
     }
 
     @Override
