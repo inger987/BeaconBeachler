@@ -6,5 +6,6 @@
     <item name="mainBackground" type="color">#e0e1dc</item>
     <item name="white" type="color">#ffff</item>
     <item name="red" type="color">#c34e68</item>
+    <item name="transparent" type="color">#ffffff</item>
 
 </resources>

@@ -86,6 +86,7 @@ public class AudioPage extends Menu implements View.OnClickListener {
         btnStopPlay.setOnClickListener(this);
         btnLagre.setOnClickListener(this);
 
+        ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringAct(this);
     }
 
     @Override
@@ -242,7 +243,16 @@ public class AudioPage extends Menu implements View.OnClickListener {
     public void UploadFile() {
         SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
-        minor = sharedPreferences.getString(Config.KEY_MINOR, "5");
+        minor = sharedPreferences.getString(Config.KEY_MINOR, "Not available");
+/*
+        if (minor == null){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            //Adding values to editor
+            editor.putString(Config.KEY_MINOR, "8");
+        }
+        */
+
         SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MMM-yyyy-hh-mm-ss");
         currentDateandTime = sdfDate.format(new Date());
         uploadfile = getStringAudio();

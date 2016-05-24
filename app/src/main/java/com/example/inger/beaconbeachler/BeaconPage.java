@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,17 +34,17 @@ public class BeaconPage extends Menu implements BeaconConsumer{
     ProgressDialog loading;
     private Handler mHandler;
 
-  //  String minor;
+
 
     public static Context getContext() {
-        //  return instance.getApplicationContext();
+
         return mContext;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // setContentView(R.layout.activity_beacon_page);
+
         loading = ProgressDialog.show(BeaconPage.this, "Leter etter beacons", null,true,true);
 
         beaconManager.bind(this);
@@ -73,9 +74,6 @@ public class BeaconPage extends Menu implements BeaconConsumer{
                 beaconManager.stopRangingBeaconsInRegion(region1);
 
                 loading.dismiss();
-                //    intent = new Intent(getApplicationContext(), MainPage.class);
-                //   intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                //    startActivity(intent);
 
                 ingenBeacon();
             } catch (RemoteException e) {
@@ -88,7 +86,7 @@ public class BeaconPage extends Menu implements BeaconConsumer{
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this,android.R.style.Theme_Material_Dialog_Alert);
         builder.setTitle( Html.fromHtml("<font color='#ffffff'>Ingen beacon funnet</font>"));
-              //  builder.setMessage("Ingen beacons funnet")
+
                 builder.setCancelable(false)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -102,7 +100,6 @@ public class BeaconPage extends Menu implements BeaconConsumer{
         alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextSize(30);
         alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.WHITE);
 
-    //    alert.getWindow().setLayout(500, 350);
 
     }
 
@@ -124,7 +121,11 @@ public class BeaconPage extends Menu implements BeaconConsumer{
                             intent.putExtra("minor", beacon.getId3().toString());
                             intent.putExtra("distance", beacon.getDistance());
 
-                            // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString(Config.KEY_MINOR, beacon.getId3().toString());
+                            editor.commit();
+
                             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                             startActivity(intent);
                             loading.dismiss();
@@ -132,23 +133,6 @@ public class BeaconPage extends Menu implements BeaconConsumer{
                             e.printStackTrace();
                         }
                     } else { mHandler.postDelayed(mUpdateTimeTask, 2000);
-
-                      //  try {
-                      //
-                     //       beaconManager.stopRangingBeaconsInRegion(region1);
-                     //       beaconManager.stopRangingBeaconsInRegion(region2);
-
-                     //       loading.dismiss();
-
-                     //       intent = new Intent(getApplicationContext(), MainPage.class);
-                     //       intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                     //       startActivity(intent);
-
-                            //   ingenBeacon();
-                    //    } catch (RemoteException e) {
-                       //     e.printStackTrace();
-
-                    //    }
 
                     }
 
@@ -170,17 +154,8 @@ public class BeaconPage extends Menu implements BeaconConsumer{
         try {
             region1 = new Region("myIdentifier1", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"),null);
 
-
-            //      beaconManager.startMonitoringBeaconsInRegion(region1);
-            //      beaconManager.startMonitoringBeaconsInRegion(region2);
             beaconManager.startRangingBeaconsInRegion(region1);
 
-
-
-            // beaconManager.startMonitoringBeaconsInRegion(new Region("com.example.inger.beaconbeachler.boostrapRegion",
-            //    Identifier.parse(Constants.BT_UUID),
-            //     Identifier.fromInt(Constants.BT_MAJOR),
-            //     Identifier.fromInt(Constants.BT_MINOR)));
 
         } catch (RemoteException e) {
 

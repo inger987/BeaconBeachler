@@ -1,8 +1,10 @@
 package com.example.inger.beaconbeachler;
 
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -24,12 +26,13 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
 
     Button btnCamera;
     Button btnText;
-    Button btnBeacon;
+    private Button btnBeacon;
     Button btnSound;
     TextView tvUsername;
     BluetoothAdapter mBluetoothAdapter;
+    private String minor ="";
 
-
+    static boolean active = false;
 
     private final static int REQUEST_ENABLE_BT = 1;
     @Override
@@ -48,11 +51,16 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
         btnBeacon = (Button)findViewById(R.id.btnBeacon);
         btnCamera = (Button)findViewById(R.id.btnCamera);
 
-
         btnText.setOnClickListener(this);
         btnCamera.setOnClickListener(this);
         btnBeacon.setOnClickListener(this);
         btnSound.setOnClickListener(this);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Config.KEY_MINOR, "5");
+        //Saving values to editor
+        editor.apply();
 
     }
 
@@ -60,6 +68,7 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
     public void onResume() {
         super.onResume();
         ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(this);
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.BEACON_PICTURE_PREF, Context.MODE_PRIVATE);
 
     }
 
@@ -67,6 +76,13 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
     public void onPause() {
         super.onPause();
         ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(null);
+      /*  SharedPreferences sharedPreferences = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+        minor = sharedPreferences.getString(Config.KEY_MINOR, "Not available");
+        if (sharedPreferences.equals("2")){
+            btnBeacon.setBackgroundResource(R.drawable.beaconclose);
+        }
+*/
+
     }
 
     private boolean verifyBluetooth() {
@@ -95,7 +111,17 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
         }
         return true;
     }
+    public void changeImage(){
 
+                btnBeacon = (Button)findViewById(R.id.btnBeacon);
+                btnBeacon.setBackgroundResource(R.drawable.beaconclose);
+    }
+
+    public void changePic(){
+
+        btnBeacon = (Button)findViewById(R.id.btnBeacon);
+        btnBeacon.setBackgroundResource(R.mipmap.ibeaconicon);
+    }
     private void userManualDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("BRUKERVEILEDNING");
@@ -118,7 +144,6 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
         AlertDialog alert = builder.create();
         alert.show();
     }
-
 
     @Override
     public void onClick(View v) {
@@ -143,16 +168,37 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
 
     @Override
     public void onStart() {
+        ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(this);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+        minor = sharedPreferences.getString(Config.KEY_MINOR, "Not available");
+        if (sharedPreferences.equals("2")){
+            btnBeacon.setBackgroundResource(R.drawable.beaconclose);
+        }
+        if (sharedPreferences.equals("5")){
+            btnBeacon.setBackgroundResource(R.mipmap.ibeaconicon);
+        }
         super.onStart();
-
-
+        active = true;
+      //  changeImage();
     }
 
     @Override
     public void onStop() {
+
+/*
+        SharedPreferences sharedPreferences = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+        minor = sharedPreferences.getString(Config.KEY_MINOR, "Not available");
+        if (sharedPreferences.equals("2")){
+            btnBeacon.setBackgroundResource(R.drawable.beaconclose);
+
+        }
+        if (sharedPreferences.equals("5")){
+            btnBeacon.setBackgroundResource(R.mipmap.ibeaconicon);
+        }
+        */
         super.onStop();
-
-
+        active=false;
     }
 
 

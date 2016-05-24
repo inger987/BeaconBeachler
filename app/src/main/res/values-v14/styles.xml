@@ -10,7 +10,8 @@
     </style>
 
     <style name="MyActionButtonOverflow" parent="android:style/Widget.Holo.ActionButton.Overflow">
-        <item name="android:src">@mipmap/overflowmenuicon</item>
+        <item name="android:src">@mipmap/menyicon
+        </item>
     </style>
 
     <!-- inherit everything from AppBaseTheme, Here you are able to override eg, colors,background -->
