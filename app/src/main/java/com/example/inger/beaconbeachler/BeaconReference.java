@@ -31,7 +31,7 @@ public class BeaconReference extends Application implements BootstrapNotifier, B
     protected RegionBootstrap regionBootstrap;
     protected BackgroundPowerSaver backgroundPowerSaver;
     BeaconManager beaconManager;
-    protected AudioPage monitoringAct = null;
+    AudioPage monitoringAct = null;
     private Region region;
 
     public void onCreate() {
