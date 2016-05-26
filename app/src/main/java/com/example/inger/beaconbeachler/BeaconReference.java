@@ -46,10 +46,10 @@ public class BeaconReference extends Application implements BootstrapNotifier, B
         region = new Region("backgroundRegion", Identifier.parse("00000000-0000-0000-c000-000000000028"), null, null);
         regionBootstrap = new RegionBootstrap(this, region);
         backgroundPowerSaver = new BackgroundPowerSaver(this);
-        beaconManager.setBackgroundBetweenScanPeriod(30000l);
+        beaconManager.setBackgroundBetweenScanPeriod(2000l);
         beaconManager.setBackgroundScanPeriod(1100l);
         beaconManager.setForegroundScanPeriod(1100l);
-        beaconManager.setForegroundBetweenScanPeriod(8000l);
+        beaconManager.setForegroundBetweenScanPeriod(200l);
         beaconManager.bind(this);
 
     }

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -193,6 +194,5 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
             btnBeacon.setBackgroundColor(Color.parseColor("#c34e68"));
         }
     }
-
 
 }
