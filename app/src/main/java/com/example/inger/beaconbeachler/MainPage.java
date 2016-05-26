@@ -39,6 +39,8 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_main_page);
 
@@ -57,42 +59,23 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
         btnBeacon.setOnClickListener(this);
         btnSound.setOnClickListener(this);
 
-        SharedPreferences minor = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = minor.edit();
-        editor.putString(Config.KEY_MINOR, "5");
-        //Saving values to editor
-        editor.apply();
-
-        if (minor.equals ("2")){
-            btnBeacon.setBackgroundResource(R.drawable.beaconclose);
-        }
-
-        if (minor.equals("5")){
-            btnBeacon.setBackgroundResource(R.mipmap.ibeaconicon);
-        }
-
-
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(this);
-        SharedPreferences sharedPreferences = getSharedPreferences(Config.BEACON_PICTURE_PREF, Context.MODE_PRIVATE);
+       //((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(this);
+
 
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(null);
-      /*  SharedPreferences sharedPreferences = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
-        minor = sharedPreferences.getString(Config.KEY_MINOR, "Not available");
-        if (sharedPreferences.equals("2")){
-            btnBeacon.setBackgroundResource(R.drawable.beaconclose);
-        }
-*/
+        //((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(null);
+
+
 
     }
 
@@ -123,17 +106,7 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
         return true;
     }
 
-    public void changeImage(){
-                //Button btnBeacon;
-                //btnBeacon = (Button)findViewById(R.id.btnBeacon);
-                btnBeacon.setBackgroundResource(R.drawable.beaconclose);
-    }
 
-    public void changePic(){
-       // Button btnBeacon;
-        //btnBeacon = (Button)findViewById(R.id.btnBeacon);
-        btnBeacon.setBackgroundResource(R.mipmap.ibeaconicon);
-    }
     private void userManualDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("BRUKERVEILEDNING");
@@ -180,19 +153,11 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
 
     @Override
     public void onStart() {
-        ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(this);
+        //((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(this);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
-        minor = sharedPreferences.getString(Config.KEY_MINOR, "Not available");
-        if (sharedPreferences.equals("2")){
-            btnBeacon.setBackgroundResource(R.drawable.beaconclose);
-        }
-        if (sharedPreferences.equals("5")){
-            btnBeacon.setBackgroundResource(R.mipmap.ibeaconicon);
-        }
         super.onStart();
         active = true;
-      //  changeImage();
+
     }
 
     @Override

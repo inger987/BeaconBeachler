@@ -48,6 +48,7 @@
         <activity
             android:name=".BeaconPage"
             android:label="@string/title_activity_beacon_page">
+
         </activity>
 
 
@@ -78,6 +79,19 @@
             android:label="@string/title_activity_regsiter_page">
 
         </activity>
+
+        <service
+            android:enabled="true"
+            android:isolatedProcess="false"
+            android:label="beacon"
+            android:name="org.altbeacon.beacon.service.BeaconService">
+        </service>
+
+        <service
+            android:enabled="true"
+            android:name="org.altbeacon.beacon.BeaconIntentProcessor">
+        </service>
+
         <provider
 
             android:name=".MyFileContentProvider"

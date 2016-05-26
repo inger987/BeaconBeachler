@@ -6,7 +6,7 @@ package com.example.inger.beaconbeachler;
 public class Config {
 
     //Store minor for beacon
-    public static final String KEY_MINOR = "8";
+    public static final String KEY_MINOR = "5";
 
     //Keys for Sharedpreferences
     //This would be the name of our shared preferences
