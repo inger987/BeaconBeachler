@@ -18,28 +18,24 @@ import com.facebook.FacebookSdk;
 
 public class MainPage extends com.example.inger.beaconbeachler.Menu implements View.OnClickListener {
 
-
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
 
-
     Button btnCamera;
     Button btnText;
     Button btnBeacon;
     Button btnSound;
-    TextView tvUsername;
     BluetoothAdapter mBluetoothAdapter;
+
     private String minor ="";
-
     static boolean active = false;
-
     private final static int REQUEST_ENABLE_BT = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_main_page);
@@ -50,7 +46,7 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
            userManualDialog();
 
         btnText = (Button)findViewById(R.id.btnText);
-       btnSound = (Button)findViewById(R.id.btnSound);
+        btnSound = (Button)findViewById(R.id.btnSound);
         btnBeacon = (Button)findViewById(R.id.btnBeacon);
         btnCamera = (Button)findViewById(R.id.btnCamera);
 
@@ -74,7 +70,6 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
     @Override
     public void onResume() {
         super.onResume();
-       //((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(this);
 
         SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
 
@@ -90,10 +85,6 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
     @Override
     public void onPause() {
         super.onPause();
-        //((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(null);
-
-
-
     }
 
     private boolean verifyBluetooth() {
@@ -125,16 +116,14 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
 
 
     private void userManualDialog(){
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("BRUKERVEILEDNING");
-
         LayoutInflater factory = LayoutInflater.from(MainPage.this);
         final View view = factory.inflate(R.layout.dialogboxmanual, null);
 
         ImageView image= (ImageView)view.findViewById(R.id.imageView);
         image.setImageResource(R.drawable.beaconclose);
-
-        TextView text= (TextView) view.findViewById(R.id.textView);
 
         builder.setView(view);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -170,27 +159,12 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
 
     @Override
     public void onStart() {
-        //((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(this);
-
         super.onStart();
         active = true;
-
     }
 
     @Override
     public void onStop() {
-
-/*
-        SharedPreferences sharedPreferences = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
-        minor = sharedPreferences.getString(Config.KEY_MINOR, "Not available");
-        if (sharedPreferences.equals("2")){
-            btnBeacon.setBackgroundResource(R.drawable.beaconclose);
-
-        }
-        if (sharedPreferences.equals("5")){
-            btnBeacon.setBackgroundResource(R.mipmap.ibeaconicon);
-        }
-        */
         super.onStop();
         active=false;
     }

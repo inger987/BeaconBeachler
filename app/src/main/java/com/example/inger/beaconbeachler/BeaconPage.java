@@ -1,8 +1,6 @@
 package com.example.inger.beaconbeachler;
 
-
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.RemoteException;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.util.Log;
@@ -30,35 +27,28 @@ import org.altbeacon.beacon.Region;
 import java.util.Collection;
 
 
-public class BeaconPage extends Activity implements BeaconConsumer{
+public class BeaconPage extends Activity implements BeaconConsumer {
+
     protected static final String TAG = "RangingActivity";
     private BeaconManager beaconManager = BeaconManager.getInstanceForApplication(this);
-    public static Context mContext;
-
-    Region region1;
+    public static Context context;
+    private Region region;
+    private ProgressDialog progressDialog;
+    private Handler handler;
     Intent intent;
-    ProgressDialog loading;
-    private Handler mHandler;
-
-
-
-    //  String minor;
 
     public static Context getContext() {
-        //  return instance.getApplicationContext();
-          return mContext;
+          return context;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // setContentView(R.layout.activity_beacon_page);
-        loading = ProgressDialog.show(BeaconPage.this, "Leter etter beacons", null,true,true);
 
+        progressDialog = ProgressDialog.show(BeaconPage.this, "Leter etter beacons", null,true,true);
         beaconManager.bind(this);
-        mHandler = new Handler();
-        mContext = getApplicationContext();
-
+        handler = new Handler();
+        context = getApplicationContext();
 
     }
     @Override
@@ -78,33 +68,27 @@ public class BeaconPage extends Activity implements BeaconConsumer{
         super.onResume();
         if (beaconManager.isBound(this)) beaconManager.setBackgroundMode(false);
     }
-    private Runnable mUpdateTimeTask = new Runnable() {
+    private Runnable runnable = new Runnable() {
         public void run() {
+
             try {
-                beaconManager.stopRangingBeaconsInRegion(region1);
-
-                loading.dismiss();
-                //    intent = new Intent(getApplicationContext(), MainPage.class);
-                //   intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                //    startActivity(intent);
-
+                beaconManager.stopRangingBeaconsInRegion(region);
+                progressDialog.dismiss();
                 SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString(Config.KEY_MINOR, "5");
                 editor.commit();
-
                 ingenBeacon();
             } catch (RemoteException e) {
                 e.printStackTrace();
-
             }
+
         }
     };
     public void ingenBeacon() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this,android.R.style.Theme_Material_Dialog_Alert);
         builder.setTitle( Html.fromHtml("<font color='#cc0099'>Ingen beacon funnet</font>"));
-        //  builder.setMessage("Ingen beacons funnet")
         builder.setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -118,23 +102,18 @@ public class BeaconPage extends Activity implements BeaconConsumer{
         alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextSize(50);
         alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.MAGENTA);
 
-        //    alert.getWindow().setLayout(500, 350);
-
-
     }
-
 
     @Override
     public void onBeaconServiceConnect() {
         beaconManager.setRangeNotifier(new RangeNotifier() {
-
             @Override
             public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
                 for (Beacon beacon : beacons) {
                     if (beacon.getDistance() < 0.5) {
                         Log.d(TAG, "Det er er beacon en halvannen meter unna");
                         try {
-                            beaconManager.stopRangingBeaconsInRegion(region1);
+                            beaconManager.stopRangingBeaconsInRegion(BeaconPage.this.region);
                             intent = new Intent(getApplicationContext(), ShowBeaconInfo.class);
                             intent.putExtra("uuid", beacon.getId1().toString());
                             intent.putExtra("major", beacon.getId2().toString());
@@ -146,68 +125,28 @@ public class BeaconPage extends Activity implements BeaconConsumer{
                             editor.putString(Config.KEY_MINOR, beacon.getId3().toString());
                             editor.commit();
 
-                            // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                             startActivity(intent);
-                            loading.dismiss();
+                            progressDialog.dismiss();
+
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }
-                    } else { mHandler.postDelayed(mUpdateTimeTask, 2000);
-
-                        //  try {
-                        //
-                        //       beaconManager.stopRangingBeaconsInRegion(region1);
-                        //       beaconManager.stopRangingBeaconsInRegion(region2);
-
-                        //       loading.dismiss();
-
-                        //       intent = new Intent(getApplicationContext(), MainPage.class);
-                        //       intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        //       startActivity(intent);
-
-                        //   ingenBeacon();
-                        //    } catch (RemoteException e) {
-                        //     e.printStackTrace();
-
-                        //    }
-
                     }
-
+                    else
+                    {
+                        handler.postDelayed(runnable, 2000);
+                    }
                 }
-
             }
-
-            //     @Override
-            //       public void didExitRegion(Region region) {
-            //           Log.i(TAG, "Kor e beacon?");
-            //       }
-
-            //    @Override
-            //       public void didDetermineStateForRegion(int state, Region region) {
-            //           Log.i(TAG, "Eg så ein beacon/beacon blei borte " + state);
-            //        }
         });
 
         try {
-            region1 = new Region("myIdentifier1", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"),null);
-
-
-            //      beaconManager.startMonitoringBeaconsInRegion(region1);
-            //      beaconManager.startMonitoringBeaconsInRegion(region2);
-            beaconManager.startRangingBeaconsInRegion(region1);
-
-
-
-            // beaconManager.startMonitoringBeaconsInRegion(new Region("com.example.inger.beaconbeachler.boostrapRegion",
-            //    Identifier.parse(Constants.BT_UUID),
-            //     Identifier.fromInt(Constants.BT_MAJOR),
-            //     Identifier.fromInt(Constants.BT_MINOR)));
+            region = new Region("myIdentifier1", Identifier.parse("00000000-0000-0000-c000-000000000028"), Identifier.parse("1"),null);
+            beaconManager.startRangingBeaconsInRegion(region);
 
         } catch (RemoteException e) {
-
             e.printStackTrace(); }
-
     }
 
     //Logout function
@@ -258,7 +197,6 @@ public class BeaconPage extends Activity implements BeaconConsumer{
         //linked to webside /profil
 
         String url = "https://home.hbv.no/110118/bachelor/homepage/mainPage.php#";
-
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);

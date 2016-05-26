@@ -30,11 +30,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CameraPage extends Menu {
+
     Button tabilde;
     Button lastopp;
     ImageView image;
     ImageView zoom;
-
 
     private String username;
     private String minor;
@@ -43,40 +43,38 @@ public class CameraPage extends Menu {
     private final int CAMERA_RESULT = 1;
     private static final String UPLOAD_URL = "https://home.hbv.no/110115/bac/upload.php";
     private static final String UPLOAD_KEY = "image";
-    private static final String BILDENAVN = "bilde";
+    private static final String BILDE = "bilde";
     private static final String KEY_CATID = "categoryId";
     public static final String KEY_USERID = "userId";
-    Bitmap mBitmap;
-    ProgressDialog loading;
+
+    protected Bitmap bitmap;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-
         tabilde = (Button) findViewById(R.id.tabilde);
         lastopp = (Button) findViewById(R.id.lastopp);
         image = (ImageView) findViewById(R.id.image);
         zoom = (ImageView) findViewById(R.id.zoom);
+
         if (savedInstanceState != null) {
-            image.setImageBitmap(mBitmap);
+            image.setImageBitmap(bitmap);
         }
         else {
             cameraActivity();
         }
 
-
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                zoom.setImageBitmap(mBitmap);
+                zoom.setImageBitmap(bitmap);
                 zoom.setVisibility(View.VISIBLE);
                 image.setVisibility(View.INVISIBLE);
                 tabilde.setVisibility(View.INVISIBLE);
                 lastopp.setVisibility(View.INVISIBLE);
-
             }
         });
         zoom.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +96,7 @@ public class CameraPage extends Menu {
         lastopp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mBitmap != null) {
+                if (bitmap != null) {
                     uploadImage();
                 } else {
                     Toast.makeText(getBaseContext(), "Her kommer ingen forbi", Toast.LENGTH_LONG).show();
@@ -109,97 +107,94 @@ public class CameraPage extends Menu {
 }
     public void cameraActivity()
     {
-
         PackageManager pm = getPackageManager();
 
         if (pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
 
             Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-
-            i.putExtra(MediaStore.EXTRA_OUTPUT, MyFileContentProvider.CONTENT_URI);
-
+            i.putExtra(MediaStore.EXTRA_OUTPUT, FileContentProvider.PATH);
             startActivityForResult(i, CAMERA_RESULT);
-
         }
         else {
-
             Toast.makeText(getBaseContext(), "Enheten har ikke kamera", Toast.LENGTH_LONG).show();
-
         }
-
     }
-    public String getStringImage(Bitmap bmp){
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] imageBytes = baos.toByteArray();
+
+    public String getStringImage(Bitmap image){
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        byte[] imageBytes = byteArrayOutputStream.toByteArray();
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
 
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (resultCode == RESULT_OK && requestCode == CAMERA_RESULT) {
-
-
-                File out = new File(getFilesDir(), "Image.jpg");
-
-                if(!out.exists()) {
-
-                    Toast.makeText(getBaseContext(), "Error", Toast.LENGTH_LONG).show();
-
+                File file = new File(getFilesDir(), "Image.jpg");
+                if(!file.exists()) {
+                    Toast.makeText(getBaseContext(), "Bilde mangler", Toast.LENGTH_LONG).show();
                     return;
                 }
-
-            mBitmap = BitmapFactory.decodeFile(out.getAbsolutePath());
-         image.setImageBitmap(mBitmap);
-
+            bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+            image.setImageBitmap(bitmap);
         }
+
     }
 
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        mBitmap = savedInstanceState.getParcelable("BitmapImage");
-        image.setImageBitmap(mBitmap);
+        bitmap = savedInstanceState.getParcelable("BitmapImage");
+        image.setImageBitmap(bitmap);
         super.onRestoreInstanceState(savedInstanceState);
-
     }
     @Override
     protected void onSaveInstanceState (Bundle savedInstanceState) {
-        savedInstanceState.putParcelable("BitmapImage", mBitmap);
+        savedInstanceState.putParcelable("BitmapImage", bitmap);
         super.onSaveInstanceState(savedInstanceState);
     }
 
     private void uploadImage(){
+
         SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
-        minor = sharedPreferences.getString(Config.KEY_MINOR, "5");
+        SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+        minor = settings.getString(Config.KEY_MINOR, "Not available");
+
+        if (minor == null){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            //Adding values to editor
+            editor.putString(Config.KEY_MINOR, "5");
+        }
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
         format = simpleDateFormat.format(new Date());
-        loading = ProgressDialog.show(this, "Uploading...", "Please wait...", false, false);
+        progressDialog = ProgressDialog.show(this, "Laster opp bildet", "Vennligst vent...", false, false);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        loading.dismiss();
+                        progressDialog.dismiss();
                         Toast.makeText(CameraPage.this, response, Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        loading.dismiss();
+                        progressDialog.dismiss();
                         Toast.makeText(CameraPage.this,error.toString(),Toast.LENGTH_LONG).show();
                     }
                 }){
+
             @Override
             protected Map<String,String> getParams(){
-                String uploadImage = getStringImage(mBitmap);
-
+                String uploadImage = getStringImage(bitmap);
                 Map<String,String> params = new HashMap<String, String>();
                 params.put(UPLOAD_KEY,uploadImage);
-                params.put(BILDENAVN, format);
+                params.put(BILDE, format);
                 params.put(KEY_USERID, username);
                 params.put(KEY_CATID, minor);
                 return params;
@@ -208,58 +203,7 @@ public class CameraPage extends Menu {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-      /*  class UploadImage extends AsyncTask<Bitmap,Void,String>{
 
-            ProgressDialog loading;
-            RequestHandler rh = new RequestHandler();
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                final String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
-           loading = ProgressDialog.show(CameraPage.this, "Laster opp..." + username, null,true,true);
-
-
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                loading.dismiss();
-                Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            protected String doInBackground(Bitmap... params) {
-                Bitmap bitmap = params[0];
-
-                SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
-                final String format = simpleDateFormat.format(new Date());
-                final String uploadImage = getStringImage(bitmap);
-                final String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
-                SharedPreferences sharedPref = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
-                final String minor = sharedPref.getString(Config.KEY_MINOR, "Not Available");
-
-               HashMap<String, String> data = new HashMap<String, String>()
-                {{
-                        put(UPLOAD_KEY, uploadImage);
-                        put(BILDENAVN, format);
-                        put(KEY_USERID, username);
-                        put(KEY_CATID, minor);
-
-                    }};
-
-
-                String result = rh.sendPostRequest(UPLOAD_URL,data);
-
-                return result;
-            }
-        }
-
-        UploadImage ui = new UploadImage();
-        ui.execute(mBitmap); */
     }
 
     public void onBackPressed() {
