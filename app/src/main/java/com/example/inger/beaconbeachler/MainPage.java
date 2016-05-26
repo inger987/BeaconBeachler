@@ -47,7 +47,7 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         boolean blueToothFinnish = verifyBluetooth();
         if(blueToothFinnish)
-           // userManualDialog();
+           userManualDialog();
 
         btnText = (Button)findViewById(R.id.btnText);
        btnSound = (Button)findViewById(R.id.btnSound);
@@ -59,6 +59,15 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
         btnBeacon.setOnClickListener(this);
         btnSound.setOnClickListener(this);
 
+        SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+
+        if (settings.equals("2")){
+            btnBeacon.setBackgroundResource(R.drawable.beaconclose);
+        }
+
+        if (settings.equals("5")){
+            btnBeacon.setBackgroundResource(R.mipmap.ibeaconicon);
+        }
 
     }
 
@@ -67,7 +76,15 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
         super.onResume();
        //((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringActivity(this);
 
+        SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
 
+        if (settings.equals("2")){
+            btnBeacon.setBackgroundResource(R.drawable.beaconclose);
+        }
+
+        if (settings.equals("5")){
+            btnBeacon.setBackgroundResource(R.mipmap.ibeaconicon);
+        }
     }
 
     @Override
