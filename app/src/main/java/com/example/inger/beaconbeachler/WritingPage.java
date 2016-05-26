@@ -41,6 +41,8 @@ public class WritingPage extends com.example.inger.beaconbeachler.Menu implement
         btnSave = (Button) findViewById(R.id.btnSave);
 
         btnSave.setOnClickListener(this);
+
+        ((BeaconReference) this.getApplicationContext()).setMonitoriact(this);
     }
 
     @Override
@@ -55,7 +57,7 @@ public class WritingPage extends com.example.inger.beaconbeachler.Menu implement
         // Store username of current logged in user (To connect user in database)
         SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         final String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
-        final String minor = sharedPreferences.getString(Config.KEY_MINOR, "Not Available");
+        final String minor = sharedPreferences.getString(Config.KEY_MINOR, "5");
         final String text = etText.getText().toString().trim();
 
 

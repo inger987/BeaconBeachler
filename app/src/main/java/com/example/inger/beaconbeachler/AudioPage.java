@@ -256,7 +256,7 @@ public class AudioPage extends Menu implements View.OnClickListener {
         SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
         username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
-        minor = settings.getString(Config.KEY_MINOR, "Not available");
+        minor = settings.getString(Config.KEY_MINOR, "5");
 
         if (minor == null){
             SharedPreferences.Editor editor = sharedPreferences.edit();

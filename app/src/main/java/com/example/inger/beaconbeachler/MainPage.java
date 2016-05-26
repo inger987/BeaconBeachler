@@ -57,12 +57,12 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
 
         SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
 
-        if (settings.equals("2")){
-            btnBeacon.setBackgroundResource(R.drawable.beaconclose);
+        if (settings.equals("5")){
+            btnBeacon.setBackgroundResource(R.drawable.rounded_edges_button3);
         }
 
         if (settings.equals("5")){
-            btnBeacon.setBackgroundResource(R.mipmap.ibeaconicon);
+            btnBeacon.setBackgroundResource(R.drawable.rounded_edges_button);
         }
 
     }
@@ -74,11 +74,11 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
         SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
 
         if (settings.equals("2")){
-            btnBeacon.setBackgroundResource(R.drawable.beaconclose);
+            btnBeacon.setBackgroundResource(R.drawable.rounded_edges_button3);
         }
 
         if (settings.equals("5")){
-            btnBeacon.setBackgroundResource(R.mipmap.ibeaconicon);
+            btnBeacon.setBackgroundResource(R.drawable.rounded_edges_button);
         }
     }
 

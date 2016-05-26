@@ -51,7 +51,7 @@
         <Button
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:background="@drawable/rounded_edges_button"
+
             android:drawableTop="@mipmap/ibeaconicon"
             android:text="BEACON"
             android:paddingTop="45dp"

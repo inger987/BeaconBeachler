@@ -32,6 +32,9 @@ public class BeaconReference extends Application implements BootstrapNotifier, B
     protected BackgroundPowerSaver backgroundPowerSaver;
     BeaconManager beaconManager;
     AudioPage monitoringAct = null;
+    CameraPage monitorActi = null;
+    WritingPage monitoriact = null;
+
     private Region region;
 
     public void onCreate() {
@@ -128,6 +131,12 @@ public class BeaconReference extends Application implements BootstrapNotifier, B
 
     public void setMonitoringAct(AudioPage activity) {
         this.monitoringAct = activity;
+    }
+    public void setMonitorActi (CameraPage activity) {
+        this.monitorActi = activity;
+    }
+    public void setMonitoriact (WritingPage activity) {
+        this.monitoriact = activity;
     }
 
     @Override

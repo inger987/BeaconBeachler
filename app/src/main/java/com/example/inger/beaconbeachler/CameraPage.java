@@ -60,6 +60,8 @@ public class CameraPage extends Menu {
         image = (ImageView) findViewById(R.id.image);
         zoom = (ImageView) findViewById(R.id.zoom);
 
+        ((BeaconReference) this.getApplicationContext()).setMonitorActi(this);
+
         if (savedInstanceState != null) {
             image.setImageBitmap(bitmap);
         }
@@ -160,7 +162,7 @@ public class CameraPage extends Menu {
         SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
         SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
-        minor = settings.getString(Config.KEY_MINOR, "Not available");
+        minor = settings.getString(Config.KEY_MINOR, "5");
 
         if (minor == null){
             SharedPreferences.Editor editor = sharedPreferences.edit();
