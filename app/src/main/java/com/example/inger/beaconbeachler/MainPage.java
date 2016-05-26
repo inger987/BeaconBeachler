@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -33,6 +35,7 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
     static boolean active = false;
     private final static int REQUEST_ENABLE_BT = 1;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,14 +58,15 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
         btnBeacon.setOnClickListener(this);
         btnSound.setOnClickListener(this);
 
-        SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+        ((BeaconReference) this.getApplicationContext()).setMonitorActa(this);
 
-        if (settings.equals("5")){
-            btnBeacon.setBackgroundResource(R.drawable.rounded_edges_button3);
+        SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+        if (!"5".equals(settings)){
+            btnBeacon.setBackgroundColor(Color.parseColor("#000000"));
         }
 
-        if (settings.equals("5")){
-            btnBeacon.setBackgroundResource(R.drawable.rounded_edges_button);
+        if (settings.equals("5")) {
+            btnBeacon.setBackgroundColor(Color.parseColor("#c34e68"));
         }
 
     }
@@ -70,21 +74,27 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
     @Override
     public void onResume() {
         super.onResume();
-
         SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
-
-        if (settings.equals("2")){
-            btnBeacon.setBackgroundResource(R.drawable.rounded_edges_button3);
+        if (!"5".equals(settings)){
+            btnBeacon.setBackgroundColor(Color.parseColor("#000000"));
         }
 
-        if (settings.equals("5")){
-            btnBeacon.setBackgroundResource(R.drawable.rounded_edges_button);
+        if (settings.equals("5")) {
+            btnBeacon.setBackgroundColor(Color.parseColor("#c34e68"));
         }
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+        if (!"5".equals(settings)){
+            btnBeacon.setBackgroundColor(Color.parseColor("#000000"));
+        }
+
+        if (settings.equals("5")) {
+            btnBeacon.setBackgroundColor(Color.parseColor("#c34e68"));
+        }
     }
 
     private boolean verifyBluetooth() {
@@ -160,13 +170,28 @@ public class MainPage extends com.example.inger.beaconbeachler.Menu implements V
     @Override
     public void onStart() {
         super.onStart();
-        active = true;
+        SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+        if (!"5".equals(settings)){
+            btnBeacon.setBackgroundColor(Color.parseColor("#000000"));
+        }
+
+        if (settings.equals("5")) {
+            btnBeacon.setBackgroundColor(Color.parseColor("#c34e68"));
+        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
         active=false;
+        SharedPreferences settings = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
+        if (!"5".equals(settings)){
+            btnBeacon.setBackgroundColor(Color.parseColor("#000000"));
+        }
+
+        if (settings.equals("5")) {
+            btnBeacon.setBackgroundColor(Color.parseColor("#c34e68"));
+        }
     }
 
 

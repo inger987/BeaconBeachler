@@ -34,6 +34,7 @@ public class BeaconReference extends Application implements BootstrapNotifier, B
     AudioPage monitoringAct = null;
     CameraPage monitorActi = null;
     WritingPage monitoriact = null;
+    MainPage monitorActa = null;
 
     private Region region;
 
@@ -135,9 +136,8 @@ public class BeaconReference extends Application implements BootstrapNotifier, B
     public void setMonitorActi (CameraPage activity) {
         this.monitorActi = activity;
     }
-    public void setMonitoriact (WritingPage activity) {
-        this.monitoriact = activity;
-    }
+    public void setMonitoriact (WritingPage activity) {this.monitoriact = activity;}
+    public void setMonitorActa (MainPage activity) {this.monitorActa = activity;}
 
     @Override
     public void onBeaconServiceConnect() {
