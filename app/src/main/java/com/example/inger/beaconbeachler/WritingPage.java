@@ -52,13 +52,12 @@ public class WritingPage extends com.example.inger.beaconbeachler.Menu implement
     }
 
     private void insertText() {
-        // har lagret brukernavnet på den som er logget inn. Dette brukes til å kjenne igjen brukere med spørring i php
+        // Store username of current logged in user (To connect user in database)
         SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         final String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
-        final String minor = sharedPreferences.getString(Config.KEY_MINOR, "19");
+        final String minor = sharedPreferences.getString(Config.KEY_MINOR, "Not Available");
         final String text = etText.getText().toString().trim();
 
-      //  SharedPreferences sharedPref = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
 
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, INSERTWRITING_URL,

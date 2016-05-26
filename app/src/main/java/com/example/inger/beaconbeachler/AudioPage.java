@@ -46,6 +46,7 @@ public class AudioPage extends Menu implements View.OnClickListener {
     private String minor ="";
     private String uploadfile ="";
     private String currentDateandTime ="";
+
     private static String AUDIO_URL ="https://home.hbv.no/110115/bac/uploadToServer.php";
     private static String UPLOAD_KEY = "audio";
     private static String KEY_USERID = "userId";
@@ -64,6 +65,7 @@ public class AudioPage extends Menu implements View.OnClickListener {
             timerHandler.postDelayed(this, 500);
         }
     };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,20 +88,22 @@ public class AudioPage extends Menu implements View.OnClickListener {
         btnStopPlay.setOnClickListener(this);
         btnLagre.setOnClickListener(this);
 
-       // ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringAct(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-       ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringAct(this);
+
+       ((BeaconReference) this.getApplicationContext()).setMonitoringAct(this);
 
     }
 
     @Override
     public void onPause() {
         super.onPause();
-       ((BeaconReferenceApplication) this.getApplicationContext()).setMonitoringAct(null);
+
+       ((BeaconReference) this.getApplicationContext()).setMonitoringAct(null);
+
     }
 
     @Override
@@ -109,30 +113,36 @@ public class AudioPage extends Menu implements View.OnClickListener {
                 startRecording(v);
                 btnStart.setVisibility(v.INVISIBLE);
                 btnStop.setVisibility(v.VISIBLE);
+
                 btnPlay.setEnabled(false);
 
                 startTime = System.currentTimeMillis();
                 timerHandler.postDelayed(timerRunnable, 0);
                 break;
+
             case R.id.btnStop:
                 stopRecording(v);
                 btnStop.setVisibility(v.INVISIBLE);
                 btnStart.setVisibility(v.VISIBLE);
+
                 btnLagre.setEnabled(true);
                 btnPlay.setEnabled(true);
 
                 timerHandler.removeCallbacks(timerRunnable);
                 break;
+
             case R.id.btnPlay:
                 startPlayback(v);
                 btnPlay.setVisibility(v.INVISIBLE);
                 btnStopPlay.setVisibility(v.VISIBLE);
                 break;
+
             case R.id.btnStopPlay:
                 stopPlayback(v);
                 btnStopPlay.setVisibility(v.INVISIBLE);
                 btnPlay.setVisibility(v.VISIBLE);
                 break;
+
             case R.id.btnLagre:
                 UploadFile();
                 break;
@@ -144,6 +154,7 @@ public class AudioPage extends Menu implements View.OnClickListener {
         outputfile = Environment.getExternalStorageDirectory().
                 getAbsolutePath() + File.separator +System.currentTimeMillis() + ".mp3";
 
+        //initialize MediaPlayer
         myRecorder = new MediaRecorder();
         myRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         myRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
@@ -155,8 +166,8 @@ public class AudioPage extends Menu implements View.OnClickListener {
             myRecorder.start();
 
         } catch (IllegalStateException e) {
-            // start:it is called before prepare()
-            // prepare: it is called after start() or before setOutputFormat()
+            // Exp: start:it is called before prepare()
+            // Exp: prepare: it is called after start() or before setOutputFormat()
             e.printStackTrace();
         } catch (IOException e) {
             // prepare() fails
@@ -174,7 +185,7 @@ public class AudioPage extends Menu implements View.OnClickListener {
                     Toast.LENGTH_SHORT).show();
 
         } catch (IllegalStateException e) {
-            //  it is called before start()
+            //  Exp: stop() is called before start()
             e.printStackTrace();
         } catch (RuntimeException e) {
             // no valid audio/video data has been received
@@ -249,7 +260,6 @@ public class AudioPage extends Menu implements View.OnClickListener {
 
         if (minor == null){
             SharedPreferences.Editor editor = sharedPreferences.edit();
-
             //Adding values to editor
             editor.putString(Config.KEY_MINOR, "5");
         }
@@ -285,61 +295,6 @@ public class AudioPage extends Menu implements View.OnClickListener {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-
-
-
-
-
-
-
-     /*   class uploadFile extends AsyncTask<String, Void, String> {
-
-            ProgressDialog loading;
-            RequestHandler rh = new RequestHandler();
-
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                loading = ProgressDialog.show(AudioPage.this, "Uploading...", null, true, true);
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                loading.dismiss();
-                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            protected String doInBackground(String... params) {
-
-                SharedPreferences sharedPreferences = getSharedPreferences(Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-                final String username = sharedPreferences.getString(Config.USERNAME_SHARED_PREF, "Not Available");
-
-                SharedPreferences sharedPref = getSharedPreferences(Config.KEY_MINOR, Context.MODE_PRIVATE);
-                final String minor = sharedPref.getString(Config.KEY_MINOR, "Not Available");
-
-
-                SimpleDateFormat sdfDate = new SimpleDateFormat("dd-MMM-yyyy-hh-mm-ss");
-                final String currentDateandTime = sdfDate.format(new Date());
-                final String uploadfile = getStringAudio();
-
-                HashMap<String, String> data = new HashMap<String, String>() {{
-                    put(UPLOAD_KEY, uploadfile);
-                    put(FILNAVN, currentDateandTime);
-                    put(KEY_USERID, username);
-                    put(KEY_CATID, minor);
-                }};
-
-                String result = rh.sendPostRequest(AUDIO_URL, data);
-
-                return result;
-            }
-        }
-
-        uploadFile ui = new uploadFile();
-        ui.execute(); */
     }
 
     public void onBackPressed() {
@@ -351,15 +306,11 @@ public class AudioPage extends Menu implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-
-
     }
 
     @Override
     public void onStop() {
         super.onStop();
-
-
     }
 
 }

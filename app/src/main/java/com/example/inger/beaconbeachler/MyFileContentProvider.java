@@ -22,7 +22,6 @@ public class MyFileContentProvider extends ContentProvider {
     static {
 
         MIME_TYPES.put(".jpg", "image/jpeg");
-
         MIME_TYPES.put(".jpeg", "image/jpeg");
 
     }
@@ -68,11 +67,9 @@ public class MyFileContentProvider extends ContentProvider {
                 return (MIME_TYPES.get(extension));
 
             }
-
         }
 
         return (null);
-
     }
 
     @Override

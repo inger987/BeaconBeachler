@@ -61,11 +61,12 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
     public static final String KEY_LASTNAME = "lastName";
 
     CallbackManager callbackManager;
-    Config config;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
+
     private GoogleApiClient client;
 
     @Override
@@ -170,7 +171,6 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
             Intent intent = new Intent(LoginPage.this, MainPage.class);
             startActivity(intent);
         }
-
 
     }
 
@@ -326,4 +326,5 @@ public class LoginPage extends AppCompatActivity implements View.OnClickListener
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
     }
+
 }
