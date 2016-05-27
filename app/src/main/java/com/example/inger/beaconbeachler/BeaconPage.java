@@ -32,9 +32,9 @@ public class BeaconPage extends Activity implements BeaconConsumer {
     protected static final String TAG = "RangingActivity";
     private BeaconManager beaconManager = BeaconManager.getInstanceForApplication(this);
     public static Context context;
-    private Region region;
-    private ProgressDialog progressDialog;
-    private Handler handler;
+    Region region;
+    ProgressDialog progressDialog;
+    Handler handler;
     Intent intent;
 
     public static Context getContext() {
