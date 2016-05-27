@@ -47,8 +47,8 @@ public class CameraPage extends Menu {
     private static final String KEY_CATID = "categoryId";
     public static final String KEY_USERID = "userId";
 
-    protected Bitmap bitmap;
-    private ProgressDialog progressDialog;
+    Bitmap bitmap;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
